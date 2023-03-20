@@ -41,8 +41,6 @@ public class MenuHandler: MonoBehaviour
         menuParams = new EventParameters();
 
         menuParams.AddParameter<string>(EventParamKeys.NAME_FIELD, _name_field.text);
-
-        DontDestroyOnLoad(this.transform);
     }
 
     #region OnClick Functions

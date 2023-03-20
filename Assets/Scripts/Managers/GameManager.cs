@@ -58,12 +58,12 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
     }
     public void OnGameStart(EventParameters param = null)
     {
-        _game_state_handler.Initialize(GameState.INGAME);
+        _game_state_handler.SwitchState(GameState.INGAME);
         SceneManager.LoadScene(SceneNames.GAME_SCENE);
     }
     public void OnGamePause(EventParameters param = null)
     {
-        _game_state_handler.Initialize(GameState.PAUSED);
+        _game_state_handler.SwitchState(GameState.PAUSED);
 
     }
     
