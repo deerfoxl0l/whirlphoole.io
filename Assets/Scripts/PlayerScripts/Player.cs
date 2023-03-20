@@ -8,97 +8,53 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     #region Player Variables
+    [SerializeField] private PlayerScriptableObject _player_so;
     private PlayerController _player_controller;
-    private PlayerData _player_data;
     #endregion
 
+    /*
     #region Event Parameters
     private EventParameters playerHitEvent;
-    #endregion
-
-    public Color PlayerColor
-    {
-        get { return _player_data.PlayerSoulColor; }
-    }
+    #endregion*/
 
     #region Game Values
-    [SerializeField] [Range(1, 3)] private int PlayerIntColor = 1;
-    [SerializeField] private int ShellHealth = 3;
-    [SerializeField] private float ShellStartAlpha = 1f;
+    //[SerializeField] [Range(1, 3)] private int PlayerIntColor = 1;
 
-    [SerializeField] private float MoveSpeed = 10f;
+    [SerializeField] private float MoveSpeed = 5f;
     #endregion
 
     void Start()
     {
-
+        if(_player_so is null)
+        {
+            _player_so = ScriptableObjectsHelper.GetScriptableObject<PlayerScriptableObject>(FileNames.PLAYER_SO);
+        }
         _player_controller = GetComponent<PlayerController>();
-        this._player_data = new PlayerData(ShellHealth, MoveSpeed);
-        playerHitEvent = new EventParameters();
+
+       // playerHitEvent = new EventParameters();
+
         //playerHitEvent.AddParameter(EventParamKeys.playerParam, this);
 
 
     }
     private void Update()
     {
+        
         if (InputHandler.Instance.UserKeyHold)
         {
-            movePlayer();
-        }
-        else if (InputHandler.Instance.UserCursorHold)
-        {
-            dragPlayer();
-        }
-    }
-    public void movePlayer()
-    {
-        _player_controller.Traverse(InputHandler.Instance.UserKeyInput, _player_data.MoveSpeed);
-    }
-    public void dragPlayer()
-    {
-        _player_controller.Drag(InputHandler.Instance.UserCursorInput, _player_data.MoveSpeed);
-
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        /*
-        if (collision.CompareTag(TagNames.PROJECTILE_BOUNDS))
-        {
-            return;
+            movePlayerKeyboard();
         }
 
-        if (collision.CompareTag(TagNames.PROJECTILE))
-        {
-            //NotifyPlayerHit(this, collision.GetComponent<Projectile>());
-
-            EventBroadcaster.Instance.PostEvent(EventKeys.PLAYER_HIT, playerHitEvent);
-        }*/
-        
+        movePlayerMouse();
     }
-
-    public void absorbToSoul()
+    public void movePlayerKeyboard()
     {
-        _player_data.increaseAlpha(.10f);
-        //_player_data.MoveSpeed += 1f;
-        _player_controller.setSoulColor(_player_data.CurrentPlayerColor);
-
+        _player_controller.MoveKB(InputHandler.Instance.UserKeyInput, MoveSpeed);
     }
-
-    public void damageToShell()
+    public void movePlayerMouse()
     {
+        _player_controller.MoveM(InputHandler.Instance.UserCursorInput, MoveSpeed);
 
-        if (_player_data.CurrentShellHealth-- == 1) // decrement returns current value, so when it's 1, it will decrement to 0 AFTER checking the condition 
-        {
-            _player_controller.destroyShellCollider();
-        }
-        //_player_controller.decreaseShellColor(_shell_starting_alpha / _player_data.TotalShellHealth);
-    }
-
-    public void setPlayerColor(Color color)
-    {
-        //_player_data.PlayerColor = color;
-        _player_controller.setPlayerColor(color, color);
     }
 
 }
