@@ -10,15 +10,18 @@ public class SceneBootup : MonoBehaviour, IBootstrapper
     }
     public void LoadSingletonsAndDependencies()
     {
-        PlayerHandler.Instance.Initialize();
-        InputHandler.Instance.Initialize();
+        GameManager.Instance.GameValues = ScriptableObjectsHelper.GetScriptableObject<GameValues>(FileNames.GAME_VALUES);
+
+        HoleHandler.Instance.Initialize();
         PropHandler.Instance.Initialize();
 
-        if (PlayerHandler.Instance.IsDoneInitializing &&
-            InputHandler.Instance.IsDoneInitializing &&
-            PropHandler.Instance.IsDoneInitializing)
+        
+
+        if (HoleHandler.Instance.IsDoneInitializing
+            && PropHandler.Instance.IsDoneInitializing  )
         {
             Debug.Log(SceneNames.GAME_SCENE + " initialized!");
+            
             //EventBroadcaster.Instance.PostEvent(EventKeys.START_GAME, null);
         }
     }

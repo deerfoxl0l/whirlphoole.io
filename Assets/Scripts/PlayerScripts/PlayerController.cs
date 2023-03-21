@@ -6,33 +6,19 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour, IMovableKB, IMovableM
 {
     [SerializeField] private GameObject _player_game_object;
-    /*
-    public Color SpriteColor
-    {
-        get { return _player_soul_sprite.color; }
-    }*/
-
-    //private Vector2 currPos;
+    
 
     void Start()
     {
-        //this.transform.position = Vector2.zero;
         if (_player_game_object == null)
             _player_game_object = this.gameObject;
 
     }
 
-
-    public void setPlayerColor(Color innerColor, Color outerColor)
-    {
-        
-    }
-
-
     #region IMovableKB
     public void MoveKB(Vector2 inputs, float moveSpeed)
     {
-        transform.position = new Vector2(transform.position.x + (inputs.x * Time.deltaTime* moveSpeed),
+        transform.position = new Vector2(transform.position.x + (inputs.x * Time.deltaTime * moveSpeed),
                                           transform.position.y + (inputs.y * Time.deltaTime * moveSpeed));
     }
     #endregion

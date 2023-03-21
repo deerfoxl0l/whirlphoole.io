@@ -7,7 +7,7 @@ public class PropSO: ScriptableObject
 {
     #region PropSO Values
 
-    [SerializeField] private int _prop_size;
+    [SerializeField] [Range(1, 5)] private int _prop_size;
     public int PropSize
     {
         get { return _prop_size; }

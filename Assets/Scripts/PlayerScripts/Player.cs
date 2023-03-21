@@ -7,53 +7,57 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    private GameValues _game_values;
+    private Hole _hole;
+
     #region Player Variables
+
     [SerializeField] private PlayerScriptableObject _player_so;
-    private PlayerController _player_controller;
-    #endregion
+    [SerializeField] private PlayerController _player_controller;
+    [SerializeField] private PlayerHandler _player_handler;
+    [SerializeField] private InputHandler _input_handler;
 
-    /*
-    #region Event Parameters
-    private EventParameters playerHitEvent;
-    #endregion*/
-
-    #region Game Values
-    //[SerializeField] [Range(1, 3)] private int PlayerIntColor = 1;
-
-    [SerializeField] private float MoveSpeed = 5f;
     #endregion
 
     void Start()
     {
-        if(_player_so is null)
-        {
+        _game_values = GameManager.Instance.GameValues;
+        if(_hole is null)
+            _hole = GetComponentInParent<Hole>();
+        //Debug.Log("got your parent hole: " + _hole);
+
+        if (_player_so is null)
             _player_so = ScriptableObjectsHelper.GetScriptableObject<PlayerScriptableObject>(FileNames.PLAYER_SO);
-        }
-        _player_controller = GetComponent<PlayerController>();
 
-       // playerHitEvent = new EventParameters();
+        if(_player_controller is null)
+            _player_controller = GetComponent<PlayerController>();
 
-        //playerHitEvent.AddParameter(EventParamKeys.playerParam, this);
+        if (_player_handler is null)
+            _player_handler = GetComponent<PlayerHandler>();
 
+        if (_input_handler is null)
+            _input_handler = GetComponent<InputHandler>();
 
+        _player_handler.Initialize();
+        _input_handler.Initialize();
     }
     private void Update()
     {
         
-        if (InputHandler.Instance.UserKeyHold)
+        if (_input_handler.UserKeyHold)
         {
-            movePlayerKeyboard();
+            movePlayerKeyboard(_hole.HoleLevel * _game_values.PlayerSpeedDecreaseMultiplier);
         }
 
-        movePlayerMouse();
+        movePlayerMouse(_hole.HoleLevel * _game_values.PlayerSpeedDecreaseMultiplier);
     }
-    public void movePlayerKeyboard()
-    {
-        _player_controller.MoveKB(InputHandler.Instance.UserKeyInput, MoveSpeed);
+    public void movePlayerKeyboard(float decreaseSpeed)
+    {//movespeed = _player_base_speed - (_player_level * _player_speed_decrease_multiplier)
+        _player_controller.MoveKB(_input_handler.UserKeyInput, _game_values.PlayerBaseSpeed - decreaseSpeed );
     }
-    public void movePlayerMouse()
+    public void movePlayerMouse(float decreaseSpeed)
     {
-        _player_controller.MoveM(InputHandler.Instance.UserCursorInput, MoveSpeed);
+        _player_controller.MoveM(_input_handler.UserCursorInput, _game_values.PlayerBaseSpeed - decreaseSpeed);
 
     }
 

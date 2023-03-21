@@ -33,6 +33,12 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
     }
     #endregion
 
+    private GameValues _game_values;
+    public GameValues GameValues
+    {
+        get { return _game_values; }
+        set { _game_values = value; }
+    }
 
     public void Initialize()
     {
