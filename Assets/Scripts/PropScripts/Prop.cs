@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class Prop : Poolable, IAbsorbable
 {
+    [SerializeField] private GameValues _game_values;
     [SerializeField] private PropSO _prop_so;
     [SerializeField] private SpriteRenderer _prop_sr;
 
-    [SerializeField] private float size_multiplier; // DELETE THIS LATER
+
+    public int PropSize
+    {
+        get { return _prop_so.PropSize; }
+    }
+    public int PropPoints
+    {
+        get { return _prop_so.PropPoints; }
+    }
 
     public void InitializeProp(PropSO propSO)
     {
@@ -16,9 +25,11 @@ public class Prop : Poolable, IAbsorbable
 
         transform.localPosition = PropHandler.Instance.PropHelper.getPropSpawnPoint(_prop_so.PropSpawnPoint);
 
-        transform.localScale *= size_multiplier;
+        float size = _prop_so.PropSize * _game_values.PropsBaseSize * _game_values.PropsSizeMultiplier;
 
-        
+        transform.localScale = new Vector3(size, size, 1);
+
+
     }
 
     #region IAbsorbable
@@ -32,7 +43,7 @@ public class Prop : Poolable, IAbsorbable
     public override void OnInstantiate()
     {
         _prop_sr = GetComponent<SpriteRenderer>();
-
+        _game_values = GameManager.Instance.GameValues;
         /*
         this._proj_controller = GetComponent<ProjectileController>();
         _proj_data = new ProjectileTraits();

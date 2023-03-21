@@ -2,16 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserver
+public class PlayerHandler : MonoBehaviour, IEventObserver
 {
-    #region ISingleton Variables
-    private bool isDone = true;
-    public bool IsDoneInitializing
-    {
-        get { return isDone; }
-    }
-    #endregion
-
     #region Player References
     private Player _player_reference;
     public Player PlayerReference
@@ -35,8 +27,6 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserve
         {
             Initialize();
         }
-
-
     }
 
     public void Initialize()
@@ -44,17 +34,11 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserve
         _player_reference = GameObject.FindGameObjectWithTag(TagNames.PLAYER).GetComponent<Player>();
 
         AddEventObservers();
-        isDone = true;
     }
 
 
     public void AddEventObservers()
     {
-        EventBroadcaster.Instance.AddObserver(EventKeys.PLAYER_HIT, OnPlayerHit);
-    }
-    public void OnPlayerHit(EventParameters param)
-    {
-
-
+        //EventBroadcaster.Instance.AddObserver(EventKeys.PLAYER_HIT, OnPlayerHit);
     }
 }

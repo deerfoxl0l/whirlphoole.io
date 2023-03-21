@@ -58,4 +58,9 @@ public class PropHandler : Singleton<PropHandler>, ISingleton, IEventObserver
     {
         _prop_movable_list.Add(propM);
     }
+
+    public void removeProp(Prop prop)
+    {
+        _prop_lifetime.deactivateProp(prop.gameObject);
+    }
 }

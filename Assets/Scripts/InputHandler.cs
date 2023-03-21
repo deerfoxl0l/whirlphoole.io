@@ -3,16 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputHandler: Singleton<InputHandler>, ISingleton
+public class InputHandler: MonoBehaviour
 {
-    #region ISingleton Variables
-    private bool isDone = true;
-    public bool IsDoneInitializing
-    {
-        get { return isDone; }
-    }
-    #endregion
-
     #region Player Variables
     private PlayerControls _player_controls = null;
     #endregion
@@ -57,16 +49,12 @@ public class InputHandler: Singleton<InputHandler>, ISingleton
     }
     public void Initialize()
     {
-        if (_player_controls == null)
-        {
-            _player_controls = new PlayerControls();
-            _player_controls.Enable();
-        }
+        _player_controls = new PlayerControls();
+        _player_controls.Enable();
         this._input_allowed = true;
         
         _camera = GameObject.FindGameObjectWithTag(TagNames.MAIN_CAMERA).GetComponent<Camera>();
 
-        isDone = true;
     }
 
     void Update()
