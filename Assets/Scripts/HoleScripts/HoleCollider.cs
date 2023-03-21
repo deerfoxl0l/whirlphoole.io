@@ -19,7 +19,7 @@ public class HoleCollider : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("OnTriggerEnter at " + _collider_type);
+       // Debug.Log("OnTriggerEnter at " + _collider_type);
         _hole_parent.ColliderEnter(collision, _collider_type);
         /*
         if (collision.CompareTag(TagNames.))

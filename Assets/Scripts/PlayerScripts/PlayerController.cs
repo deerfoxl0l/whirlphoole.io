@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour, IMovableKB, IMovableM
 {
+    [SerializeField] private GameObject _player_game_object;
     /*
     public Color SpriteColor
     {
@@ -16,6 +17,8 @@ public class PlayerController : MonoBehaviour, IMovableKB, IMovableM
     void Start()
     {
         //this.transform.position = Vector2.zero;
+        if (_player_game_object == null)
+            _player_game_object = this.gameObject;
 
     }
 
@@ -37,9 +40,9 @@ public class PlayerController : MonoBehaviour, IMovableKB, IMovableM
     #region IMovableM
     public void MoveM(Vector2 dragLocation, float moveSpeed)
     {
-        this.transform.rotation = getPlayerRotation(dragLocation, new Vector2 (this.transform.position.x, this.transform.position.y));
+        _player_game_object.transform.rotation = getPlayerRotation(dragLocation, new Vector2 (_player_game_object.transform.position.x, this.transform.position.y));
 
-        this.transform.Translate(Vector2.right * Time.deltaTime * moveSpeed);
+        _player_game_object.transform.Translate(Vector2.right * Time.deltaTime * moveSpeed);
     }
     #endregion
 

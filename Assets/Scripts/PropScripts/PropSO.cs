@@ -19,13 +19,13 @@ public class PropSO: ScriptableObject
         get { return _prop_points; }
     }
 
-    [SerializeField] private SpriteRenderer _prop_sprite;
-    public SpriteRenderer PropSprite
+    [SerializeField] private Sprite _prop_sprite;
+    public Sprite PropSprite
     {
         get { return _prop_sprite; }
     }
 
-    [SerializeField] private string _prop_spawn_point;
+    [SerializeField] private string _prop_spawn_point = "RANDOM"; // MODIFY THIS EVENTUALLY
     public string PropSpawnPoint
     {
         get { return _prop_spawn_point; }

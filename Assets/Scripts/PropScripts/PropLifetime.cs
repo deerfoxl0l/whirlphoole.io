@@ -12,11 +12,11 @@ public class PropLifetime : MonoBehaviour
     private float _time_elapsed = 0f;
 
 
-    [SerializeField] private PropSO tempProp;
+    [SerializeField] private PropSO tempPropSO;
 
     public void Initialize()
     {
-
+        _prop_obj_pool = GetComponent<PropOP>();
     }
 
     void Update()
@@ -27,9 +27,11 @@ public class PropLifetime : MonoBehaviour
 
         if (_time_elapsed >= _spawn_time)
         {
-            cloneProp(tempProp);
+            cloneProp(tempPropSO);
+            _time_elapsed = 0;
+            return;
         }
-
+        _time_elapsed += Time.deltaTime;
     }
 
     public void cloneProp(PropSO propSO)
