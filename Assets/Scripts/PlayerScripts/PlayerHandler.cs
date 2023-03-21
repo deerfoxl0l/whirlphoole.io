@@ -22,10 +22,7 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserve
     {
         get { return _player_reference.transform.position; }
     }
-    public Color PlayerColor
-    {
-        get { return _player_reference.PlayerColor; }
-    }
+
     #endregion
 
     #region Event Variables
@@ -50,17 +47,6 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserve
         isDone = true;
     }
 
-    public bool compareColors(Color playerColor, Color projColor)
-    {
-        if (playerColor.r == projColor.r &&
-            playerColor.g == projColor.g &&
-            playerColor.b == projColor.b)
-        {
-            return true;
-        }
-        return false;
-    }
-    
 
     public void AddEventObservers()
     {

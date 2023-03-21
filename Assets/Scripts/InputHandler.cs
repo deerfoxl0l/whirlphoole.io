@@ -40,16 +40,6 @@ public class InputHandler: Singleton<InputHandler>, ISingleton
     {
         get { return _user_cursor_input; }
     }
-    private float _user_cursorhold;
-    public bool UserCursorHold
-    {
-        get
-        {
-            if (_user_cursorhold != 0)
-                return true;
-            return false;
-        }
-    }
 
     private bool _input_allowed;
     public bool InputAllowed
@@ -67,14 +57,12 @@ public class InputHandler: Singleton<InputHandler>, ISingleton
     }
     public void Initialize()
     {
-
         if (_player_controls == null)
         {
             _player_controls = new PlayerControls();
             _player_controls.Enable();
         }
         this._input_allowed = true;
-        
         
         _camera = GameObject.FindGameObjectWithTag(TagNames.MAIN_CAMERA).GetComponent<Camera>();
 
@@ -87,15 +75,10 @@ public class InputHandler: Singleton<InputHandler>, ISingleton
             return;
 
         _user_key_input = _player_controls.InGame.Movement_KB.ReadValue<Vector2>();
-        
-        _user_cursorhold = _player_controls.InGame.Movement_M_Hold.ReadValue<float>();
 
-        
-        if (_user_cursorhold == 1.0f)
-        {
+        _user_cursor_input = _camera.ScreenToWorldPoint(_player_controls.InGame.Movement_M_Position.ReadValue<Vector2>());
 
-            _user_cursor_input = _camera.ScreenToWorldPoint(_player_controls.InGame.Movement_M_Position.ReadValue<Vector2>());
-        }
+       
     }
 
     public PlayerControls getControls()

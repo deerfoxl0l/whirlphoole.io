@@ -12,13 +12,6 @@ public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
     }
     #endregion
 
-    [SerializeField] private float PanelMoveSpeed = 45;
-
-    #region Coroutines Variables
-    private IEnumerator _coroutine_1;
-    private IEnumerator _coroutine_2;
-    #endregion
-
     private MenuHandler _menu_handler;
     public MenuHandler MenuHandler
     {
