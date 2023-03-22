@@ -662,7 +662,7 @@ GameObject:
   m_Component:
   - component: {fileID: 970751910}
   m_Layer: 0
-  m_Name: SFX
+  m_Name: VFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1044,7 +1044,7 @@ GameObject:
   - component: {fileID: 1494782940}
   - component: {fileID: 1494782939}
   m_Layer: 0
-  m_Name: SFXStaff
+  m_Name: VFXStaff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1294,7 +1294,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2254599929897311988, guid: 69d767a5aea5f5b43aa3d2686ebc5b61, type: 3}
       propertyPath: m_Name
-      value: PointsSFX
+      value: PointsVFX
       objectReference: {fileID: 0}
     - target: {fileID: 2254599929897311989, guid: 69d767a5aea5f5b43aa3d2686ebc5b61, type: 3}
       propertyPath: m_RootOrder

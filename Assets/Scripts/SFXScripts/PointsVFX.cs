@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PointsSFX : Poolable
+public class PointsVFX : Poolable
 {
     [SerializeField] private TextMesh _text_mesh;
 

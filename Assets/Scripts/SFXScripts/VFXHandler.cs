@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SFXHandler : Singleton<SFXHandler>, ISingleton, IEventObserver
+public class VFXHandler : Singleton<VFXHandler>, ISingleton, IEventObserver
 {
     #region ISingleton Variables
     private bool isDone = false;
@@ -12,16 +12,16 @@ public class SFXHandler : Singleton<SFXHandler>, ISingleton, IEventObserver
     }
     #endregion
 
-    [SerializeField] private SFXObjectPool _sfx_op;
+    [SerializeField] private VFXObjectPool _sfx_op;
 
     #region Cache Params
     private Prop propRef;
-    private PointsSFX pointsRef;
+    private PointsVFX pointsRef;
     #endregion
     public void Initialize()
     {
         if (_sfx_op is null)
-            _sfx_op = GetComponent<SFXObjectPool>();
+            _sfx_op = GetComponent<VFXObjectPool>();
         AddEventObservers();
     }
     public void AddEventObservers()
@@ -30,9 +30,9 @@ public class SFXHandler : Singleton<SFXHandler>, ISingleton, IEventObserver
     }
     private void onPropAbsorbed(EventParameters param)
     {
-        Debug.Log("Hole absorbed for SFX ");
+        //Debug.Log("Hole absorbed for VFX ");
         propRef = param.GetParameter<Prop>(EventParamKeys.PROP_PARAM, null);
-        pointsRef = _sfx_op.getPointsSFX().GetComponent<PointsSFX>();
+        pointsRef = _sfx_op.getPointsVFX().GetComponent<PointsVFX>();
 
         pointsRef.PointsText = "+ " + propRef.PropPoints;
         pointsRef.gameObject.transform.localPosition = propRef.transform.localPosition;

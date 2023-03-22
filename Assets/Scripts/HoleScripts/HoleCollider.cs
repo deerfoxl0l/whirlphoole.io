@@ -26,9 +26,7 @@ public class HoleCollider : MonoBehaviour
         //Debug.Log("OnTriggerEnter at " + _collider_type);
         
         if (collision.CompareTag(TagNames.PROP_BOUNDS))
-        {
             return;
-        }
 
         if (collision.CompareTag(TagNames.PROP))
         {

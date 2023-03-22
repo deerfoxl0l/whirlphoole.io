@@ -15,14 +15,14 @@ public class SceneBootup : MonoBehaviour, IBootstrapper
         PlayerHandler.Instance.Initialize();
         HoleHandler.Instance.Initialize();
         PropHandler.Instance.Initialize();
-        SFXHandler.Instance.Initialize();
+        VFXHandler.Instance.Initialize();
 
 
 
         if (PlayerHandler.Instance.IsDoneInitializing
             && HoleHandler.Instance.IsDoneInitializing
             && PropHandler.Instance.IsDoneInitializing
-            && SFXHandler.Instance.IsDoneInitializing        )
+            && VFXHandler.Instance.IsDoneInitializing        )
         {
             Debug.Log(SceneNames.GAME_SCENE + " initialized!");
             

@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SFXObjectPool : ObjectPooling
+public class VFXObjectPool : ObjectPooling
 {
-    [SerializeField] private GameObject _points_sfx;
+    [SerializeField] private GameObject _points_vfx;
     [SerializeField] private Transform _points_transform;
 
-    public GameObject getPointsSFX()
+    public GameObject getPointsVFX()
     {
-        this.ObjectTemplate = _points_sfx;
+        this.ObjectTemplate = _points_vfx;
         this.ObjectTransform = _points_transform;
 
         return this.GameObjectPool.Get();

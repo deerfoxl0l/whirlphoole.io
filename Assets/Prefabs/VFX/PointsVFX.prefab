@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2254599929897311990}
   - component: {fileID: 2021959924}
   m_Layer: 0
-  m_Name: PointsSFX
+  m_Name: PointsVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,4 +113,4 @@ MonoBehaviour:
   poolOrigin: {fileID: 0}
   _text_mesh: {fileID: 2254599929897311990}
   _scroll_up_speed: 5
-  _shrink_speed: 1
+  _shrink_speed: 0.9
