@@ -39,12 +39,18 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
         get { return _game_values; }
         set { _game_values = value; }
     }
-
+    private int _current_biggest_hole_size;
+    public int CurrentBiggestHole
+    {
+        get { return _current_biggest_hole_size; }
+        set { _current_biggest_hole_size = value; }
+    }
     public void Initialize()
     {
         _game_state_handler = new StateHandler<GameState>();
         _game_state_handler.Initialize(GameState.PROGRAM_START);
 
+        _current_biggest_hole_size = 1;
         AddEventObservers();
 
         isDone = true;

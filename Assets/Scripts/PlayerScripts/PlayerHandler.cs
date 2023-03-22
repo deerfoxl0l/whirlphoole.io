@@ -31,5 +31,10 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserve
         //Debug.Log("levelling up");
         playerRef = param.GetParameter<Player>(EventParamKeys.PLAYER_PARAM, null);
         playerRef.ZoomOutPlayerCamera();
+
+        if(playerRef.PlayerHoleLevel>GameManager.Instance.CurrentBiggestHole)
+        {
+            GameManager.Instance.CurrentBiggestHole = playerRef.PlayerHoleLevel;
+        }
     }
 }

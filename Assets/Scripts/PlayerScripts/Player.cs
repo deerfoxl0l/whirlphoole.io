@@ -8,7 +8,6 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     private GameValues _game_values;
-    private Hole _hole;
 
     #region Player Variables
 
@@ -18,7 +17,14 @@ public class Player : MonoBehaviour
 
     #endregion
 
-    [SerializeField] private CameraScript _camera;
+    [SerializeField] private CameraScript _player_camera;
+
+    private Hole _hole;
+    public int PlayerHoleLevel
+    {
+        get { return _hole.HoleLevel; }
+    }
+
 
     void Start()
     {
@@ -59,7 +65,7 @@ public class Player : MonoBehaviour
 
     public void ZoomOutPlayerCamera()
     {
-        _camera.ZoomOutCamera();
+        _player_camera.ZoomOutCamera();
     }
 
 }

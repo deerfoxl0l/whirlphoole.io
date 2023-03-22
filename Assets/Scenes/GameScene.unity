@@ -133,9 +133,9 @@ GameObject:
   m_Component:
   - component: {fileID: 103422069}
   - component: {fileID: 103422071}
-  - component: {fileID: 103422070}
   - component: {fileID: 103422074}
   - component: {fileID: 103422073}
+  - component: {fileID: 103422070}
   m_Layer: 0
   m_Name: PropStaff
   m_TagString: Untagged
@@ -170,9 +170,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f60d14baad8e345a3f2ad795342cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _game_values: {fileID: 0}
   _prop_obj_pool: {fileID: 0}
-  _spawn_time: 0.5
-  tempPropSO: {fileID: 11400000, guid: 65bb87189f336ef4e8823547f403cb71, type: 2}
+  _props_size_1s:
+  - {fileID: 11400000, guid: 827796efefe38d84aaea0e911e9d8111, type: 2}
+  - {fileID: 11400000, guid: 65bb87189f336ef4e8823547f403cb71, type: 2}
+  - {fileID: 11400000, guid: 107dbd256b205a344820ce75df6e778a, type: 2}
+  _props_size_2s:
+  - {fileID: 11400000, guid: 635f75a44c1cfd244b2f355e6afbbb06, type: 2}
+  _props_size_3s:
+  - {fileID: 11400000, guid: f6d865c3184846d4e82b9785b008ef9b, type: 2}
+  _props_size_4s:
+  - {fileID: 11400000, guid: b84ae9c6b6382ee4ca227e00726564a1, type: 2}
+  _props_size_5s:
+  - {fileID: 11400000, guid: 61327b96ecf46994ebfb6871e533a3ae, type: 2}
 --- !u!114 &103422071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -844,7 +855,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cinema_cam: {fileID: 1153494809}
-  _zoom_out_speed: 2
+  _game_values: {fileID: 0}
 --- !u!1 &1204782512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1193,7 +1204,7 @@ PrefabInstance:
       value: PlayerHole
       objectReference: {fileID: 0}
     - target: {fileID: 7242471265546673913, guid: 3d946b5888d9143419803c013d7dd42c, type: 3}
-      propertyPath: _camera
+      propertyPath: _player_camera
       value: 
       objectReference: {fileID: 1153494810}
     m_RemovedComponents: []
