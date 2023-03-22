@@ -25,22 +25,30 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
 
     public void AddEventObservers()
     {
-        EventBroadcaster.Instance.AddObserver(EventKeys.OUTER_HOLE_ENTER, OnEnterOuterHole);
-        EventBroadcaster.Instance.AddObserver(EventKeys.OUTER_HOLE_EXIT, OnExitOuterHole);
-        EventBroadcaster.Instance.AddObserver(EventKeys.INNER_HOLE_ENTER, OnEnterInnerHole);
-        EventBroadcaster.Instance.AddObserver(EventKeys.INNER_HOLE_EXIT, OnExitInnerHole);
+        EventBroadcaster.Instance.AddObserver(EventKeys.HOLE_LEVEL_UP, onHoleLevelUp);
+
+        EventBroadcaster.Instance.AddObserver(EventKeys.OUTER_HOLE_ENTER, onEnterOuterHole);
+        EventBroadcaster.Instance.AddObserver(EventKeys.OUTER_HOLE_EXIT, onExitOuterHole);
+        EventBroadcaster.Instance.AddObserver(EventKeys.INNER_HOLE_ENTER, onEnterInnerHole);
+        EventBroadcaster.Instance.AddObserver(EventKeys.INNER_HOLE_EXIT, onExitInnerHole);
+
+    }
+    private void onHoleLevelUp(EventParameters param)
+    {
+        holeRef = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM, null);
+        holeRef.IncreaseHoleSize();
     }
 
-    private void OnEnterOuterHole(EventParameters param)
+    private void onEnterOuterHole(EventParameters param)
     {
 
     }
 
-    private void OnExitOuterHole(EventParameters param)
+    private void onExitOuterHole(EventParameters param)
     {
 
     }
-    private void OnEnterInnerHole(EventParameters param)
+    private void onEnterInnerHole(EventParameters param)
     {
         propRef = param.GetParameter<Prop>(EventParamKeys.PROP_PARAM, null);
         holeRef = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM, null);
@@ -52,7 +60,7 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
         }
     }
 
-    private void OnExitInnerHole(EventParameters param)
+    private void onExitInnerHole(EventParameters param)
     {
 
     }

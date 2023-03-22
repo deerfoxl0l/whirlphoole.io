@@ -27,6 +27,12 @@ public class GameValues : ScriptableObject
         get { return _hole_base_size; }
     }
 
+    [SerializeField] [Range(0f, 10f)] private float _hole_grow_speed;
+    public float HoleGrowSpeed
+    {
+        get { return _hole_grow_speed; }
+    }
+
     // USAGE: size += _hole_level* _hole_base_size*_hole_size_multiplier
     [SerializeField][Range(0f, 1.5f)] private float _hole_size_multiplier;
     public float HoleSizeMultiplier
@@ -65,5 +71,15 @@ public class GameValues : ScriptableObject
         get { return _props_size_multiplier; }
     }
 
+    [SerializeField] [Range(0f, 5f)] private float _camera_zoom_amount;
+    public float CameraZoomAmount
+    {
+        get { return _camera_zoom_amount; }
+    }
+    [SerializeField] [Range(0f, 10f)] private float _camera_zoom_speed;
+    public float CameraZoomSpeed
+    {
+        get { return _camera_zoom_speed; }
+    }
     #endregion
 }

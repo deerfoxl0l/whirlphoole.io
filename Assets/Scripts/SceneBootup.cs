@@ -12,12 +12,14 @@ public class SceneBootup : MonoBehaviour, IBootstrapper
     {
         GameManager.Instance.GameValues = ScriptableObjectsHelper.GetScriptableObject<GameValues>(FileNames.GAME_VALUES);
 
+        PlayerHandler.Instance.Initialize();
         HoleHandler.Instance.Initialize();
         PropHandler.Instance.Initialize();
 
         
 
-        if (HoleHandler.Instance.IsDoneInitializing
+        if (PlayerHandler.Instance.IsDoneInitializing
+            && HoleHandler.Instance.IsDoneInitializing
             && PropHandler.Instance.IsDoneInitializing  )
         {
             Debug.Log(SceneNames.GAME_SCENE + " initialized!");

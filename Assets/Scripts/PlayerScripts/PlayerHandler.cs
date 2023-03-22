@@ -2,43 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHandler : MonoBehaviour, IEventObserver
+public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserver
 {
-    #region Player References
-    private Player _player_reference;
-    public Player PlayerReference
+    #region ISingleton Variables
+    private bool isDone = false;
+    public bool IsDoneInitializing
     {
-        get { return _player_reference; }
+        get { return isDone; }
     }
-    public Vector3 PlayerLocation
-    {
-        get { return _player_reference.transform.position; }
-    }
-
     #endregion
 
-    #region Event Variables
-    //Projectile projReference = null;
+    #region Cache Variables
+    private Player playerRef;
     #endregion
-
-    void Start()
-    {
-        if (_player_reference == null)
-        {
-            Initialize();
-        }
-    }
 
     public void Initialize()
     {
-        _player_reference = GameObject.FindGameObjectWithTag(TagNames.PLAYER).GetComponent<Player>();
-
         AddEventObservers();
     }
 
-
     public void AddEventObservers()
     {
-        //EventBroadcaster.Instance.AddObserver(EventKeys.PLAYER_HIT, OnPlayerHit);
+        EventBroadcaster.Instance.AddObserver(EventKeys.HOLE_LEVEL_UP, OnHoleLevelUp);
+    }
+
+    private void OnHoleLevelUp(EventParameters param)
+    {
+        //Debug.Log("levelling up");
+        playerRef = param.GetParameter<Player>(EventParamKeys.PLAYER_PARAM, null);
+        playerRef.ZoomOutPlayerCamera();
     }
 }

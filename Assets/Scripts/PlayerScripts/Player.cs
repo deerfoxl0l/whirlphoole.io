@@ -14,10 +14,11 @@ public class Player : MonoBehaviour
 
     [SerializeField] private PlayerScriptableObject _player_so;
     [SerializeField] private PlayerController _player_controller;
-    [SerializeField] private PlayerHandler _player_handler;
     [SerializeField] private InputHandler _input_handler;
 
     #endregion
+
+    [SerializeField] private CameraScript _camera;
 
     void Start()
     {
@@ -32,13 +33,9 @@ public class Player : MonoBehaviour
         if(_player_controller is null)
             _player_controller = GetComponent<PlayerController>();
 
-        if (_player_handler is null)
-            _player_handler = GetComponent<PlayerHandler>();
-
         if (_input_handler is null)
             _input_handler = GetComponent<InputHandler>();
 
-        _player_handler.Initialize();
         _input_handler.Initialize();
     }
     private void Update()
@@ -51,14 +48,18 @@ public class Player : MonoBehaviour
 
         movePlayerMouse(_hole.HoleLevel * _game_values.PlayerSpeedDecreaseMultiplier);
     }
-    public void movePlayerKeyboard(float decreaseSpeed)
+    private void movePlayerKeyboard(float decreaseSpeed)
     {//movespeed = _player_base_speed - (_player_level * _player_speed_decrease_multiplier)
         _player_controller.MoveKB(_input_handler.UserKeyInput, _game_values.PlayerBaseSpeed - decreaseSpeed );
     }
-    public void movePlayerMouse(float decreaseSpeed)
+    private void movePlayerMouse(float decreaseSpeed)
     {
         _player_controller.MoveM(_input_handler.UserCursorInput, _game_values.PlayerBaseSpeed - decreaseSpeed);
+    }
 
+    public void ZoomOutPlayerCamera()
+    {
+        _camera.ZoomOutCamera();
     }
 
 }

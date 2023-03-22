@@ -15,9 +15,12 @@ MonoBehaviour:
   _player_base_speed: 10
   _player_speed_decrease_multiplier: 0
   _hole_base_size: 1
+  _hole_grow_speed: 4
   _hole_size_multiplier: 0.5
   _hole_absorb_strength: 0
   _hole_base_exp_threshold: 10
   _hole_exp_threshold_multiplier: 0.5
   _props_base_size: 1
   _props_size_multiplier: 0.5
+  _camera_zoom_amount: 0.5
+  _camera_zoom_speed: 2
