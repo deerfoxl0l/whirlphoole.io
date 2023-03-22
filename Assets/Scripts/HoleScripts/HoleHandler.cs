@@ -32,13 +32,23 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
         EventBroadcaster.Instance.AddObserver(EventKeys.INNER_HOLE_ENTER, onEnterInnerHole);
         EventBroadcaster.Instance.AddObserver(EventKeys.INNER_HOLE_EXIT, onExitInnerHole);
 
+        EventBroadcaster.Instance.AddObserver(EventKeys.PROP_ABSORBED, onPropAbsorbed);
+
     }
     private void onHoleLevelUp(EventParameters param)
     {
         holeRef = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM, null);
         holeRef.IncreaseHoleSize();
     }
+    private void onPropAbsorbed(EventParameters param)
+    {
+        propRef = param.GetParameter<Prop>(EventParamKeys.PROP_PARAM, null);
+        holeRef = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM, null);
 
+        holeRef.AddHoleExperience(propRef.PropPoints);
+        PropHandler.Instance.removeProp(propRef);
+        
+    }
     private void onEnterOuterHole(EventParameters param)
     {
 
@@ -55,8 +65,7 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
 
         if (propRef.PropSize <= holeRef.HoleLevel)
         {
-            holeRef.AddHoleExperience(propRef.PropPoints);
-            PropHandler.Instance.removeProp(propRef);
+            EventBroadcaster.Instance.PostEvent(EventKeys.PROP_ABSORBED, param);
         }
     }
 
