@@ -57,6 +57,12 @@ public class GameValues : ScriptableObject
         get { return _hole_exp_threshold_multiplier; }
     }
 
+    [SerializeField] private float _props_spawn_rate;
+    public float PropSpawnRate
+    {
+        get { return _props_spawn_rate; }
+    }
+
     // USAGE: replaces prop transform.localScale;
     [SerializeField] private float _props_base_size;
     public float PropsBaseSize

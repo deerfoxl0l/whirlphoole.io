@@ -25,7 +25,7 @@ public class PropSO: ScriptableObject
         get { return _prop_sprite; }
     }
 
-    [SerializeField] private string _prop_spawn_point = "RANDOM"; // MODIFY THIS EVENTUALLY
+    [SerializeField] private string _prop_spawn_point = PropDictionary.PROP_SPAWN_RANDOM;
     public string PropSpawnPoint
     {
         get { return _prop_spawn_point; }

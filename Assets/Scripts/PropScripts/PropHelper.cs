@@ -14,7 +14,7 @@ public class PropHelper : MonoBehaviour
 
     public Vector2 getPropSpawnPoint(string propSpawn)
     {
-        if (propSpawn == "RANDOM")  // CHANGE DELETE MODIFY LATER
+        if (propSpawn == PropDictionary.PROP_SPAWN_RANDOM) 
         {
             return new Vector2(_spawn_bounds.center.x, _spawn_bounds.center.y)
                 + new Vector2(

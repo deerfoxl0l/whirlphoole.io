@@ -20,6 +20,7 @@ MonoBehaviour:
   _hole_absorb_strength: 0
   _hole_base_exp_threshold: 10
   _hole_exp_threshold_multiplier: 0.5
+  _props_spawn_rate: 0.5
   _props_base_size: 1
   _props_size_multiplier: 0.5
   _camera_zoom_amount: 0.5

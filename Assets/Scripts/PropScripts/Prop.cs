@@ -8,7 +8,6 @@ public class Prop : Poolable, IAbsorbable
     [SerializeField] private PropSO _prop_so;
     [SerializeField] private SpriteRenderer _prop_sr;
 
-
     public int PropSize
     {
         get { return _prop_so.PropSize; }

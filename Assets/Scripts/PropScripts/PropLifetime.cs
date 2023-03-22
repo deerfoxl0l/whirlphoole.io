@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class PropLifetime : MonoBehaviour
 {
+    [SerializeField] private PropSO tempPropSO;
     [SerializeField] private ObjectPooling _prop_obj_pool;
 
+    [SerializeField] private GameValues _game_values;
 
-    // TESTING VARIABLES, PLEASE DELETE LATER
-    [SerializeField] private float _spawn_time = .5f;
     private float _time_elapsed = 0f;
 
 
-    [SerializeField] private PropSO tempPropSO;
-
     public void Initialize()
     {
-        _prop_obj_pool = GetComponent<PropOP>();
+        if (_prop_obj_pool is null)
+            _prop_obj_pool = GetComponent<PropOP>();
+
+        if (_game_values is null)
+            _game_values = GameManager.Instance.GameValues;
     }
 
     void Update()
@@ -25,7 +27,7 @@ public class PropLifetime : MonoBehaviour
             GameManager.Instance.GameState == GameState.PAUSED)
             return;
 
-        if (_time_elapsed >= _spawn_time)
+        if (_time_elapsed >= _game_values.PropSpawnRate)
         {
             cloneProp(tempPropSO);
             _time_elapsed = 0;
