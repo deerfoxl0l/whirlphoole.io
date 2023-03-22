@@ -12,11 +12,17 @@ public class Hole : MonoBehaviour
     {
         get{ return _hole_data.HoleLevel; }
     }
+    public int HoleExperience
+    {
+        get { return _hole_data.HoleExperience; }
+    }
     #endregion
 
     [SerializeField] private GameValues _game_values;
-    [SerializeField] private Player _player; // optional
+    [SerializeField] private Player _player; // optional if just a hole, required if has player component
 
+    [SerializeField] private int _initial_size; // TEMPORARY JUST FOR TESTING, PLEASE DELETE
+    [SerializeField] private int _initial_exp;
 
     #region EventParameters
     EventParameters holeParams;
@@ -33,7 +39,10 @@ public class Hole : MonoBehaviour
             _player = GetComponentInChildren<Player>();
 
         _hole_data = new HoleData(new Color(255, 255, 255));
-            _hole_data.HoleCurrentExpThreshold = _game_values.HoleExpThreshold;
+
+        _hole_data.HoleCurrentExpThreshold = _game_values.HoleExpThreshold;
+        _hole_data.HoleLevel = _initial_size;
+        _hole_data.HoleExperience = _initial_exp;
 
         this.transform.localScale = new Vector3(_game_values.HoleBaseSize, _game_values.HoleBaseSize, 1);
 
@@ -73,16 +82,31 @@ public class Hole : MonoBehaviour
         StopCoroutine("growHole");
     }
 
-    public void ColliderEnter(Collider2D collision, string colliderType)
+    public void EnterColliderProp(Collider2D collision, string colliderType)
     {
         holeParams.AddParameter(EventParamKeys.PROP_PARAM, collision.GetComponent<Prop>());
+      
+        switch (colliderType)
+        {
+            case HoleDictionary.OUTER_COLLIDER:
+
+                break;
+            case HoleDictionary.INNER_COLLIDER:
+                EventBroadcaster.Instance.PostEvent(EventKeys.INNER_ENTER_PROP, holeParams);
+                break;
+        }
+    }
+
+    public void EnterColliderHole(Collider2D collision, string colliderType)
+    {
+        holeParams.AddParameter(EventParamKeys.HOLE_PARAM_2, collision.transform.parent.GetComponent<Hole>());
 
         switch (colliderType)
         {
             case HoleDictionary.OUTER_COLLIDER:
                 break;
             case HoleDictionary.INNER_COLLIDER:
-                EventBroadcaster.Instance.PostEvent(EventKeys.INNER_HOLE_ENTER, holeParams);
+                EventBroadcaster.Instance.PostEvent(EventKeys.INNER_ENTER_HOLE, holeParams);
                 break;
         }
     }

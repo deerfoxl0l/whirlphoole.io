@@ -57,6 +57,19 @@ public class GameValues : ScriptableObject
         get { return _hole_exp_threshold_multiplier; }
     }
 
+    [SerializeField] [Range(1, 5)] private int _hole_absorb_difference;
+    public int HoleAbsorbDifference
+    {
+        get { return _hole_absorb_difference; }
+    }
+
+    // the multiplier to be multiplied to the exp points from a hole absorbed by a bigger hole
+    [SerializeField] [Range(0.1f, 1.5f)] private float _hole_cannibal_exp_multiplier;
+    public float HoleCannibalExpMultiplier
+    {
+        get { return _hole_cannibal_exp_multiplier; }
+    }
+
     [SerializeField] [Range(0.1f, 2f)] private float _props_spawn_rate;
     public float PropSpawnRate
     {

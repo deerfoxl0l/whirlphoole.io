@@ -7,8 +7,9 @@ public class PointsVFX : Poolable
 {
     [SerializeField] private TextMesh _text_mesh;
 
-    [SerializeField] private float _scroll_up_speed;
+    [SerializeField] private float _scroll_up_speed; // TEMPORARY
     [SerializeField] private float _shrink_speed;
+    [SerializeField] private int _font_size=100;
 
     //private IEnumerator _fade_out;
 
@@ -27,7 +28,7 @@ public class PointsVFX : Poolable
             yield return null;
         }
         StopCoroutine("pointsAnimation");
-        this.gameObject.SetActive(false);
+        VFXHandler.Instance.DeactivateObject(this.gameObject);
     }
 
     #region Poolable Functions
@@ -35,7 +36,7 @@ public class PointsVFX : Poolable
     {
         if(_text_mesh is null)
             _text_mesh = GetComponent<TextMesh>();
-
+        _text_mesh.fontSize = _font_size;
     }
 
     public override void OnActivate()
@@ -46,6 +47,7 @@ public class PointsVFX : Poolable
     public override void OnDeactivate()
     {
         _text_mesh.text = "NO_VALUE";
+        _text_mesh.fontSize = _font_size;
     }
     #endregion
 }

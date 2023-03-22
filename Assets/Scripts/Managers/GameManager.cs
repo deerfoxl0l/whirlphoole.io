@@ -42,7 +42,12 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
     private int _current_biggest_hole_size;
     public int CurrentBiggestHole
     {
-        get { return _current_biggest_hole_size; }
+        get 
+        {
+            if (_current_biggest_hole_size < 5) // TEMPORARY, CHANGE LATER
+                return _current_biggest_hole_size;
+            else return 5;
+        }
         set { _current_biggest_hole_size = value; }
     }
     public void Initialize()

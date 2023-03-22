@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PropLifetime : MonoBehaviour
+public class PropLifetime : MonoBehaviour, IPoolHandler
 {
     [SerializeField] private GameValues _game_values;
 
@@ -46,8 +46,16 @@ public class PropLifetime : MonoBehaviour
 
         if (_time_elapsed >= _game_values.PropSpawnRate)
         {
-            if(GameManager.Instance.CurrentBiggestHole<5)
+            propChoice = GameManager.Instance.CurrentBiggestHole < _props_lists.Count ? Random.Range(0, GameManager.Instance.CurrentBiggestHole + 1) : Random.Range(0, GameManager.Instance.CurrentBiggestHole);
+            /*
+            if (GameManager.Instance.CurrentBiggestHole < 5)
+            {
                 propChoice = Random.Range(0, GameManager.Instance.CurrentBiggestHole + 1);
+            }
+            else
+            {
+                propChoice = Random.Range(0, GameManager.Instance.CurrentBiggestHole);
+            }*/
 
             cloneProp (_props_lists[propChoice][Random.Range(0, _props_lists[propChoice].Count)] );
 
@@ -92,7 +100,7 @@ public class PropLifetime : MonoBehaviour
         return tempProp;
     }
 
-    public void deactivateProp(GameObject obj)
+    public void DeactivateObject(GameObject obj)
     {
         _prop_obj_pool.GameObjectPool.Release(obj);
     }

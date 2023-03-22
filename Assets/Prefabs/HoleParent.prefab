@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3122191624457419401
 Transform:
   m_ObjectHideFlags: 0
@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6128eab816c646478dc331214303eef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _game_values: {fileID: 0}
+  _player: {fileID: 0}
 --- !u!1 &3122191625025595638
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,11 +58,12 @@ GameObject:
   m_Component:
   - component: {fileID: 3122191625025595637}
   - component: {fileID: 3122191625025595636}
+  - component: {fileID: 1170805827762449672}
   - component: {fileID: 3122191625025595634}
   - component: {fileID: 3122191625025595635}
   m_Layer: 3
   m_Name: OuterHole
-  m_TagString: Player
+  m_TagString: Hole
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,6 +135,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &1170805827762449672
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3122191625025595638}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &3122191625025595634
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -172,11 +196,12 @@ GameObject:
   m_Component:
   - component: {fileID: 3122191625337617202}
   - component: {fileID: 3122191625337617201}
+  - component: {fileID: 1174323776405136735}
   - component: {fileID: 3122191625337617167}
   - component: {fileID: 3122191625337617166}
   m_Layer: 3
   m_Name: InnerHole
-  m_TagString: Player
+  m_TagString: Hole
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -248,6 +273,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &1174323776405136735
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3122191625337617203}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &3122191625337617167
 CircleCollider2D:
   m_ObjectHideFlags: 0

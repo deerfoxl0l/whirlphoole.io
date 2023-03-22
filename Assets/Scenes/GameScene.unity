@@ -1032,6 +1032,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _persistent: 0
+  _game_values: {fileID: 0}
 --- !u!1 &1494782937
 GameObject:
   m_ObjectHideFlags: 0
@@ -1083,7 +1084,7 @@ MonoBehaviour:
   InitialPoolSize: 20
   MaxPoolSize: 100
   instantiateOnAwake: 1
-  _points_sfx: {fileID: 2021959920}
+  _points_vfx: {fileID: 2021959920}
   _points_transform: {fileID: 1187460030}
 --- !u!114 &1494782940
 MonoBehaviour:
@@ -1235,13 +1236,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 862735485}
     m_Modifications:
+    - target: {fileID: 3122191624457419398, guid: c2ebc39a6ea2bea49823ef9046d6a93e, type: 3}
+      propertyPath: _initial_exp
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3122191624457419398, guid: c2ebc39a6ea2bea49823ef9046d6a93e, type: 3}
+      propertyPath: _initial_size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3122191624457419401, guid: c2ebc39a6ea2bea49823ef9046d6a93e, type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3122191624457419401, guid: c2ebc39a6ea2bea49823ef9046d6a93e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.9
       objectReference: {fileID: 0}
     - target: {fileID: 3122191624457419401, guid: c2ebc39a6ea2bea49823ef9046d6a93e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1401,6 +1410,10 @@ PrefabInstance:
     - target: {fileID: 6468525669902026454, guid: 3d946b5888d9143419803c013d7dd42c, type: 3}
       propertyPath: m_Name
       value: PlayerHole
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468525669902026458, guid: 3d946b5888d9143419803c013d7dd42c, type: 3}
+      propertyPath: _initial_size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7242471265546673913, guid: 3d946b5888d9143419803c013d7dd42c, type: 3}
       propertyPath: _player_camera

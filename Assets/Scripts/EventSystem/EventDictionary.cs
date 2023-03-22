@@ -12,15 +12,24 @@ public class EventKeys{
     public const string PAUSE_GAME = "GAME_PAUSE";
 
     // GAME EVENT KEYS
-    public const string OUTER_HOLE_ENTER = "OUTER_HOLE_ENTER";
-    public const string OUTER_HOLE_EXIT = "OUTER_HOLE_EXIT";
+    public const string OUTER_ENTER_PROP = "OUTER_ENTER_PROP";
+    public const string OUTER_EXIT_PROP = "OUTER_EXIT_PROP";
 
-    public const string INNER_HOLE_ENTER = "INNER_HOLE_ENTER";
-    public const string INNER_HOLE_EXIT = "INNER_HOLE_EXIT";
+    public const string INNER_ENTER_PROP = "INNER_ENTER_PROP";
+    public const string INNER_EXIT_PROP = "INNER_EXIT_PROP";
+
+    public const string PROP_ABSORBED = "PROP_ABSORBED";
+
+    public const string OUTER_ENTER_HOLE= "OUTER_ENTER_HOLE";
+    public const string OUTER_EXIT_HOLE = "OUTER_EXIT_HOLE";
+
+    public const string INNER_ENTER_HOLE = "INNER_ENTER_HOLE";
+    public const string INNER_EXIT_HOLE = "INNER_EXIT_HOLE";
+
+    public const string HOLE_ABSORBED = "HOLE_ABSORBED";
 
     public const string HOLE_LEVEL_UP = "HOLE_LEVEL_UP";
 
-    public const string PROP_ABSORBED = "PROP_ABSORBED";
 
     //UI EVENT KEYS
     public const string PLAY_PRESSED = "PLAY_BUTTON_PRESSED";
@@ -30,6 +39,8 @@ public class EventParamKeys
 {
     public const string PLAYER_PARAM = "PLAYER";
     public const string HOLE_PARAM = "HOLE";
+    public const string HOLE_PARAM_2 = "HOLE_2";
+
     public const string PROP_PARAM = "PROP";
 
     // UI EVENT PARAM KEYS

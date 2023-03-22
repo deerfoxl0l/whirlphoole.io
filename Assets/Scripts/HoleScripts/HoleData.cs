@@ -18,6 +18,7 @@ public class HoleData
     public int HoleExperience
     {
         get { return _hole_experience; }
+        set { _hole_experience = value; }
     }
 
     private int _current_exp_threshold;

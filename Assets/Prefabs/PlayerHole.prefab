@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6468525669038475090}
   m_Layer: 3
   m_Name: InnerHole
-  m_TagString: Player
+  m_TagString: Hole
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 6468525669333849263}
   m_Layer: 3
   m_Name: OuterHole
-  m_TagString: Player
+  m_TagString: Hole
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
