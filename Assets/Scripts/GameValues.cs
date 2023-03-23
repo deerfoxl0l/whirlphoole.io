@@ -14,7 +14,7 @@ public class GameValues : ScriptableObject
 
     // USAGE: replaces hole transform.localScale;
     [SerializeField] [Range(0.1f, 1.5f)] public float HoleBaseSize;
-    
+
     [SerializeField] [Range(0.1f, 10f)] public float HoleGrowSpeed;
     
     // USAGE: size += _hole_level* _hole_base_size*_hole_size_multiplier
@@ -23,7 +23,6 @@ public class GameValues : ScriptableObject
     [SerializeField] [Range(1f, 10f)] public float HolePullStrength;
     [SerializeField] [Range(10f, 100f)] public float HoleWhirlStrength;
     [SerializeField] [Range(1f, 30f)] public float HoleAbsorbStrength;
-
     [SerializeField] [Range(1, 100)] public int HoleExpThreshold;
 
     //USAGE: _hole_base_exp_threshold  + (_hole_base_exp_threshold *(_hole_level -1)* _hole_exp_threshold_multiplier)
