@@ -23,14 +23,13 @@ public class HoleCollider : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // initial collision with spawn bounds
+        // initial singular collision with spawn bounds
         if (collision.CompareTag(TagNames.PROP_BOUNDS))
             return;
 
-        // initial collision with self
+        // initial singular collision with self
         if (GameObject.ReferenceEquals(collision.transform.parent.gameObject, this.transform.parent.gameObject)) 
             return;
-
 
         if (collision.CompareTag(TagNames.PROP) )
         {
@@ -41,6 +40,35 @@ public class HoleCollider : MonoBehaviour
         if (collision.CompareTag(TagNames.HOLE))
         {
             _hole_parent.EnterColliderHole(collision, _collider_type);
+            return;
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag(TagNames.PROP))
+        {
+            //_hole_parent.StayColliderProp(collision, _collider_type);
+            return;
+        }
+
+        if (collision.CompareTag(TagNames.HOLE))
+        {
+           // _hole_parent.StayColliderHole(collision, _collider_type);
+            return;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag(TagNames.PROP))
+        {
+            _hole_parent.ExitColliderProp(collision, _collider_type);
+            return;
+        }
+
+        if (collision.CompareTag(TagNames.HOLE))
+        {
+            _hole_parent.ExitColliderHole(collision, _collider_type);
             return;
         }
 

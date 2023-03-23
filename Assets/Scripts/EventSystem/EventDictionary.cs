@@ -13,9 +13,11 @@ public class EventKeys{
 
     // GAME EVENT KEYS
     public const string OUTER_ENTER_PROP = "OUTER_ENTER_PROP";
+    public const string OUTER_STAY_PROP = "OUTER_STAY_PROP";
     public const string OUTER_EXIT_PROP = "OUTER_EXIT_PROP";
 
     public const string INNER_ENTER_PROP = "INNER_ENTER_PROP";
+    public const string INNER_STAY_PROP = "INNER_STAY_PROP";
     public const string INNER_EXIT_PROP = "INNER_EXIT_PROP";
 
     public const string PROP_ABSORBED = "PROP_ABSORBED";

@@ -33,8 +33,10 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
         EventBroadcaster.Instance.AddObserver(EventKeys.HOLE_LEVEL_UP, onHoleLevelUp);
 
         EventBroadcaster.Instance.AddObserver(EventKeys.OUTER_ENTER_PROP, onEnterOuterProp);
+        EventBroadcaster.Instance.AddObserver(EventKeys.OUTER_STAY_PROP, onStayOuterProp);
         EventBroadcaster.Instance.AddObserver(EventKeys.OUTER_EXIT_PROP, onExitOuterProp);
         EventBroadcaster.Instance.AddObserver(EventKeys.INNER_ENTER_PROP, onEnterInnerProp);
+        EventBroadcaster.Instance.AddObserver(EventKeys.INNER_STAY_PROP, onStayInnerProp);
         EventBroadcaster.Instance.AddObserver(EventKeys.INNER_EXIT_PROP, onExitInnerProp);
 
         EventBroadcaster.Instance.AddObserver(EventKeys.PROP_ABSORBED, onPropAbsorbed);
@@ -48,34 +50,62 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
 
     }
 
-    #region Prop Events
+    private void setPropRefs(EventParameters param)
+    {
+        propRef = param.GetParameter<Prop>(EventParamKeys.PROP_PARAM, null);
+        holeRef = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM, null);
+    }
+
+    private void setHoleRefs(EventParameters param)
+    {
+        holeRef = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM, null);
+        holeRef2 = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM_2, null);
+    }
+
+    #region Prop on Hole Events
 
     private void onEnterOuterProp(EventParameters param)
     {
-
+        setPropRefs(param);
+        propRef.Pull(holeRef.transform);
+    }
+    private void onStayOuterProp(EventParameters param)
+    {
+        setPropRefs(param);
+        //propRef.Pull(holeRef.transform);
     }
     private void onExitOuterProp(EventParameters param)
     {
-
+        propRef = param.GetParameter<Prop>(EventParamKeys.PROP_PARAM, null);
+        propRef.PullStop();
     }
+
+
     private void onEnterInnerProp(EventParameters param)
     {
-        propRef = param.GetParameter<Prop>(EventParamKeys.PROP_PARAM, null);
-        holeRef = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM, null);
+        setPropRefs(param);
 
         if (propRef.PropSize <= holeRef.HoleLevel)
         {
-            EventBroadcaster.Instance.PostEvent(EventKeys.PROP_ABSORBED, param);
+            propRef.Absorb(param);
         }
     }
-    private void onExitInnerProp(EventParameters param)
+    private void onStayInnerProp(EventParameters param)
     {
 
     }
+    private void onExitInnerProp(EventParameters param)
+    {
+        if (!propRef.gameObject.activeInHierarchy)
+            return;
+        propRef = param.GetParameter<Prop>(EventParamKeys.PROP_PARAM, null);
+        propRef.AbsorbStop();
+    }
+
+
     private void onPropAbsorbed(EventParameters param)
     {
-        propRef = param.GetParameter<Prop>(EventParamKeys.PROP_PARAM, null);
-        holeRef = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM, null);
+        setPropRefs(param);
 
         holeRef.AddHoleExperience(propRef.PropPoints);
         PropHandler.Instance.removeProp(propRef);
@@ -83,7 +113,7 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
     }
     #endregion
 
-    #region Hole Events
+    #region Hole on Hole Events
     private void onEnterOuterHole(EventParameters param)
     {
 
@@ -94,8 +124,7 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
     }
     private void onEnterInnerHole(EventParameters param)
     {
-        holeRef = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM, null);
-        holeRef2 = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM_2, null);
+        setHoleRefs(param);
 
         if (holeRef.HoleLevel == holeRef2.HoleLevel)
             return;
@@ -122,8 +151,7 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
     }
     private void onHoleAbsorbed(EventParameters param)
     {
-        holeRef = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM, null);
-        holeRef2 = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM_2, null);
+        setHoleRefs(param);
 
         holeRef.AddHoleExperience( (int)Math.Round(holeRef2.HoleExperience * _game_values.HoleCannibalExpMultiplier));
         holeRef2.gameObject.SetActive(false);

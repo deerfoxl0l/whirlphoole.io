@@ -4,5 +4,8 @@ using UnityEngine;
 
 public interface IAbsorbable
 {
-    void Absorb(Vector2 holeLocation);
+    void Absorb(EventParameters param);
+    IEnumerator Absorbing(EventParameters param);
+    void AbsorbStop();
+    IEnumerator StopAbsorbing();
 }

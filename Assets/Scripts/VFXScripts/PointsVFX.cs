@@ -24,6 +24,7 @@ public class PointsVFX : Poolable
         {
             this.transform.localPosition = new Vector3(this.transform.localPosition.x, 
                 Mathf.MoveTowards(this.transform.localPosition.y, this.transform.localPosition.y+10, _scroll_up_speed*Time.deltaTime), 1);
+
             _text_mesh.fontSize = (int)Math.Round(Mathf.MoveTowards(_text_mesh.fontSize, 0, _shrink_speed));
             yield return null;
         }

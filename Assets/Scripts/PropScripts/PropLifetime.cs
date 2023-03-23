@@ -47,7 +47,12 @@ public class PropLifetime : MonoBehaviour, IPoolHandler
         if (_time_elapsed >= _game_values.PropSpawnRate)
         {
             propChoice = GameManager.Instance.CurrentBiggestHole < _props_lists.Count ? Random.Range(0, GameManager.Instance.CurrentBiggestHole + 1) : Random.Range(0, GameManager.Instance.CurrentBiggestHole);
+
+            cloneProp(_props_lists[propChoice][Random.Range(0, _props_lists[propChoice].Count)]);
+
             /*
+             * Translation of the shorthand form above:
+             * 
             if (GameManager.Instance.CurrentBiggestHole < 5)
             {
                 propChoice = Random.Range(0, GameManager.Instance.CurrentBiggestHole + 1);
@@ -55,11 +60,8 @@ public class PropLifetime : MonoBehaviour, IPoolHandler
             else
             {
                 propChoice = Random.Range(0, GameManager.Instance.CurrentBiggestHole);
-            }*/
+            }
 
-            cloneProp (_props_lists[propChoice][Random.Range(0, _props_lists[propChoice].Count)] );
-
-            /*
             switch (propChoice)
             {
                 case 1:
@@ -86,7 +88,7 @@ public class PropLifetime : MonoBehaviour, IPoolHandler
 
     public void cloneProp(PropSO propSO)
     {
-        Prop tempProp = _prop_obj_pool.GameObjectPool.Get().GetComponent<Prop>();
+        Prop tempProp = _prop_obj_pool.GameObjectPool.Get().GetComponentInChildren<Prop>();
 
         tempProp.InitializeProp(propSO);
 

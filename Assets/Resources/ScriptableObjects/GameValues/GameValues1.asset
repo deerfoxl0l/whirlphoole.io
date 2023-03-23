@@ -12,18 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbb74a8ded1cb9841a8f3c505b3835f1, type: 3}
   m_Name: GameValues1
   m_EditorClassIdentifier: 
-  _player_base_speed: 10
-  _player_speed_decrease_multiplier: 0.5
-  _hole_base_size: 1
-  _hole_grow_speed: 4
-  _hole_size_multiplier: 1
-  _hole_absorb_strength: 0
-  _hole_base_exp_threshold: 15
-  _hole_exp_threshold_multiplier: 1
-  _hole_absorb_difference: 1
-  _hole_cannibal_exp_multiplier: 0.5
-  _props_spawn_rate: 0.5
-  _props_base_size: 1
-  _props_size_multiplier: 0.5
-  _camera_zoom_amount: 0.5
-  _camera_zoom_speed: 2
+  PlayerBaseSpeed: 10
+  PlayerSpeedDecreaseMultiplier: 0.5
+  HoleBaseSize: 1
+  HoleGrowSpeed: 4
+  HoleSizeMultiplier: 1
+  HolePullStrength: 1.5
+  HoleWhirlStrength: 100
+  HoleAbsorbStrength: 5
+  HoleExpThreshold: 15
+  HoleExpThresholdMultiplier: 1
+  HoleAbsorbDifference: 1
+  HoleCannibalExpMultiplier: 0.5
+  PropSpawnRate: 0.5
+  PropsBaseSize: 1
+  PropScaleDespawn: 0.2
+  PropsSizeMultiplier: 0.5
+  CameraZoomAmount: 0.5
+  CameraZoomSpeed: 2

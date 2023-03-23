@@ -5,6 +5,10 @@ using UnityEngine;
 public class PropHelper : MonoBehaviour
 {
     [SerializeField] private Collider2D _prop_spawn_collider;
+    public Collider2D PropSpawnBoundsCollider
+    {
+        get { return _prop_spawn_collider; }
+    }
     private Bounds _spawn_bounds;
 
     public void Initialize()

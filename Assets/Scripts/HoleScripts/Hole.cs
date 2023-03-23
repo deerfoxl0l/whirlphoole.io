@@ -8,6 +8,9 @@ public class Hole : MonoBehaviour
     #region Hole Variables
     private HoleData _hole_data;
 
+    [SerializeField] private Collider2D _outer_collider;
+    [SerializeField] private Collider2D _inner_collider;
+
     public int HoleLevel
     {
         get{ return _hole_data.HoleLevel; }
@@ -46,12 +49,16 @@ public class Hole : MonoBehaviour
 
         this.transform.localScale = new Vector3(_game_values.HoleBaseSize, _game_values.HoleBaseSize, 1);
 
+        Physics2D.IgnoreCollision(_outer_collider, _inner_collider);
+        Physics2D.IgnoreCollision(_outer_collider, PropHandler.Instance.PropHelper.PropSpawnBoundsCollider);
+        Physics2D.IgnoreCollision(_inner_collider, PropHandler.Instance.PropHelper.PropSpawnBoundsCollider);
 
         holeParams = new EventParameters();
         holeParams.AddParameter(EventParamKeys.HOLE_PARAM, this);
         if (_player is not null)
             holeParams.AddParameter(EventParamKeys.PLAYER_PARAM, _player);
     }
+
     public void AddHoleExperience(int exp)
     {
         if( _hole_data.AddHoleExp(exp, _game_values.HoleExpThreshold, _game_values.HoleExpThresholdMultiplier))
@@ -82,6 +89,7 @@ public class Hole : MonoBehaviour
         StopCoroutine("growHole");
     }
 
+    #region Enter Collider Methods ==============================================
     public void EnterColliderProp(Collider2D collision, string colliderType)
     {
         holeParams.AddParameter(EventParamKeys.PROP_PARAM, collision.GetComponent<Prop>());
@@ -89,7 +97,7 @@ public class Hole : MonoBehaviour
         switch (colliderType)
         {
             case HoleDictionary.OUTER_COLLIDER:
-
+                EventBroadcaster.Instance.PostEvent(EventKeys.OUTER_ENTER_PROP, holeParams);
                 break;
             case HoleDictionary.INNER_COLLIDER:
                 EventBroadcaster.Instance.PostEvent(EventKeys.INNER_ENTER_PROP, holeParams);
@@ -110,4 +118,57 @@ public class Hole : MonoBehaviour
                 break;
         }
     }
+    #endregion
+
+    #region Stay Collider Methods ======================================================
+    public void StayColliderProp(Collider2D collision, string colliderType)
+    {
+        holeParams.AddParameter(EventParamKeys.PROP_PARAM, collision.GetComponent<Prop>());
+
+        switch (colliderType)
+        {
+            case HoleDictionary.OUTER_COLLIDER:
+                EventBroadcaster.Instance.PostEvent(EventKeys.OUTER_STAY_PROP, holeParams);
+                break;
+            case HoleDictionary.INNER_COLLIDER:
+                EventBroadcaster.Instance.PostEvent(EventKeys.INNER_STAY_PROP, holeParams);
+                break;
+        }
+    }
+    public void StayColliderHole(Collider2D collision, string colliderType)
+    {
+
+    }
+    #endregion 
+
+    #region Exit Collider Methods
+    public void ExitColliderProp(Collider2D collision, string colliderType)
+    {
+        holeParams.AddParameter(EventParamKeys.PROP_PARAM, collision.GetComponent<Prop>());
+
+        switch (colliderType)
+        {
+            case HoleDictionary.OUTER_COLLIDER:
+                EventBroadcaster.Instance.PostEvent(EventKeys.OUTER_EXIT_PROP, holeParams);
+                break;
+            case HoleDictionary.INNER_COLLIDER:
+                EventBroadcaster.Instance.PostEvent(EventKeys.INNER_EXIT_PROP, holeParams);
+                break;
+        }
+    }
+
+    public void ExitColliderHole(Collider2D collision, string colliderType)
+    {
+        holeParams.AddParameter(EventParamKeys.HOLE_PARAM_2, collision.transform.parent.GetComponent<Hole>());
+
+        switch (colliderType)
+        {
+            case HoleDictionary.OUTER_COLLIDER:
+                break;
+            case HoleDictionary.INNER_COLLIDER:
+                EventBroadcaster.Instance.PostEvent(EventKeys.INNER_ENTER_HOLE, holeParams);
+                break;
+        }
+    }
+    #endregion
 }

@@ -37,7 +37,7 @@ public class VFXHandler : Singleton<VFXHandler>, ISingleton, IPoolHandler, IEven
         pointsRef = _sfx_op.getPointsVFX().GetComponent<PointsVFX>();
 
         pointsRef.PointsText = "+ " + absorbedPropRef.PropPoints;
-        pointsRef.gameObject.transform.localPosition = absorbedPropRef.transform.localPosition;
+        pointsRef.transform.localPosition = absorbedPropRef.transform.parent.transform.localPosition;
 
     }
 
@@ -50,7 +50,7 @@ public class VFXHandler : Singleton<VFXHandler>, ISingleton, IPoolHandler, IEven
 
         pointsRef.PointsText = "+ " + absorbedHoleRef.HoleExperience;
 
-        pointsRef.gameObject.transform.localPosition = absorbedHoleRef.transform.localPosition;
+        pointsRef.transform.localPosition = absorbedHoleRef.transform.localPosition;
     }
 
     public void DeactivateObject(GameObject obj)
