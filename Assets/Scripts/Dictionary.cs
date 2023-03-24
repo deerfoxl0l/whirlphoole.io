@@ -16,6 +16,8 @@ public static class FileNames
 public static class TagNames
 {
     public const string MAIN_CAMERA = "MainCamera";
+    public const string CAMERA_1 = "VirtualCam1";
+    public const string CAMERA_2 = "VirtualCam2";
 
     public const string PLAYER = "Player";
 

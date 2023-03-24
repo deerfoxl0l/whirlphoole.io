@@ -5,11 +5,8 @@ using UnityEngine;
 
 public class PointsVFX : Poolable
 {
+    [SerializeField] private VisualValues _visual_values;
     [SerializeField] private TextMesh _text_mesh;
-
-    [SerializeField] private float _scroll_up_speed; // TEMPORARY
-    [SerializeField] private float _shrink_speed;
-    [SerializeField] private int _font_size=100;
 
     //private IEnumerator _fade_out;
 
@@ -23,9 +20,9 @@ public class PointsVFX : Poolable
         while (_text_mesh.fontSize > 0)
         {
             this.transform.localPosition = new Vector3(this.transform.localPosition.x, 
-                Mathf.MoveTowards(this.transform.localPosition.y, this.transform.localPosition.y+10, _scroll_up_speed*Time.deltaTime), 1);
+                Mathf.MoveTowards(this.transform.localPosition.y, this.transform.localPosition.y+10, _visual_values.PointsScrollUpSpeed * Time.deltaTime), 1);
 
-            _text_mesh.fontSize = (int)Math.Round(Mathf.MoveTowards(_text_mesh.fontSize, 0, _shrink_speed));
+            _text_mesh.fontSize = (int)Math.Round(Mathf.MoveTowards(_text_mesh.fontSize, 0, _visual_values.PointsShrinkSpeed));
             yield return null;
         }
         StopCoroutine("pointsAnimation");
@@ -35,9 +32,12 @@ public class PointsVFX : Poolable
     #region Poolable Functions
     public override void OnInstantiate()
     {
-        if(_text_mesh == null)
+        if (_visual_values == null)
+            _visual_values = GameManager.Instance.VisualValues;
+
+        if (_text_mesh == null)
             _text_mesh = GetComponent<TextMesh>();
-        _text_mesh.fontSize = _font_size;
+        _text_mesh.fontSize = _visual_values.PointsFontSize;
     }
 
     public override void OnActivate()
@@ -48,7 +48,7 @@ public class PointsVFX : Poolable
     public override void OnDeactivate()
     {
         _text_mesh.text = "NO_VALUE";
-        _text_mesh.fontSize = _font_size;
+        _text_mesh.fontSize = _visual_values.PointsFontSize;
     }
     #endregion
 }

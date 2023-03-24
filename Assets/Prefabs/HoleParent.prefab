@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3122191624457419401}
   - component: {fileID: 3122191624457419398}
+  - component: {fileID: 3108441498239444048}
   m_Layer: 3
   m_Name: HoleParent
   m_TagString: Hole
@@ -46,12 +47,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6128eab816c646478dc331214303eef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hole_data: {fileID: 0}
   _outer_collider: {fileID: 3122191625025595634}
   _inner_collider: {fileID: 3122191625337617167}
   _game_values: {fileID: 0}
   _player: {fileID: 0}
   _initial_size: 1
   _initial_exp: 100
+--- !u!114 &3108441498239444048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3122191624457419402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebfb3c5db06bd71439dcd5c977c26127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hole_level: 0
+  _hole_experience: 0
+  _current_exp_threshold: 0
+  _hole_color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &3122191625025595638
 GameObject:
   m_ObjectHideFlags: 0

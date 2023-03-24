@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour, IMovableKB, IMovableM
     void Start()
     {
         if (_player_game_object == null)
-            _player_game_object = this.gameObject;
+            _player_game_object = this.transform.parent.gameObject;
 
     }
 

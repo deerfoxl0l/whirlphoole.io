@@ -25,6 +25,13 @@ public class CameraHandler : Singleton<CameraHandler>, ISingleton
     }
     public void Initialize()
     {
+        if (_cam_1 == null)
+            _cam_1 = GameObject.FindGameObjectWithTag(TagNames.CAMERA_1).GetComponent<CinemachineVirtualCamera>();
+        /*
+        if (_cam_2 == null)
+            _cam_2 = GameObject.FindGameObjectWithTag(TagNames.CAMERA_2).GetComponent<CinemachineVirtualCamera>();
+        */
+
     }
 
     public void SetCamFollowTarget(Transform targetTransform, int camNum)

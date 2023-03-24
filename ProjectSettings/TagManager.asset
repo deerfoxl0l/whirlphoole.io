@@ -8,6 +8,8 @@ TagManager:
   - PropSpawnBounds
   - Hole
   - PropStaff
+  - VirtualCam1
+  - VirtualCam2
   layers:
   - Default
   - TransparentFX

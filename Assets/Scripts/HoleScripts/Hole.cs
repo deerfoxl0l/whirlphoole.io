@@ -6,7 +6,7 @@ using UnityEngine;
 public class Hole : MonoBehaviour
 {
     #region Hole Variables
-    private HoleData _hole_data;
+    [SerializeField] private HoleData _hole_data;
 
     [SerializeField] private Collider2D _outer_collider;
     [SerializeField] private Collider2D _inner_collider;
@@ -28,8 +28,6 @@ public class Hole : MonoBehaviour
         get { return _player; }
     }
 
-    [SerializeField] private int _initial_size; // TEMPORARY JUST FOR TESTING, PLEASE DELETE
-    [SerializeField] private int _initial_exp;
 
     #region EventParameters
     EventParameters holeParams;
@@ -45,11 +43,13 @@ public class Hole : MonoBehaviour
         if (_player == null)
             _player = GetComponentInChildren<Player>();
 
-        _hole_data = new HoleData(new Color(255, 255, 255));
+        if(_hole_data == null)
+        {
+            _hole_data = GetComponent<HoleData>();
+        }
+        _hole_data.InitializeHoleData(new Color(0, 255, 0));
 
         _hole_data.HoleCurrentExpThreshold = _game_values.HoleExpThreshold;
-        _hole_data.HoleLevel = _initial_size;
-        _hole_data.HoleExperience = _initial_exp;
 
         this.transform.localScale = new Vector3(_game_values.HoleBaseSize, _game_values.HoleBaseSize, 1);
 
