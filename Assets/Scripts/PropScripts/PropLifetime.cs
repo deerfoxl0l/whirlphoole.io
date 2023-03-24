@@ -6,19 +6,13 @@ public class PropLifetime : MonoBehaviour, IPoolHandler
 {
     [SerializeField] private GameValues _game_values;
 
-    [SerializeField] private ObjectPooling _prop_obj_pool;
-    [SerializeField] private List<PropSO> _props_size_1s;
-    [SerializeField] private List<PropSO> _props_size_2s;
-    [SerializeField] private List<PropSO> _props_size_3s;
-    [SerializeField] private List<PropSO> _props_size_4s;
-    [SerializeField] private List<PropSO> _props_size_5s;
+    [SerializeField] private PropOP _prop_obj_pool;
 
-    [SerializeField] private List<List<PropSO>> _props_lists;
 
     private float _time_elapsed = 0f;
 
     #region Cache Values
-    private int propChoice;
+
     #endregion
 
     public void Initialize()
@@ -29,13 +23,6 @@ public class PropLifetime : MonoBehaviour, IPoolHandler
         if (_game_values == null)
             _game_values = GameManager.Instance.GameValues;
 
-        _props_lists = new List<List<PropSO>>();
-
-        _props_lists.Add(_props_size_1s);
-        _props_lists.Add(_props_size_2s);
-        _props_lists.Add(_props_size_3s);
-        _props_lists.Add(_props_size_4s);
-        _props_lists.Add(_props_size_5s);
     }
 
     void Update()
@@ -46,53 +33,22 @@ public class PropLifetime : MonoBehaviour, IPoolHandler
 
         if (_time_elapsed >= _game_values.PropSpawnRate)
         {
-            propChoice = GameManager.Instance.CurrentBiggestHole < _props_lists.Count ? Random.Range(0, GameManager.Instance.CurrentBiggestHole + 1) : Random.Range(0, GameManager.Instance.CurrentBiggestHole);
+            cloneProp(Random.Range(1, GameManager.Instance.CurrentBiggestHole + 2));
 
-            cloneProp(_props_lists[propChoice][Random.Range(0, _props_lists[propChoice].Count)]);
-
-            /*
-             * Translation of the shorthand form above:
-             * 
-            if (GameManager.Instance.CurrentBiggestHole < 5)
-            {
-                propChoice = Random.Range(0, GameManager.Instance.CurrentBiggestHole + 1);
-            }
-            else
-            {
-                propChoice = Random.Range(0, GameManager.Instance.CurrentBiggestHole);
-            }
-
-            switch (propChoice)
-            {
-                case 1:
-                    cloneProp(_props_size_1s[Random.Range(0, _props_size_1s.Count)]);
-                    break;
-                case 2:
-                    cloneProp(_props_size_2s[Random.Range(0, _props_size_2s.Count)]);
-                    break;
-                case 3:
-                    cloneProp(_props_size_3s[Random.Range(0, _props_size_3s.Count)]);
-                    break;
-                case 4:
-                    cloneProp(_props_size_4s[Random.Range(0, _props_size_4s.Count)]);
-                    break;
-                case 5:
-                    cloneProp(_props_size_5s[Random.Range(0, _props_size_5s.Count)]);
-                    break;
-            }*/
             _time_elapsed = 0;
             return;
         }
         _time_elapsed += Time.deltaTime;
     }
 
-    public void cloneProp(PropSO propSO)
+    public void cloneProp(int propSize)
     {
-        Prop tempProp = _prop_obj_pool.GameObjectPool.Get().GetComponentInChildren<Prop>();
+        Prop tempProp = _prop_obj_pool.generateRandomObject().GetComponent<Prop>();
 
-        tempProp.InitializeProp(propSO);
+        tempProp.InitializeProp(propSize);
 
     }
+
     public Prop cloneProp(PropMovable prop)
     {
         PropMovable tempProp = _prop_obj_pool.GameObjectPool.Get().GetComponent<PropMovable>();

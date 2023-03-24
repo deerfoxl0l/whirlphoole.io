@@ -6,8 +6,7 @@ public class Prop : Poolable, IPullable, IAbsorbable
 {
     [SerializeField] private GameValues _game_values;
     [SerializeField] private Transform _child_prop;
-    [SerializeField] private PropSO _prop_so;
-    [SerializeField] private SpriteRenderer _prop_sr;
+    [SerializeField] private PropData _prop_data;
 
     #region Coroutines
     private IEnumerator _pulling_prop;
@@ -18,33 +17,50 @@ public class Prop : Poolable, IPullable, IAbsorbable
 
     #region Cache Variables
     private Vector2 propPosition;
-    private float propSize;
+    private float propScale;
     #endregion
     public int PropSize
     {
-        get { return _prop_so.PropSize; }
+        get { return _prop_data.PropSize; }
     }
     public int PropPoints
     {
-        get { return _prop_so.PropPoints; }
+        get { return _prop_data.PropPoints; }
     }
 
     #region Event Parameters
     private EventParameters _prop_param;
     #endregion
 
-    public void InitializeProp(PropSO propSO)
-    {        
+    public void OnEnable() // for when not born from an object pool, but placed and Propdata adjusted manually
+    {
+        if (poolOrigin != null)
+            return;
 
-        _prop_so = propSO;
-        _prop_sr.sprite = _prop_so.PropSprite;
+        InitializeProp();
 
-        this.transform.localPosition = PropHandler.Instance.PropHelper.getPropSpawnPoint(_prop_so.PropSpawnPoint);
+        propScale = _prop_data.PropSize * _game_values.PropsScaleBase * _game_values.PropsScaleMultiplier;
 
-        propSize = _prop_so.PropSize * _game_values.PropsBaseSize * _game_values.PropsSizeMultiplier;
+        this.transform.localScale = new Vector3(propScale, propScale, 1);
+    }
 
-        this.transform.localScale = new Vector3(propSize, propSize, 1);
+    private void InitializeProp() // by self
+    {
+        if (_game_values == null)
+            _game_values = GameManager.Instance.GameValues;
 
+        if (_prop_data == null)
+            _prop_data = GetComponent<PropData>();
+    }
+    public void InitializeProp(int propSize) // from pool
+    {
+        _prop_data.InitializeData(propSize);
+
+        this.transform.localPosition = PropHandler.Instance.PropHelper.getPropSpawnPoint(_prop_data.PropSpawnPoint);
+
+        propScale = _prop_data.PropSize * _game_values.PropsScaleBase * _game_values.PropsScaleMultiplier;
+
+        this.transform.localScale = new Vector3(propScale, propScale, 1);
 
     }
 
@@ -52,10 +68,7 @@ public class Prop : Poolable, IPullable, IAbsorbable
     public void Pull(Transform target)
     {
         if (!this.gameObject.activeInHierarchy)
-        {
-            Debug.Log("object in't active dummy");
             return;
-        }
 
         if (_pulling_prop is not null)
             StopCoroutine(_pulling_prop);
@@ -152,9 +165,9 @@ public class Prop : Poolable, IPullable, IAbsorbable
     }
     public IEnumerator StopAbsorbing()
     {
-        while (this.transform.localScale.x < propSize)
+        while (this.transform.localScale.x < propScale)
         {
-            this.transform.localScale = Vector2.Lerp(this.transform.localScale, new Vector2(propSize, propSize), _game_values.HoleAbsorbStrength * Time.deltaTime);
+            this.transform.localScale = Vector2.Lerp(this.transform.localScale, new Vector2(propScale, propScale), _game_values.HoleAbsorbStrength * Time.deltaTime);
             yield return null;
         }
 
@@ -167,19 +180,14 @@ public class Prop : Poolable, IPullable, IAbsorbable
     #region Poolable Functions  
     public override void OnInstantiate()
     {
-        if (_prop_sr == null)
-            _prop_sr = _child_prop.GetComponent<SpriteRenderer>();
-
-        if (_game_values == null)
-            _game_values = GameManager.Instance.GameValues;
-
-        //Debug.Log("On Instantiate!");
+        InitializeProp();
     }
 
     public override void OnActivate()
     {
         _child_prop.transform.localPosition = Vector3.zero;
         this.transform.localRotation = Quaternion.identity;
+        this.gameObject.SetActive(true);
     }
 
     public override void OnDeactivate()

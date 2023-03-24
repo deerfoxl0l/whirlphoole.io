@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f838583f540cf464487eb5d914a182d2, type: 3}
-  m_Name: BasicCapsule
+  m_Name: Hexagon
   m_EditorClassIdentifier: 
   _prop_size: 1
   _prop_points: 1
-  _prop_sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  _prop_sprite: {fileID: 2747690628134850419, guid: b670ab75dde984907b8570040daa08c5, type: 3}
   _prop_spawn_point: PROP_SPAWN_RANDOM
   _prop_move_speed: 0
   _prop_move_path: 

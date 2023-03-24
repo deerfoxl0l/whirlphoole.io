@@ -37,12 +37,16 @@ public class GameValues : ScriptableObject
     [SerializeField] [Range(0.1f, 2f)] public float PropSpawnRate;
 
     // USAGE: replaces prop transform.localScale;
-    [SerializeField] [Range(0.1f, 2f)] public float PropsBaseSize;
+    [SerializeField] [Range(1, 50)] public int PropsPointsBase;
+    [SerializeField] [Range(1, 20)] public int PropsPointsMultiplier;
+
+    [SerializeField] [Range(0.1f, 2f)] public float PropsScaleBase;
     [SerializeField] [Range(0.01f, 1.0f)] public float PropScaleDespawn;
+    [SerializeField] [Range(0.1f, 1.5f)] public float PropsScaleMultiplier;
+
     [SerializeField] [Range(0.5f, 2.0f)] public float PropAnchorAim;
 
     // USAGE: size += _prop_size* _props_base_size*_props_size_multiplier
-    [SerializeField] [Range(0.1f, 1.5f)] public float PropsSizeMultiplier;
 
 
     #endregion

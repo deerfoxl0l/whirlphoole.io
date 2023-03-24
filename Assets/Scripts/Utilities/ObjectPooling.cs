@@ -5,7 +5,7 @@ using UnityEngine.Pool;
 
 public class ObjectPooling : MonoBehaviour
 {
-    private ObjectPool<GameObject> _obj_pool;
+    protected ObjectPool<GameObject> _obj_pool;
     public ObjectPool<GameObject> GameObjectPool
     {
         get { return _obj_pool; }
@@ -51,7 +51,6 @@ public class ObjectPooling : MonoBehaviour
     public void onGetObject(GameObject gameObj)
     {
         gameObj.SetActive(true);
-
         Poolable tempPoolable = gameObj.GetComponent<Poolable>();
         if (tempPoolable != null)
         {

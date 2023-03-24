@@ -41,5 +41,10 @@ public static class HoleDictionary
 public static class PropDictionary
 {
     public const string PROP_SPAWN_RANDOM = "PROP_SPAWN_RANDOM";
-    public const string PROP_SPAWN_PREDETERMINED= "PROP_SPAWN_PREDETERMINED";
+    public const string PROP_SPAWN_PREDETERMINED = "PROP_SPAWN_PREDETERMINED";
+
+    public const string PROP_SQUARE = "PropSquare";
+    public const string PROP_CIRCLE = "PropCirlcle";
+    public const string PROP_CAPSULE = "PropCapsule";
+    public const string PROP_HEXAGON = "PropHexagon";
 }

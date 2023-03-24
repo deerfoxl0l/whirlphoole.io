@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f838583f540cf464487eb5d914a182d2, type: 3}
-  m_Name: BasicCircle
+  m_Name: Circle
   m_EditorClassIdentifier: 
   _prop_size: 1
   _prop_points: 1

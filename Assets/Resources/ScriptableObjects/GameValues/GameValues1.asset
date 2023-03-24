@@ -26,9 +26,9 @@ MonoBehaviour:
   HoleAbsorbDifference: 1
   HoleCannibalExpMultiplier: 0.5
   PropSpawnRate: 0.5
-  PropsBaseSize: 1
+  PropsPointsBase: 1
+  PropsPointsMultiplier: 2
+  PropsScaleBase: 1
   PropScaleDespawn: 0.2
+  PropsScaleMultiplier: 0.5
   PropAnchorAim: 1.1
-  PropsSizeMultiplier: 0.5
-  CameraZoomAmount: 0.5
-  CameraZoomSpeed: 2

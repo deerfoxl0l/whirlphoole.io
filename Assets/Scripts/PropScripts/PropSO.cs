@@ -11,6 +11,7 @@ public class PropSO: ScriptableObject
     public int PropSize
     {
         get { return _prop_size; }
+        set { _prop_size = value; }
     }
 
     [SerializeField] private int _prop_points;
