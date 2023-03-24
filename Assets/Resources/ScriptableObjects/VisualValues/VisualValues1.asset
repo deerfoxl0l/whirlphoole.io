@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VisualValues1
   m_EditorClassIdentifier: 
   NameTagBaseFontSize: 50
-  NameTagBalancing: 0.01
+  NameTagBalancing: 0.8
   PointsFontSize: 100
   PointsScrollUpSpeed: 5
   PointsShrinkSpeed: 0.9

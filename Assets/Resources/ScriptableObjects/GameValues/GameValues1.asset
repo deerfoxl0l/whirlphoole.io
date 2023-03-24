@@ -17,7 +17,7 @@ MonoBehaviour:
   PlayerSpeedDecreaseMultiplier: 0.5
   HoleBaseSize: 1
   HoleGrowSpeed: 4
-  HoleSizeMultiplier: 1
+  HoleSizeMultiplier: 0.9
   HolePullStrength: 1.5
   HoleWhirlStrength: 100
   HoleAbsorbStrength: 5

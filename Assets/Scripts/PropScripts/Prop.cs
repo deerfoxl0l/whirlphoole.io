@@ -87,7 +87,6 @@ public class Prop : Poolable, IPullable, IAbsorbable
     }
     public IEnumerator PullingProp()
     {
-
         while (_child_prop.transform.localPosition.x != 0 && _child_prop.transform.localPosition.y != 0)
         {
             // prop pulling translation
@@ -104,7 +103,7 @@ public class Prop : Poolable, IPullable, IAbsorbable
         while (this.transform.localPosition.x != target.transform.localPosition.x*_game_values.PropAnchorAim && this.transform.localPosition.y != target.transform.localPosition.y * _game_values.PropAnchorAim)
         {
             // swirl rotation
-            this.transform.Rotate(Vector3.forward, _game_values.HoleWhirlStrength * Time.deltaTime);
+            this.transform.Rotate(Vector3.back, _game_values.HoleWhirlStrength * Time.deltaTime);
 
             this.transform.localPosition = Vector2.Lerp(this.transform.localPosition, target.transform.localPosition, _game_values.HolePullStrength * Time.deltaTime);
 
@@ -144,7 +143,7 @@ public class Prop : Poolable, IPullable, IAbsorbable
             yield return null;
         }
 
-        // TEMPORARY, EVENTUALLY FIND A WAY
+        // TEMPORARY, EVENTUALLY FIND A WAY TO NOT HAVE TO GET PARAMS FROM HANDLER
         param.AddParameter(EventParamKeys.PROP_PARAM, this);
         EventBroadcaster.Instance.PostEvent(EventKeys.PROP_ABSORBED, param);
         _absorbing = null;

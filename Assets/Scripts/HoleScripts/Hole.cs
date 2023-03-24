@@ -23,11 +23,11 @@ public class Hole : MonoBehaviour
 
     [SerializeField] private GameValues _game_values;
     [SerializeField] private Player _player; // optional if just a hole, required if has player component
+
     public Player PlayerHole
     {
         get { return _player; }
     }
-
 
     #region EventParameters
     EventParameters holeParams;
@@ -36,6 +36,7 @@ public class Hole : MonoBehaviour
     #region Coroutines
     IEnumerator _growing_hole;
     #endregion
+
     void Start()
     {
         if(_game_values == null)

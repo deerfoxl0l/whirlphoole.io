@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
     }
     public void UpdateLevel()
     {
-        this.transform.localScale -= new Vector3(_visual_values.NameTagBalancing, _visual_values.NameTagBalancing, 1);
+        this.transform.localScale = new Vector3(this.transform.localScale.x*_visual_values.NameTagBalancing, this.transform.localScale.y*_visual_values.NameTagBalancing, 1);
         SetTextMesh("" + _player_so.PlayerName + " | Lvl " + _hole.HoleLevel);
     }
     public void ZoomOutPlayerCamera()
