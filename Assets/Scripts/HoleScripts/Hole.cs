@@ -89,11 +89,20 @@ public class Hole : MonoBehaviour
         StopCoroutine("growHole");
     }
 
+    private void addPropParam(Collider2D collision)
+    {
+        holeParams.AddParameter(EventParamKeys.PROP_PARAM, collision.transform.parent.GetComponent<Prop>());
+    }
+    private void addHole2Param(Collider2D collision)
+    {
+        holeParams.AddParameter(EventParamKeys.HOLE_PARAM_2, collision.transform.parent.GetComponent<Hole>());
+    }
+
     #region Enter Collider Methods ==============================================
     public void EnterColliderProp(Collider2D collision, string colliderType)
     {
-        holeParams.AddParameter(EventParamKeys.PROP_PARAM, collision.GetComponent<Prop>());
-      
+        addPropParam(collision);
+
         switch (colliderType)
         {
             case HoleDictionary.OUTER_COLLIDER:
@@ -107,7 +116,7 @@ public class Hole : MonoBehaviour
 
     public void EnterColliderHole(Collider2D collision, string colliderType)
     {
-        holeParams.AddParameter(EventParamKeys.HOLE_PARAM_2, collision.transform.parent.GetComponent<Hole>());
+        addHole2Param(collision);
 
         switch (colliderType)
         {
@@ -123,7 +132,7 @@ public class Hole : MonoBehaviour
     #region Stay Collider Methods ======================================================
     public void StayColliderProp(Collider2D collision, string colliderType)
     {
-        holeParams.AddParameter(EventParamKeys.PROP_PARAM, collision.GetComponent<Prop>());
+        addPropParam(collision);
 
         switch (colliderType)
         {
@@ -144,7 +153,7 @@ public class Hole : MonoBehaviour
     #region Exit Collider Methods
     public void ExitColliderProp(Collider2D collision, string colliderType)
     {
-        holeParams.AddParameter(EventParamKeys.PROP_PARAM, collision.GetComponent<Prop>());
+        addPropParam(collision);
 
         switch (colliderType)
         {
@@ -159,7 +168,7 @@ public class Hole : MonoBehaviour
 
     public void ExitColliderHole(Collider2D collision, string colliderType)
     {
-        holeParams.AddParameter(EventParamKeys.HOLE_PARAM_2, collision.transform.parent.GetComponent<Hole>());
+        addHole2Param(collision);
 
         switch (colliderType)
         {

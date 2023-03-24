@@ -60,6 +60,10 @@ public class Player : MonoBehaviour
     }
     private void movePlayerMouse(float decreaseSpeed)
     {
+        // just a big block of text making sure it doesn't jitter at cursor point
+        if( ((_input_handler.UserCursorInput.x - _game_values.PlayerCursorOffset) < this.transform.parent.transform.localPosition.x && this.transform.parent.transform.localPosition.x < (_input_handler.UserCursorInput.x + _game_values.PlayerCursorOffset)) && (((_input_handler.UserCursorInput.y - _game_values.PlayerCursorOffset) < this.transform.parent.transform.localPosition.y) &&(this.transform.parent.transform.localPosition.y < (_input_handler.UserCursorInput.y + _game_values.PlayerCursorOffset))))
+            return;
+
         _player_controller.MoveM(_input_handler.UserCursorInput, _game_values.PlayerBaseSpeed - decreaseSpeed);
     }
 

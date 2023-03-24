@@ -595,6 +595,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 852057846}
+  - component: {fileID: 852057847}
   m_Layer: 0
   m_Name: PropParent
   m_TagString: Prop
@@ -618,6 +619,23 @@ Transform:
   m_Father: {fileID: 624464783}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &852057847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852057845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 696ccbd9cb0745d4a849384fa0ce8a16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolOrigin: {fileID: 0}
+  _game_values: {fileID: 0}
+  _child_prop: {fileID: 1064283141}
+  _prop_so: {fileID: 0}
+  _prop_sr: {fileID: 1064283143}
 --- !u!1 &862735484
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,7 +744,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1064283141}
   - component: {fileID: 1064283143}
-  - component: {fileID: 1064283142}
   - component: {fileID: 1064283144}
   m_Layer: 0
   m_Name: Prop
@@ -750,23 +767,6 @@ Transform:
   m_Father: {fileID: 852057846}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1064283142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1064283140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 696ccbd9cb0745d4a849384fa0ce8a16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  poolOrigin: {fileID: 0}
-  _game_values: {fileID: 0}
-  _prop_so: {fileID: 11400000, guid: 65bb87189f336ef4e8823547f403cb71, type: 2}
-  _prop_sr: {fileID: 1064283143}
-  targetRotation: {x: 0, y: 0, z: 0.70710677, w: -0.70710677}
 --- !u!212 &1064283143
 SpriteRenderer:
   m_ObjectHideFlags: 0

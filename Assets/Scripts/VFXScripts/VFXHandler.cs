@@ -37,7 +37,7 @@ public class VFXHandler : Singleton<VFXHandler>, ISingleton, IPoolHandler, IEven
         pointsRef = _sfx_op.getPointsVFX().GetComponent<PointsVFX>();
 
         pointsRef.PointsText = "+ " + absorbedPropRef.PropPoints;
-        pointsRef.transform.localPosition = absorbedPropRef.transform.parent.transform.localPosition;
+        pointsRef.transform.localPosition = absorbedPropRef.transform.localPosition;
 
     }
 

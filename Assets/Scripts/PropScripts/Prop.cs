@@ -5,6 +5,7 @@ using UnityEngine;
 public class Prop : Poolable, IPullable, IAbsorbable
 {
     [SerializeField] private GameValues _game_values;
+    [SerializeField] private Transform _child_prop;
     [SerializeField] private PropSO _prop_so;
     [SerializeField] private SpriteRenderer _prop_sr;
 
@@ -33,26 +34,16 @@ public class Prop : Poolable, IPullable, IAbsorbable
     #endregion
 
     public void InitializeProp(PropSO propSO)
-    {
-        // TEMPORARY, EVENTUALLY PUT TO THE FIXED ONINSTANTIATE FROM POOLABLE 
-        if (_prop_sr is null)
-            _prop_sr = GetComponent<SpriteRenderer>();
-
-        if (_game_values is null)
-            _game_values = GameManager.Instance.GameValues;
-
-        this.transform.localPosition = Vector3.zero;
-        this.transform.parent.localRotation = Quaternion.identity;
-
+    {        
 
         _prop_so = propSO;
         _prop_sr.sprite = _prop_so.PropSprite;
 
-        this.transform.parent.transform.localPosition = PropHandler.Instance.PropHelper.getPropSpawnPoint(_prop_so.PropSpawnPoint);
+        this.transform.localPosition = PropHandler.Instance.PropHelper.getPropSpawnPoint(_prop_so.PropSpawnPoint);
 
         propSize = _prop_so.PropSize * _game_values.PropsBaseSize * _game_values.PropsSizeMultiplier;
 
-        this.transform.parent.transform.localScale = new Vector3(propSize, propSize, 1);
+        this.transform.localScale = new Vector3(propSize, propSize, 1);
 
 
     }
@@ -70,10 +61,10 @@ public class Prop : Poolable, IPullable, IAbsorbable
             StopCoroutine(_pulling_prop);
 
 
-        propPosition = transform.localPosition == this.transform.parent.localPosition ? this.transform.parent.transform.position : propPosition = this.transform.position;
+        propPosition = _child_prop.transform.localPosition == this.transform.localPosition ? this.transform.position : propPosition = _child_prop.transform.position;
 
-        this.transform.parent.localPosition = target.transform.localPosition;
-        this.transform.position = propPosition;
+        this.transform.localPosition = target.transform.localPosition;
+        _child_prop.transform.position = propPosition;
 
         _pulling_prop = PullingProp();
         _pulling_prop_anchor = PullingPropAnchor(target);
@@ -84,10 +75,10 @@ public class Prop : Poolable, IPullable, IAbsorbable
     public IEnumerator PullingProp()
     {
 
-        while (this.transform.localPosition.x != 0 && this.transform.localPosition.y != 0)
+        while (_child_prop.transform.localPosition.x != 0 && _child_prop.transform.localPosition.y != 0)
         {
             // prop pulling translation
-            this.transform.localPosition = Vector2.Lerp(this.transform.localPosition, Vector2.zero, _game_values.HolePullStrength * Time.deltaTime);
+            _child_prop.transform.localPosition = Vector2.Lerp(_child_prop.transform.localPosition, Vector2.zero, _game_values.HolePullStrength * Time.deltaTime);
 
             yield return null;
         }
@@ -97,12 +88,12 @@ public class Prop : Poolable, IPullable, IAbsorbable
     public IEnumerator PullingPropAnchor(Transform target)
     {
 
-        while (this.transform.parent.transform.localPosition.x != target.transform.localPosition.x*1.1f && this.transform.parent.transform.localPosition.y != target.transform.localPosition.y * 1.1f)
+        while (this.transform.localPosition.x != target.transform.localPosition.x*_game_values.PropAnchorAim && this.transform.localPosition.y != target.transform.localPosition.y * _game_values.PropAnchorAim)
         {
             // swirl rotation
-            this.transform.parent.transform.Rotate(Vector3.forward, _game_values.HoleWhirlStrength * Time.deltaTime);
+            this.transform.Rotate(Vector3.forward, _game_values.HoleWhirlStrength * Time.deltaTime);
 
-            this.transform.parent.transform.localPosition = Vector2.Lerp(this.transform.parent.transform.localPosition, target.transform.localPosition, _game_values.HolePullStrength * Time.deltaTime);
+            this.transform.localPosition = Vector2.Lerp(this.transform.localPosition, target.transform.localPosition, _game_values.HolePullStrength * Time.deltaTime);
 
             yield return null;
         }
@@ -133,9 +124,9 @@ public class Prop : Poolable, IPullable, IAbsorbable
     }
     public IEnumerator Absorbing(EventParameters param)
     {
-        while (this.transform.parent.transform.localScale.x > _game_values.PropScaleDespawn)
+        while (this.transform.localScale.x > _game_values.PropScaleDespawn)
         {
-            this.transform.parent.transform.localScale = Vector2.Lerp(this.transform.parent.transform.localScale, Vector2.zero, _game_values.HoleAbsorbStrength*Time.deltaTime);
+            this.transform.localScale = Vector2.Lerp(this.transform.localScale, Vector2.zero, _game_values.HoleAbsorbStrength*Time.deltaTime);
 
             yield return null;
         }
@@ -161,9 +152,9 @@ public class Prop : Poolable, IPullable, IAbsorbable
     }
     public IEnumerator StopAbsorbing()
     {
-        while (this.transform.parent.transform.localScale.x < propSize)
+        while (this.transform.localScale.x < propSize)
         {
-            this.transform.parent.transform.localScale = Vector2.Lerp(transform.parent.transform.localScale, new Vector2(propSize, propSize), _game_values.HoleAbsorbStrength * Time.deltaTime);
+            this.transform.localScale = Vector2.Lerp(this.transform.localScale, new Vector2(propSize, propSize), _game_values.HoleAbsorbStrength * Time.deltaTime);
             yield return null;
         }
 
@@ -173,25 +164,22 @@ public class Prop : Poolable, IPullable, IAbsorbable
 
     #endregion
 
-    //TODO: Refactor to have (prop and prop.child) instead of (prop and prop.parent) to use these later
     #region Poolable Functions  
     public override void OnInstantiate()
     {
-        /*
-        
         if (_prop_sr is null)
-            _prop_sr = GetComponent<SpriteRenderer>();
+            _prop_sr = _child_prop.GetComponent<SpriteRenderer>();
 
         if (_game_values is null)
             _game_values = GameManager.Instance.GameValues;
 
-        this.transform.localPosition = Vector3.zero;
-        */
+        //Debug.Log("On Instantiate!");
     }
 
     public override void OnActivate()
     {
-
+        this.transform.localPosition = Vector3.zero;
+        this.transform.localRotation = Quaternion.identity;
     }
 
     public override void OnDeactivate()

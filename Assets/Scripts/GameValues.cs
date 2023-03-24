@@ -7,6 +7,7 @@ public class GameValues : ScriptableObject
 {
     #region Game Values
 
+    [SerializeField] [Range(0.1f, 2.0f)] public float PlayerCursorOffset;
     [SerializeField] [Range(0.1f, 20f)] public float PlayerBaseSpeed;
 
     // USAGE: movespeed = _player_base_speed - (_player_level * _player_speed_decrease_multiplier)
@@ -38,6 +39,7 @@ public class GameValues : ScriptableObject
     // USAGE: replaces prop transform.localScale;
     [SerializeField] [Range(0.1f, 2f)] public float PropsBaseSize;
     [SerializeField] [Range(0.01f, 1.0f)] public float PropScaleDespawn;
+    [SerializeField] [Range(0.5f, 2.0f)] public float PropAnchorAim;
 
     // USAGE: size += _prop_size* _props_base_size*_props_size_multiplier
     [SerializeField] [Range(0.1f, 1.5f)] public float PropsSizeMultiplier;

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbb74a8ded1cb9841a8f3c505b3835f1, type: 3}
   m_Name: GameValues1
   m_EditorClassIdentifier: 
+  PlayerCursorOffset: 0.25
   PlayerBaseSpeed: 10
   PlayerSpeedDecreaseMultiplier: 0.5
   HoleBaseSize: 1
@@ -27,6 +28,7 @@ MonoBehaviour:
   PropSpawnRate: 0.5
   PropsBaseSize: 1
   PropScaleDespawn: 0.2
+  PropAnchorAim: 1.1
   PropsSizeMultiplier: 0.5
   CameraZoomAmount: 0.5
   CameraZoomSpeed: 2
