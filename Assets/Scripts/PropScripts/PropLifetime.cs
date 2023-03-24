@@ -23,10 +23,10 @@ public class PropLifetime : MonoBehaviour, IPoolHandler
 
     public void Initialize()
     {
-        if (_prop_obj_pool is null)
+        if (_prop_obj_pool == null)
             _prop_obj_pool = GetComponent<PropOP>();
 
-        if (_game_values is null)
+        if (_game_values == null)
             _game_values = GameManager.Instance.GameValues;
 
         _props_lists = new List<List<PropSO>>();

@@ -18,10 +18,11 @@ public class VFXHandler : Singleton<VFXHandler>, ISingleton, IPoolHandler, IEven
     private PointsVFX pointsRef;
     private Prop absorbedPropRef;
     private Hole absorbedHoleRef;
+    private Player playerRef;
     #endregion
     public void Initialize()
     {
-        if (_sfx_op is null)
+        if (_sfx_op == null)
             _sfx_op = GetComponent<VFXObjectPool>();
         AddEventObservers();
     }
@@ -29,6 +30,8 @@ public class VFXHandler : Singleton<VFXHandler>, ISingleton, IPoolHandler, IEven
     {
         EventBroadcaster.Instance.AddObserver(EventKeys.PROP_ABSORBED, onPropAbsorbed);
         EventBroadcaster.Instance.AddObserver(EventKeys.HOLE_ABSORBED, onHoleAbsorbed);
+
+        EventBroadcaster.Instance.AddObserver(EventKeys.HOLE_LEVEL_UP, OnHoleLevelUp);
     }
     private void onPropAbsorbed(EventParameters param)
     {
@@ -51,6 +54,14 @@ public class VFXHandler : Singleton<VFXHandler>, ISingleton, IPoolHandler, IEven
         pointsRef.PointsText = "+ " + absorbedHoleRef.HoleExperience;
 
         pointsRef.transform.localPosition = absorbedHoleRef.transform.localPosition;
+    }
+    private void OnHoleLevelUp(EventParameters param)
+    {
+        playerRef = param.GetParameter<Player>(EventParamKeys.PLAYER_PARAM, null);
+
+        playerRef.UpdateLevel();
+        playerRef.ZoomOutPlayerCamera();
+
     }
 
     public void DeactivateObject(GameObject obj)

@@ -39,8 +39,10 @@ public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
     #region Event Broadcaster Notifications
     public void OnPlayPressed(EventParameters param)
     {
-        Debug.Log("entered name: " + param.GetParameter<string>(EventParamKeys.NAME_FIELD, null));
+        Debug.Log("entered name: " + param.GetParameter<string>(EventParamKeys.NAME_FIELD_ONE, null));
         // save param.playername from text field into scriptable object here
+
+        GameManager.Instance.SetPlayerSO(PlayerDictionary.PLAYER_ONE, param.GetParameter<string>(EventParamKeys.NAME_FIELD_ONE, null));
         StartGame();
     }
 

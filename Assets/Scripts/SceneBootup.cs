@@ -12,6 +12,8 @@ public class SceneBootup : MonoBehaviour, IBootstrapper
     {
         GameManager.Instance.GameValues = ScriptableObjectsHelper.GetScriptableObject<GameValues>(FileNames.GAME_VALUES);
 
+        GameManager.Instance.VisualValues = ScriptableObjectsHelper.GetScriptableObject<VisualValues>(FileNames.VISUAL_VALUES);
+
         PlayerHandler.Instance.Initialize();
         HoleHandler.Instance.Initialize();
         PropHandler.Instance.Initialize();

@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2963bb8eaa1085047abe8f74b93d109c, type: 3}
-  m_Name: Player
+  m_Script: {fileID: 11500000, guid: 5f5e5d033a823904ab39ec04fdafeaad, type: 3}
+  m_Name: VisualValues1
   m_EditorClassIdentifier: 
-  _player_id: 0
-  _player_name: 
-  _player_score: 0
+  NameTagBaseFontSize: 50
+  NameTagBalancing: 0.09
+  CameraBaseSize: 5.5
+  CameraZoomOutAmount: 1
+  CameraZoomSpeed: 2

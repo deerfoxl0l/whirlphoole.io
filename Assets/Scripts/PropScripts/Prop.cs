@@ -140,7 +140,7 @@ public class Prop : Poolable, IPullable, IAbsorbable
 
     public void AbsorbStop()
     {
-        if (!this.gameObject.activeInHierarchy || _absorbing is null)
+        if (!this.gameObject.activeInHierarchy || _absorbing == null)
             return;
         
 
@@ -167,10 +167,10 @@ public class Prop : Poolable, IPullable, IAbsorbable
     #region Poolable Functions  
     public override void OnInstantiate()
     {
-        if (_prop_sr is null)
+        if (_prop_sr == null)
             _prop_sr = _child_prop.GetComponent<SpriteRenderer>();
 
-        if (_game_values is null)
+        if (_game_values == null)
             _game_values = GameManager.Instance.GameValues;
 
         //Debug.Log("On Instantiate!");
@@ -178,7 +178,7 @@ public class Prop : Poolable, IPullable, IAbsorbable
 
     public override void OnActivate()
     {
-        this.transform.localPosition = Vector3.zero;
+        _child_prop.transform.localPosition = Vector3.zero;
         this.transform.localRotation = Quaternion.identity;
     }
 

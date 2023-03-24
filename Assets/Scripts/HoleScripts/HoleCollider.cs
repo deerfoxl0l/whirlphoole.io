@@ -13,7 +13,7 @@ public class HoleCollider : MonoBehaviour
 
     private void Start()
     {
-        if (_hole_parent is null) { 
+        if (_hole_parent == null) { 
             _hole_parent = GetComponentInParent<Hole>();
             Debug.Log("Got your parent hole " + _hole_parent);
         }

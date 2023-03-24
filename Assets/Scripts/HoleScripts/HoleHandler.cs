@@ -23,7 +23,7 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
 
     public void Initialize()
     {
-        if(_game_values is null)
+        if(_game_values == null)
             _game_values = GameManager.Instance.GameValues;
         AddEventObservers();
     }

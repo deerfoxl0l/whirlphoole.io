@@ -7,8 +7,10 @@ public static class Dictionary
 }
 public static class FileNames
 {
-    public const string PLAYER_SO = "ScriptableObjects/Player";
+    public const string PLAYER_SO_1 = "ScriptableObjects/Players/Player1";
+    public const string PLAYER_SO_2 = "ScriptableObjects/Players/Player2";
     public const string GAME_VALUES = "ScriptableObjects/GameValues/GameValues1";
+    public const string VISUAL_VALUES = "ScriptableObjects/VisualValues/VisualValues1";
 }
 
 public static class TagNames
@@ -25,7 +27,8 @@ public static class TagNames
 }
 public static class PlayerDictionary
 {
-
+    public const string PLAYER_ONE = "PLAYER_ONE";
+    public const string PLAYER_TWO= "PLAYER_TWO";
 }
 
 public static class HoleDictionary

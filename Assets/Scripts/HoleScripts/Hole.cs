@@ -23,6 +23,10 @@ public class Hole : MonoBehaviour
 
     [SerializeField] private GameValues _game_values;
     [SerializeField] private Player _player; // optional if just a hole, required if has player component
+    public Player PlayerHole
+    {
+        get { return _player; }
+    }
 
     [SerializeField] private int _initial_size; // TEMPORARY JUST FOR TESTING, PLEASE DELETE
     [SerializeField] private int _initial_exp;
@@ -36,9 +40,9 @@ public class Hole : MonoBehaviour
     #endregion
     void Start()
     {
-        if(_game_values is null)
+        if(_game_values == null)
             _game_values = GameManager.Instance.GameValues;
-        if (_player is null)
+        if (_player == null)
             _player = GetComponentInChildren<Player>();
 
         _hole_data = new HoleData(new Color(255, 255, 255));

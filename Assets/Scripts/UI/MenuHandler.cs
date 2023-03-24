@@ -40,12 +40,12 @@ public class MenuHandler: MonoBehaviour
 
         menuParams = new EventParameters();
 
-        menuParams.AddParameter<string>(EventParamKeys.NAME_FIELD, _name_field.text);
     }
 
     #region OnClick Functions
     private void OnPlayClicked()
     {
+        menuParams.AddParameter<string>(EventParamKeys.NAME_FIELD_ONE, _name_field.text);
         EventBroadcaster.Instance.PostEvent(EventKeys.PLAY_PRESSED, menuParams);
     }
     #endregion

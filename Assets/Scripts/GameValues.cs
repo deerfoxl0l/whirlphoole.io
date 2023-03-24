@@ -44,8 +44,6 @@ public class GameValues : ScriptableObject
     // USAGE: size += _prop_size* _props_base_size*_props_size_multiplier
     [SerializeField] [Range(0.1f, 1.5f)] public float PropsSizeMultiplier;
 
-    [SerializeField] [Range(0f, 5f)] public float CameraZoomAmount;
-    [SerializeField] [Range(0f, 10f)] public float CameraZoomSpeed;
 
     #endregion
 }

@@ -35,7 +35,7 @@ public class PointsVFX : Poolable
     #region Poolable Functions
     public override void OnInstantiate()
     {
-        if(_text_mesh is null)
+        if(_text_mesh == null)
             _text_mesh = GetComponent<TextMesh>();
         _text_mesh.fontSize = _font_size;
     }

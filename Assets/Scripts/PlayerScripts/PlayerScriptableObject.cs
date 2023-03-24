@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "Player", menuName = "ScriptableObjects/Player")]
 public class PlayerScriptableObject : ScriptableObject
 {
     #region PlayerSO Values
@@ -15,6 +16,7 @@ public class PlayerScriptableObject : ScriptableObject
     public string PlayerName
     {
         get { return _player_name; }
+        set { _player_name = value; }
     }
 
     [SerializeField] private int _player_score;

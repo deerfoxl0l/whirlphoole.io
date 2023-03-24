@@ -46,6 +46,7 @@ public class EventParamKeys
     public const string PROP_PARAM = "PROP";
 
     // UI EVENT PARAM KEYS
-    public const string NAME_FIELD = "NAME_TEXT_FIELD";
+    public const string NAME_FIELD_ONE = "NAME_FIELD_ONE";
+    public const string NAME_FIELD_TWO= "NAME_FIELD_TWO";
 
 }
