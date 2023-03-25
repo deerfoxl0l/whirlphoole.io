@@ -52,7 +52,7 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserve
         for(int i=0; i < playerAmount; i++)
         {
             spawnPlayer(ScriptableObjectsHelper.GetScriptableObject<PlayerScriptableObject>(FileNames.PLAYER_SO + "" + (i + 1)));
-;        }
+        }
     }
 
     private void spawnPlayer(PlayerScriptableObject playerSO)

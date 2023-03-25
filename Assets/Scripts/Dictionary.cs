@@ -4,6 +4,8 @@ using UnityEngine;
 
 public static class Dictionary
 {
+    public static Color SELECTED_BTN = new Color32(0, 114, 157, 255);
+    public static Color DESELECTED_BTN = new Color32(0, 114, 157, 100);
 }
 public static class FileNames
 {

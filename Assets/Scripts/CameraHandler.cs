@@ -59,7 +59,7 @@ public class CameraHandler : Singleton<CameraHandler>, ISingleton, IEventObserve
         {
             _cam_list.Add(Instantiate(_virtual_cam_template, _virtual_cam_spawn));
             _cam_list[i].m_Lens.OrthographicSize = _visual_values.CameraBaseSize;
-            _cam_list[i].gameObject.SetActive(true);
+            _cam_list[i].gameObject.SetActive(false);
         }
     }
 
@@ -70,6 +70,7 @@ public class CameraHandler : Singleton<CameraHandler>, ISingleton, IEventObserve
             if(cam.Follow == null)
             {
                 cam.Follow = targetTransform;
+                cam.gameObject.SetActive(true);
             }
         }
     }

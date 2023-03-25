@@ -94,20 +94,6 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
         EventBroadcaster.Instance.AddObserver(EventKeys.PAUSE_GAME, OnGamePause);
     }
 
-    public void SetPlayerSO(string player, string playerName)
-    {
-        PlayerScriptableObject playerSO;
-
-        if (player == PlayerDictionary.PLAYER_ONE)
-        {
-            playerSO = ScriptableObjectsHelper.GetScriptableObject<PlayerScriptableObject>(FileNames.PLAYER_SO_1);
-        }
-        else { 
-            playerSO = ScriptableObjectsHelper.GetScriptableObject<PlayerScriptableObject>(FileNames.PLAYER_SO_2);
-        }
-        playerSO.PlayerName = playerName;
-    }
-
     #region Event Broadcaster Notifications
     public void OnStartMenu(EventParameters param=null)
     {
@@ -116,8 +102,6 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
     public void OnPlayPressed(EventParameters param)
     {
         _game_state_handler.SwitchState(GameState.INGAME);
-        //_game_mode_handler.SwitchState(param.GetParameter<GameMode>(EventParamKeys.GAME_MODE_PARAM, GameMode.NONE_SELECTED));
-        _game_mode_handler.SwitchState(GameMode.SINGLE_PLAYER);
 
         SceneManager.LoadScene(SceneNames.GAME_SCENE);
     }

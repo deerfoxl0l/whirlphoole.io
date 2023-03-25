@@ -7,19 +7,25 @@ using TMPro;
 
 public class MenuHandler: MonoBehaviour
 {
-    [SerializeField] private GameObject _main_canvas;
-
-    #region Panels
-    [SerializeField] private GameObject _top_panel;
-    [SerializeField] private GameObject _bottom_panel;
+    #region Panels/Rects
+    [SerializeField] private GameObject _name_field_2_obj;
     #endregion
 
     #region TextFields
-    [SerializeField] private TextMeshProUGUI _name_field;
+    [SerializeField] private TextMeshProUGUI _name_field_1;
+    [SerializeField] private TextMeshProUGUI _name_field_2;
     #endregion
 
     #region Buttons
-    [SerializeField] private Button _play_btn;
+    [SerializeField] private Button _single_player_btn;
+    [SerializeField] private Button _two_player_btn;
+
+    [SerializeField] private Button _play;
+    #endregion
+
+    #region Images
+    [SerializeField] private Image _single_player_img;
+    [SerializeField] private Image _two_player_img;
     #endregion
 
     #region Event Parameters
@@ -29,23 +35,50 @@ public class MenuHandler: MonoBehaviour
     public void Awake()
     {
         Initialize();
+
+        OnSingleClicked();
     }
 
     public void Initialize()
     {
-        UIManager.Instance.MenuHandler = this;
+        _single_player_btn = _single_player_btn.GetComponent<Button>();
+        _single_player_btn.onClick .AddListener(OnSingleClicked);
 
-        _play_btn = _play_btn.GetComponent<Button>();
-        _play_btn.onClick .AddListener(OnPlayClicked);
+        _two_player_btn = _two_player_btn.GetComponent<Button>();
+        _two_player_btn.onClick.AddListener(OnTwoClicked);
+
+        _play = _play.GetComponent<Button>();
+        _play.onClick.AddListener(OnPlayClicked);
 
         menuParams = new EventParameters();
-
     }
 
     #region OnClick Functions
+    private void OnSingleClicked()
+    {
+        GameManager.Instance.GameModeHandler.SwitchState(GameMode.SINGLE_PLAYER);
+        _single_player_img.color = Dictionary.SELECTED_BTN;
+        _two_player_img.color = Dictionary.DESELECTED_BTN;
+
+        _name_field_2_obj.SetActive(false);
+    }
+    private void OnTwoClicked()
+    {
+        GameManager.Instance.GameModeHandler.SwitchState(GameMode.TWO_PLAYER);
+
+        _two_player_img.color = Dictionary.SELECTED_BTN;
+        _single_player_img.color = Dictionary.DESELECTED_BTN;
+
+        _name_field_2_obj.SetActive(true);
+
+    }
     private void OnPlayClicked()
     {
-        menuParams.AddParameter<string>(EventParamKeys.NAME_FIELD_ONE, _name_field.text);
+        menuParams.AddParameter(EventParamKeys.NAME_FIELD_ONE, _name_field_1.text);
+
+        if(GameManager.Instance.GameMode == GameMode.TWO_PLAYER)
+            menuParams.AddParameter(EventParamKeys.NAME_FIELD_TWO, _name_field_2.text);
+
         EventBroadcaster.Instance.PostEvent(EventKeys.PLAY_PRESSED, menuParams);
     }
     #endregion

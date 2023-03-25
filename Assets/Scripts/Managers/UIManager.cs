@@ -12,23 +12,10 @@ public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
     }
     #endregion
 
-
-    private MenuHandler _menu_handler;
-    public MenuHandler MenuHandler
-    {
-        set { _menu_handler = value; }
-    }
-
-    #region Event Paramaters
-    private EventParameters uiParams;
-    #endregion
-
     public void Initialize()
     {
         AddEventObservers();
 
-
-        uiParams = new EventParameters();
         isDone = true;
     }
 
@@ -36,26 +23,27 @@ public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
     {
         EventBroadcaster.Instance.AddObserver(EventKeys.PLAY_PRESSED, OnPlayPressed);
     }
-
-    public void StartGame()
+    private void setPlayerSO(string playerSOPath, string playerName)
     {
-        //_menu_handler.ToggleVisibility();
-        EventBroadcaster.Instance.PostEvent(EventKeys.START_GAME, uiParams);
+        ScriptableObjectsHelper.GetScriptableObject<PlayerScriptableObject>(playerSOPath).PlayerName = playerName;
     }
 
     #region Event Broadcaster Notifications
     public void OnPlayPressed(EventParameters param)
     {
-        Debug.Log("entered name: " + param.GetParameter<string>(EventParamKeys.NAME_FIELD_ONE, null));
-        // save param.playername from text field into scriptable object here
 
-        GameManager.Instance.SetPlayerSO(PlayerDictionary.PLAYER_ONE, param.GetParameter<string>(EventParamKeys.NAME_FIELD_ONE, null));
+        Debug.Log("Entered name 1: " + param.GetParameter<string>(EventParamKeys.NAME_FIELD_ONE, "NONE"));
 
+        setPlayerSO(FileNames.PLAYER_SO_1, param.GetParameter<string>(EventParamKeys.NAME_FIELD_ONE, "NONE"));
 
-        uiParams.AddParameter(EventParamKeys.GAME_MODE_PARAM, GameMode.TWO_PLAYER);
-        uiParams.AddParameter(EventParamKeys.GAME_MODE_PARAM, GameMode.SINGLE_PLAYER);
+        if (GameManager.Instance.GameMode == GameMode.TWO_PLAYER)
+        {
+            Debug.Log("Entered name 2: " + param.GetParameter<string>(EventParamKeys.NAME_FIELD_TWO, "NONE"));
 
-        //StartGame();
+            setPlayerSO(FileNames.PLAYER_SO_2, param.GetParameter<string>(EventParamKeys.NAME_FIELD_TWO, "NONE"));
+
+        }
+
     }
 
     #endregion
