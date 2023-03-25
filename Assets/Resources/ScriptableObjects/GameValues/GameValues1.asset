@@ -26,6 +26,8 @@ MonoBehaviour:
   HoleAbsorbDifference: 1
   HoleCannibalExpMultiplier: 0.5
   PropSpawnRate: 0.5
+  PropSpawnSizeFloor: 0
+  PropSpawnSizeCeiling: -1
   PropsPointsBase: 1
   PropsPointsMultiplier: 2
   PropsScaleBase: 1

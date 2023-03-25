@@ -25,6 +25,8 @@ public class VFXHandler : Singleton<VFXHandler>, ISingleton, IPoolHandler, IEven
         if (_sfx_op == null)
             _sfx_op = GetComponent<VFXObjectPool>();
         AddEventObservers();
+
+        isDone = true;
     }
     public void AddEventObservers()
     {
@@ -60,8 +62,6 @@ public class VFXHandler : Singleton<VFXHandler>, ISingleton, IPoolHandler, IEven
         playerRef = param.GetParameter<Player>(EventParamKeys.PLAYER_PARAM, null);
 
         playerRef.UpdateLevel();
-        playerRef.ZoomOutPlayerCamera();
-
     }
 
     public void DeactivateObject(GameObject obj)

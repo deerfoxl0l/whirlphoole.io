@@ -23,29 +23,36 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserve
 
     public void Initialize()
     {
+        switch (GameManager.Instance.GameMode)
+        {
+            case GameMode.NONE_SELECTED:
+                Debug.Log("Game Not Initialized");
+                break;
+            case GameMode.SINGLE_PLAYER:
+                initializePlayers(1);
+                break;
+            case GameMode.TWO_PLAYER:
+                initializePlayers(2);
+                break;
+        }
+
         AddEventObservers();
+
+        isDone = true;
     }
 
-    public void Start()
-    {
-        spawnPlayer(ScriptableObjectsHelper.GetScriptableObject<PlayerScriptableObject>(FileNames.PLAYER_SO_1));
-
-        //spawnPlayer(ScriptableObjectsHelper.GetScriptableObject<PlayerScriptableObject>(FileNames.PLAYER_SO_2));
-    }
     public void AddEventObservers()
     {
         EventBroadcaster.Instance.AddObserver(EventKeys.HOLE_LEVEL_UP, OnHoleLevelUp);
     }
 
-    private void OnHoleLevelUp(EventParameters param)
-    {
-        //Debug.Log("levelling up");
-        playerRef = param.GetParameter<Player>(EventParamKeys.PLAYER_PARAM, null);
 
-        if(playerRef.PlayerHoleLevel>GameManager.Instance.CurrentBiggestHole)
+    private void initializePlayers(int playerAmount)
+    {
+        for(int i=0; i < playerAmount; i++)
         {
-            GameManager.Instance.CurrentBiggestHole = playerRef.PlayerHoleLevel;
-        }
+            spawnPlayer(ScriptableObjectsHelper.GetScriptableObject<PlayerScriptableObject>(FileNames.PLAYER_SO + "" + (i + 1)));
+;        }
     }
 
     private void spawnPlayer(PlayerScriptableObject playerSO)
@@ -53,7 +60,21 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserve
         holeRef = GameObject.Instantiate(_player_hole_template, _player_spawn_transform);
         holeRef.gameObject.SetActive(true);
         holeRef.PlayerHole.InitializePlayer(playerSO);
-        holeRef.PlayerHole.PlayerCamera = CameraHandler.Instance.Camera1;
-        CameraHandler.Instance.SetCamFollowTarget(holeRef.transform, 1);
+
+        CameraHandler.Instance.SetCamFollowTarget(holeRef.transform);
     }
+
+    #region Event Broadcaster Notifications
+    private void OnHoleLevelUp(EventParameters param)
+    {
+        //Debug.Log("levelling up");
+        playerRef = param.GetParameter<Player>(EventParamKeys.PLAYER_PARAM, null);
+
+        if (playerRef.PlayerHoleLevel > GameManager.Instance.CurrentBiggestHole)
+        {
+            GameManager.Instance.CurrentBiggestHole = playerRef.PlayerHoleLevel;
+        }
+    }
+
+    #endregion
 }

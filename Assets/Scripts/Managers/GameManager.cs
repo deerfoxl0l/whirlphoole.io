@@ -11,6 +11,12 @@ public enum GameState
     PAUSED
 }
 
+public enum GameMode
+{
+    NONE_SELECTED,
+    SINGLE_PLAYER,
+    TWO_PLAYER
+}
 public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
 {
     #region ISingleton Variables
@@ -31,8 +37,20 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
     {
         get { return _game_state_handler.CurrentState; }
     }
+
+
+    private StateHandler<GameMode> _game_mode_handler;
+    public StateHandler<GameMode> GameModeHandler
+    {
+        get { return _game_mode_handler; }
+    }
+    public GameMode GameMode
+    {
+        get { return _game_mode_handler.CurrentState; }
+    }
     #endregion
 
+    #region Program Values
     private GameValues _game_values;
     public GameValues GameValues
     {
@@ -45,6 +63,7 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
         get { return _visual_values; }
         set { _visual_values = value; }
     }
+    #endregion
 
     private int _current_biggest_hole_size;
     public int CurrentBiggestHole
@@ -52,10 +71,15 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
         get { return _current_biggest_hole_size; }
         set { _current_biggest_hole_size = value; }
     }
+
+
     public void Initialize()
     {
         _game_state_handler = new StateHandler<GameState>();
         _game_state_handler.Initialize(GameState.PROGRAM_START);
+
+        _game_mode_handler = new StateHandler<GameMode>();
+        _game_mode_handler.Initialize(GameMode.NONE_SELECTED);
 
         _current_biggest_hole_size = 1;
         AddEventObservers();
@@ -65,6 +89,7 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
     public void AddEventObservers()
     {
         EventBroadcaster.Instance.AddObserver(EventKeys.START_MENU, OnStartMenu);
+        EventBroadcaster.Instance.AddObserver(EventKeys.PLAY_PRESSED, OnPlayPressed);
         EventBroadcaster.Instance.AddObserver(EventKeys.START_GAME, OnGameStart);
         EventBroadcaster.Instance.AddObserver(EventKeys.PAUSE_GAME, OnGamePause);
     }
@@ -88,10 +113,18 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
     {
         _game_state_handler.Initialize(GameState.MAIN_MENU);
     }
-    public void OnGameStart(EventParameters param = null)
+    public void OnPlayPressed(EventParameters param)
     {
         _game_state_handler.SwitchState(GameState.INGAME);
+        //_game_mode_handler.SwitchState(param.GetParameter<GameMode>(EventParamKeys.GAME_MODE_PARAM, GameMode.NONE_SELECTED));
+        _game_mode_handler.SwitchState(GameMode.SINGLE_PLAYER);
+
         SceneManager.LoadScene(SceneNames.GAME_SCENE);
+    }
+
+
+    public void OnGameStart(EventParameters param=null)
+    {
     }
     public void OnGamePause(EventParameters param = null)
     {

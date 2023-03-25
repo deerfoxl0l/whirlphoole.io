@@ -33,12 +33,20 @@ public class PropLifetime : MonoBehaviour, IPoolHandler
 
         if (_time_elapsed >= _game_values.PropSpawnRate)
         {
-            cloneProp(Random.Range(1, GameManager.Instance.CurrentBiggestHole + 2));
+            if (_game_values.PropSpawnSizeFloor > getSizeCeiling())
+                Debug.Log("Uhh, the floor is higher than the ceiling.");
+            else
+                cloneProp(Random.Range(_game_values.PropSpawnSizeFloor, getSizeCeiling()));
 
             _time_elapsed = 0;
             return;
         }
         _time_elapsed += Time.deltaTime;
+    }
+
+    private int getSizeCeiling()
+    {
+        return _game_values.PropSpawnSizeCeiling == -1 ? GameManager.Instance.CurrentBiggestHole + 2 : _game_values.PropSpawnSizeCeiling;
     }
 
     public void cloneProp(int propSize)

@@ -13,16 +13,18 @@ public class SceneBootup : MonoBehaviour, IBootstrapper
     public void LoadSingletonsAndDependencies()
     {
         GameManager.Instance.GameValues = _game_values == null ? ScriptableObjectsHelper.GetScriptableObject<GameValues>(FileNames.GAME_VALUES) : _game_values;
+
         GameManager.Instance.VisualValues = _visual_values == null ? ScriptableObjectsHelper.GetScriptableObject<VisualValues>(FileNames.VISUAL_VALUES) : _visual_values;
 
         GameManager.Instance.GameValues = _game_values;
         GameManager.Instance.VisualValues = _visual_values;
 
+        CameraHandler.Instance.Initialize();
+        VFXHandler.Instance.Initialize();
+
         PlayerHandler.Instance.Initialize();
         HoleHandler.Instance.Initialize();
         PropHandler.Instance.Initialize();
-        VFXHandler.Instance.Initialize();
-        CameraHandler.Instance.Initialize();
 
         if (PlayerHandler.Instance.IsDoneInitializing
             && HoleHandler.Instance.IsDoneInitializing
@@ -32,7 +34,7 @@ public class SceneBootup : MonoBehaviour, IBootstrapper
         {
             Debug.Log(SceneNames.GAME_SCENE + " initialized!");
             
-            //EventBroadcaster.Instance.PostEvent(EventKeys.START_GAME, null);
+            EventBroadcaster.Instance.PostEvent(EventKeys.START_GAME, null);
         }
     }
 }

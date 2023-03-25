@@ -35,6 +35,8 @@ public class PropHandler : Singleton<PropHandler>, ISingleton, IEventObserver
         _prop_helper.Initialize();
 
         _prop_movable_list = new List<PropMovable>();
+
+        isDone = true;
     }
 
     public void AddEventObservers()

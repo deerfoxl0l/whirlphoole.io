@@ -7,8 +7,10 @@ public static class Dictionary
 }
 public static class FileNames
 {
+    public const string PLAYER_SO = "ScriptableObjects/Players/Player";
     public const string PLAYER_SO_1 = "ScriptableObjects/Players/Player1";
     public const string PLAYER_SO_2 = "ScriptableObjects/Players/Player2";
+
     public const string GAME_VALUES = "ScriptableObjects/GameValues/GameValues1";
     public const string VISUAL_VALUES = "ScriptableObjects/VisualValues/VisualValues1";
 }
@@ -16,8 +18,7 @@ public static class FileNames
 public static class TagNames
 {
     public const string MAIN_CAMERA = "MainCamera";
-    public const string CAMERA_1 = "VirtualCam1";
-    public const string CAMERA_2 = "VirtualCam2";
+    public const string CAMERA_1 = "VirtualCam";
 
     public const string PLAYER = "Player";
 

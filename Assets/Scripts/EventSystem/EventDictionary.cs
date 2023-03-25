@@ -39,6 +39,8 @@ public class EventKeys{
 
 public class EventParamKeys
 {
+    public const string GAME_MODE_PARAM = "GAME_MODE";
+
     public const string PLAYER_PARAM = "PLAYER";
     public const string HOLE_PARAM = "HOLE";
     public const string HOLE_PARAM_2 = "HOLE_2";

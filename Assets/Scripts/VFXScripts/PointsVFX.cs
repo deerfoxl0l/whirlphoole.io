@@ -48,7 +48,7 @@ public class PointsVFX : Poolable
     public override void OnDeactivate()
     {
         _text_mesh.text = "NO_VALUE";
-        _text_mesh.fontSize = _visual_values.PointsFontSize;
+        _text_mesh.fontSize = (int) Math.Round(_visual_values.PointsFontSize * _visual_values.PointsFontSizeScale);
     }
     #endregion
 }

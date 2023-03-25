@@ -6,7 +6,6 @@ using Cinemachine;
 public class CameraScript : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera _cinema_cam;
-
     [SerializeField] private VisualValues _visual_values;
 
     private IEnumerator _zoom_out_coroutine;
@@ -18,7 +17,6 @@ public class CameraScript : MonoBehaviour
         if (_visual_values == null)
             _visual_values = GameManager.Instance.VisualValues;
 
-        _cinema_cam.m_Lens.OrthographicSize = _visual_values.CameraBaseSize;
     }
 
    

@@ -20,11 +20,6 @@ public class Player : MonoBehaviour
 
     #endregion
 
-    [SerializeField] private CameraScript _player_camera;
-    public CameraScript PlayerCamera
-    {
-        set { _player_camera = value; }
-    }
     [SerializeField] private TextMesh _text_mesh;
 
     [SerializeField] private Hole _hole;
@@ -87,10 +82,6 @@ public class Player : MonoBehaviour
     {
         this.transform.localScale = new Vector3(this.transform.localScale.x*_visual_values.NameTagBalancing, this.transform.localScale.y*_visual_values.NameTagBalancing, 1);
         SetTextMesh("" + _player_so.PlayerName + " | Lvl " + _hole.HoleLevel);
-    }
-    public void ZoomOutPlayerCamera()
-    {
-        _player_camera.ZoomOutCamera();
     }
 
     private void movePlayerKeyboard(float decreaseSpeed)

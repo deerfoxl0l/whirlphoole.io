@@ -12,16 +12,23 @@ public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
     }
     #endregion
 
+
     private MenuHandler _menu_handler;
     public MenuHandler MenuHandler
     {
         set { _menu_handler = value; }
     }
 
+    #region Event Paramaters
+    private EventParameters uiParams;
+    #endregion
+
     public void Initialize()
     {
         AddEventObservers();
 
+
+        uiParams = new EventParameters();
         isDone = true;
     }
 
@@ -33,7 +40,7 @@ public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
     public void StartGame()
     {
         //_menu_handler.ToggleVisibility();
-        EventBroadcaster.Instance.PostEvent(EventKeys.START_GAME, null);
+        EventBroadcaster.Instance.PostEvent(EventKeys.START_GAME, uiParams);
     }
 
     #region Event Broadcaster Notifications
@@ -43,7 +50,12 @@ public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
         // save param.playername from text field into scriptable object here
 
         GameManager.Instance.SetPlayerSO(PlayerDictionary.PLAYER_ONE, param.GetParameter<string>(EventParamKeys.NAME_FIELD_ONE, null));
-        StartGame();
+
+
+        uiParams.AddParameter(EventParamKeys.GAME_MODE_PARAM, GameMode.TWO_PLAYER);
+        uiParams.AddParameter(EventParamKeys.GAME_MODE_PARAM, GameMode.SINGLE_PLAYER);
+
+        //StartGame();
     }
 
     #endregion
