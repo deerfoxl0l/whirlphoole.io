@@ -7,7 +7,7 @@ public class Prop : Poolable, IPullable, IAbsorbable
     [SerializeField] private GameValues _game_values;
     [SerializeField] private Transform _child_prop;
     [SerializeField] private PropData _prop_data;
-
+    
     #region Coroutines
     private IEnumerator _pulling_prop;
     private IEnumerator _pulling_prop_anchor;
@@ -15,10 +15,6 @@ public class Prop : Poolable, IPullable, IAbsorbable
     private IEnumerator _stop_absorbing;
     #endregion
 
-    #region Cache Variables
-    private Vector2 propPosition;
-    private float propScale;
-    #endregion
     public int PropSize
     {
         get { return _prop_data.PropSize; }
@@ -28,8 +24,16 @@ public class Prop : Poolable, IPullable, IAbsorbable
         get { return _prop_data.PropPoints; }
     }
 
-    #region Event Parameters
-    private EventParameters _prop_param;
+    private bool _is_absorbing;
+    public bool IsBeingAbsorbed
+    {
+        get { return _is_absorbing; }
+    }
+
+
+    #region Cache Variables
+    private Vector2 propPosition;
+    private float propScale;
     #endregion
 
     public void OnEnable() // for when not born from an object pool, but placed and Propdata adjusted manually
@@ -136,6 +140,7 @@ public class Prop : Poolable, IPullable, IAbsorbable
     }
     public IEnumerator Absorbing(EventParameters param)
     {
+        _is_absorbing = true;
         while (this.transform.localScale.x > _game_values.PropScaleDespawn)
         {
             this.transform.localScale = Vector2.Lerp(this.transform.localScale, Vector2.zero, _game_values.HoleAbsorbStrength*Time.deltaTime);
@@ -147,6 +152,7 @@ public class Prop : Poolable, IPullable, IAbsorbable
         param.AddParameter(EventParamKeys.PROP_PARAM, this);
         EventBroadcaster.Instance.PostEvent(EventKeys.PROP_ABSORBED, param);
         _absorbing = null;
+        _is_absorbing = false;
         yield break;
     }
 

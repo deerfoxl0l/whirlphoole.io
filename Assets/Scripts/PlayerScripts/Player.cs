@@ -97,7 +97,6 @@ public class Player : MonoBehaviour
 
         if( speedMultiplier > _game_values.PlayerSpeedDecreaseFloor)
             speedMultiplier *= _game_values.PlayerSpeedDecreaseMultiplier;
-        Debug.Log("speed multiplier: " + speedMultiplier);
     }
 
 

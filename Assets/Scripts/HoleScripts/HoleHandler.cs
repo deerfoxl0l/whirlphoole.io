@@ -73,8 +73,6 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
     }
     private void onStayOuterProp(EventParameters param)
     {
-        setPropRefs(param);
-        //propRef.Pull(holeRef.transform);
     }
     private void onExitOuterProp(EventParameters param)
     {
@@ -94,7 +92,12 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
     }
     private void onStayInnerProp(EventParameters param)
     {
+        setPropRefs(param);
 
+        if (!propRef.IsBeingAbsorbed && propRef.PropSize <= holeRef.HoleLevel)
+        {
+            propRef.Absorb(param);
+        }
     }
     private void onExitInnerProp(EventParameters param)
     {
