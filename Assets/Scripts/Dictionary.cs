@@ -4,6 +4,11 @@ using UnityEngine;
 
 public static class Dictionary
 {
+    public const int CAM_LAYER_START = 6;
+
+    public const int CAM_1_LAYER = 6;
+    public const int CAM_2_LAYER = 7;
+
     public static Color SELECTED_BTN = new Color32(0, 114, 157, 255);
     public static Color DESELECTED_BTN = new Color32(0, 114, 157, 100);
 }

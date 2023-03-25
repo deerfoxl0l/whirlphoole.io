@@ -21,6 +21,7 @@ public class SceneBootup : MonoBehaviour, IBootstrapper
 
         CameraHandler.Instance.Initialize();
         VFXHandler.Instance.Initialize();
+        InputHandler.Instance.Initialize();
 
         PlayerHandler.Instance.Initialize();
         HoleHandler.Instance.Initialize();

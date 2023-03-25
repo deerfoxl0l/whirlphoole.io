@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2604408375276914823}
   - component: {fileID: 7008183649477374627}
   - component: {fileID: 184273536919501630}
-  - component: {fileID: 1036896034813157452}
   - component: {fileID: 2373510022254648116}
   - component: {fileID: 3540885983042047765}
   m_Layer: 3
@@ -53,7 +52,6 @@ MonoBehaviour:
   _player_so: {fileID: 0}
   _player_controller: {fileID: 0}
   _input_handler: {fileID: 0}
-  _player_camera: {fileID: 0}
   _text_mesh: {fileID: 0}
   _hole: {fileID: 0}
 --- !u!114 &184273536919501630
@@ -69,18 +67,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player_game_object: {fileID: 0}
---- !u!114 &1036896034813157452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2604408375276914820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9519cba6416f57a499e0076081ed7974, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!23 &2373510022254648116
 MeshRenderer:
   m_ObjectHideFlags: 0

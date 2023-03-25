@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NameTagBaseFontSize: 60
   NameTagBalancing: 0.9
+  NameTagFloor: 0.15
   PointsFontSize: 100
   PointsFontSizeScale: 1.05
   PointsScrollUpSpeed: 5
   PointsShrinkSpeed: 0.9
   CameraBaseSize: 5.5
+  CameraBaseSizeTwoPlayer: 7
   CameraZoomOutAmount: 1
+  CameraZoomOutAmountTwoPlayer: 1.5
   CameraZoomSpeed: 2

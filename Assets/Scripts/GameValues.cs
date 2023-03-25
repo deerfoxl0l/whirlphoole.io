@@ -13,6 +13,7 @@ public class GameValues : ScriptableObject
     [SerializeField] [Range(0.1f, 20f)] public float PlayerBaseSpeed;
     // USAGE: movespeed = PlayerBaseSpeed - (_player_level * PlayerSpeedDecreaseMultiplier)
     [SerializeField] [Range(0.1f, 1.0f)] public float PlayerSpeedDecreaseMultiplier;
+    [SerializeField] [Range(0.1f, 1.0f)] public float PlayerSpeedDecreaseFloor;
 
     #endregion
 

@@ -61,7 +61,6 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserve
         holeRef.gameObject.SetActive(true);
         holeRef.PlayerHole.InitializePlayer(playerSO);
 
-        CameraHandler.Instance.SetCamFollowTarget(holeRef.transform);
     }
 
     #region Event Broadcaster Notifications

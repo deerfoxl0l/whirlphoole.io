@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour, IMovableKB, IMovableM
     #region IMovableKB
     public void MoveKB(Vector2 inputs, float moveSpeed)
     {
-        _player_game_object.transform.position = new Vector2(transform.position.x + (inputs.x * Time.deltaTime * moveSpeed), transform.position.y + (inputs.y * Time.deltaTime * moveSpeed));
+        _player_game_object.transform.position = new Vector2(_player_game_object.transform.position.x + (inputs.x * Time.deltaTime * moveSpeed), _player_game_object.transform.position.y + (inputs.y * Time.deltaTime * moveSpeed));
     }
     #endregion
 

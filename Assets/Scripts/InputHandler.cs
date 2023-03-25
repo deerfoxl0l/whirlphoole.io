@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputHandler: MonoBehaviour
+public class InputHandler: Singleton<InputHandler>, ISingleton
 {
+    #region ISingleton Variables
+    private bool isDone = false;
+    public bool IsDoneInitializing
+    {
+        get { return isDone; }
+    }
+    #endregion
+
     #region Player Variables
     private PlayerControls _player_controls = null;
     #endregion
 
-    private Camera _camera;
+    [SerializeField] private Camera _camera;
 
     #region Input Variables
     private Vector2 _user_key_input;
@@ -40,20 +48,13 @@ public class InputHandler: MonoBehaviour
     }
     #endregion
 
-    private void Start()
-    {
-        if (_player_controls == null)
-        {
-            Initialize();
-        }
-    }
     public void Initialize()
     {
         _player_controls = new PlayerControls();
         _player_controls.Enable();
         this._input_allowed = true;
-        
-        _camera = GameObject.FindGameObjectWithTag(TagNames.MAIN_CAMERA).GetComponent<Camera>();
+
+        _camera = CameraHandler.Instance.GetCamera();
 
     }
 

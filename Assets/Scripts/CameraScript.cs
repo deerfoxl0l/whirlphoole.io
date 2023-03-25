@@ -8,7 +8,13 @@ public class CameraScript : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _cinema_cam;
     [SerializeField] private VisualValues _visual_values;
 
+    #region Coroutines
     private IEnumerator _zoom_out_coroutine;
+    #endregion
+
+    #region Cache Variables
+    private float zoomOutAmount;
+    #endregion
     void Start()
     {
         if (_cinema_cam == null)
@@ -23,7 +29,16 @@ public class CameraScript : MonoBehaviour
     public void ZoomOutCamera()
     {
         //_cinema_cam.m_Lens.OrthographicSize+= zoomOut;
-        _zoom_out_coroutine = zoomOut(_cinema_cam.m_Lens.OrthographicSize + _visual_values.CameraZoomOutAmount);
+        if(GameManager.Instance.GameMode == GameMode.SINGLE_PLAYER)
+        {
+            zoomOutAmount = _visual_values.CameraZoomOutAmount;
+        }
+        else
+        {
+            zoomOutAmount = _visual_values.CameraZoomOutAmountTwoPlayer;
+        }
+
+        _zoom_out_coroutine = zoomOut(_cinema_cam.m_Lens.OrthographicSize + zoomOutAmount);
         StartCoroutine(_zoom_out_coroutine);
     }
 

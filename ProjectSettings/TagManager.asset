@@ -9,6 +9,7 @@ TagManager:
   - Hole
   - PropStaff
   - VirtualCam
+  - VirtualCam1
   layers:
   - Default
   - TransparentFX
@@ -16,8 +17,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Cam1
+  - Cam2
   - 
   - 
   - 

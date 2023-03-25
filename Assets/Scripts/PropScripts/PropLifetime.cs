@@ -36,7 +36,7 @@ public class PropLifetime : MonoBehaviour, IPoolHandler
             if (_game_values.PropSpawnSizeFloor > getSizeCeiling())
                 Debug.Log("Uhh, the floor is higher than the ceiling.");
             else
-                cloneProp(Random.Range(_game_values.PropSpawnSizeFloor, getSizeCeiling()));
+                cloneProp(Random.Range(_game_values.PropSpawnSizeFloor-1, getSizeCeiling()));
 
             _time_elapsed = 0;
             return;

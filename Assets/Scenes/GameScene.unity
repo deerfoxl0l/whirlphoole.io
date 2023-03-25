@@ -230,14 +230,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 862735485}
     m_Modifications:
-    - target: {fileID: 2822808293902735270, guid: 7d1cad95b383c7247b5d5e98b5c438f6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 8049100635247302625, guid: 7d1cad95b383c7247b5d5e98b5c438f6, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8352662205510092812, guid: 7d1cad95b383c7247b5d5e98b5c438f6, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -285,14 +277,6 @@ PrefabInstance:
     - target: {fileID: 8352662205510092815, guid: 7d1cad95b383c7247b5d5e98b5c438f6, type: 3}
       propertyPath: m_Name
       value: PlayerHole
-      objectReference: {fileID: 0}
-    - target: {fileID: 8352662205510092815, guid: 7d1cad95b383c7247b5d5e98b5c438f6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9015138305264416951, guid: 7d1cad95b383c7247b5d5e98b5c438f6, type: 3}
-      propertyPath: m_Color.rgba
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d1cad95b383c7247b5d5e98b5c438f6, type: 3}
@@ -662,6 +646,7 @@ GameObject:
   m_Component:
   - component: {fileID: 598526574}
   - component: {fileID: 598526575}
+  - component: {fileID: 598526576}
   m_Layer: 0
   m_Name: PlayerHandler
   m_TagString: Untagged
@@ -699,6 +684,20 @@ MonoBehaviour:
   _persistent: 0
   _player_spawn_transform: {fileID: 1480526072}
   _player_hole_template: {fileID: 135994696}
+--- !u!114 &598526576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598526573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9519cba6416f57a499e0076081ed7974, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _persistent: 0
+  _camera: {fileID: 0}
 --- !u!1 &624464782
 GameObject:
   m_ObjectHideFlags: 0
@@ -744,7 +743,7 @@ GameObject:
   m_Component:
   - component: {fileID: 766584857}
   m_Layer: 0
-  m_Name: VirtualCamSpawner
+  m_Name: CamSpawnTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -761,8 +760,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1153494808}
+  m_Children: []
   m_Father: {fileID: 445661680}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -894,7 +892,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1153494808
 Transform:
   m_ObjectHideFlags: 0
@@ -903,12 +901,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1153494807}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 526193697}
-  m_Father: {fileID: 766584857}
+  m_Father: {fileID: 1516317991}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1153494809
@@ -1282,12 +1280,12 @@ GameObject:
   - component: {fileID: 1516317989}
   - component: {fileID: 1516317992}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: CameraTemplate
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &1516317989
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1295,7 +1293,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1516317988}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1516317990
 Camera:
   m_ObjectHideFlags: 0
@@ -1350,7 +1348,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1153494808}
   m_Father: {fileID: 445661680}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1480,9 +1479,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _persistent: 0
   _visual_values: {fileID: 0}
-  _virtual_cam_template: {fileID: 1153494809}
-  _virtual_cam_spawn: {fileID: 766584857}
+  _cam_template: {fileID: 1516317990}
+  _cam_spawn: {fileID: 766584857}
   _cam_list: []
+  _virtual_cam_list: []
 --- !u!1001 &257701298259032878
 PrefabInstance:
   m_ObjectHideFlags: 0

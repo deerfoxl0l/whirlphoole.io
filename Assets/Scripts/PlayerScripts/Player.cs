@@ -16,13 +16,15 @@ public class Player : MonoBehaviour
 
     [SerializeField] private PlayerScriptableObject _player_so;
     [SerializeField] private PlayerController _player_controller;
-    [SerializeField] private InputHandler _input_handler;
 
     #endregion
 
+    [SerializeField] private Hole _hole;
     [SerializeField] private TextMesh _text_mesh;
 
-    [SerializeField] private Hole _hole;
+    #region Cache Variables
+    private float speedMultiplier;
+    #endregion
     public int PlayerHoleLevel
     {
         get { return _hole.HoleLevel; }
@@ -53,26 +55,33 @@ public class Player : MonoBehaviour
         if (_player_controller == null)
             _player_controller = GetComponent<PlayerController>();
 
-        if (_input_handler == null)
-            _input_handler = GetComponent<InputHandler>();
-
-        _input_handler.Initialize();
-
         if (_text_mesh == null)
             _text_mesh = GetComponent<TextMesh>();
+
         _text_mesh.fontSize = _visual_values.NameTagBaseFontSize;
+
         SetTextMesh("" + _player_so.PlayerName + " | Lvl " + _hole.HoleLevel);
+
+        speedMultiplier = _game_values.PlayerSpeedDecreaseMultiplier;
+
+        CameraHandler.Instance.SetCamFollowTarget(this.transform.parent.transform);
     }
     private void Update()
     {
         
-        if (_input_handler.UserKeyHold)
+        if (_player_so.PlayerID==2 && InputHandler.Instance.UserKeyHold)
         {
-            movePlayerKeyboard(_hole.HoleLevel * _game_values.PlayerSpeedDecreaseMultiplier);
+            movePlayerKeyboard(speedMultiplier);
+
+            return; 
         }
 
-        movePlayerMouse(_hole.HoleLevel * _game_values.PlayerSpeedDecreaseMultiplier);
-    }
+        if (_player_so.PlayerID == 1)
+        {
+            movePlayerMouse(speedMultiplier);
+            return;
+        }
+    } 
 
     public void SetTextMesh(string text)
     {
@@ -80,21 +89,34 @@ public class Player : MonoBehaviour
     }
     public void UpdateLevel()
     {
-        this.transform.localScale = new Vector3(this.transform.localScale.x*_visual_values.NameTagBalancing, this.transform.localScale.y*_visual_values.NameTagBalancing, 1);
+        if (this.transform.localScale.x > _visual_values.NameTagFloor)
+        {
+            scaleDownPlayerSize();
+        }
         SetTextMesh("" + _player_so.PlayerName + " | Lvl " + _hole.HoleLevel);
+
+        if( speedMultiplier > _game_values.PlayerSpeedDecreaseFloor)
+            speedMultiplier *= _game_values.PlayerSpeedDecreaseMultiplier;
+        Debug.Log("speed multiplier: " + speedMultiplier);
+    }
+
+
+    private void scaleDownPlayerSize()
+    {
+        this.transform.localScale = new Vector3(this.transform.localScale.x * _visual_values.NameTagBalancing, this.transform.localScale.y * _visual_values.NameTagBalancing, 1);
     }
 
     private void movePlayerKeyboard(float decreaseSpeed)
-    {//movespeed = _player_base_speed - (_player_level * _player_speed_decrease_multiplier)
-        _player_controller.MoveKB(_input_handler.UserKeyInput, _game_values.PlayerBaseSpeed - decreaseSpeed );
+    {
+        _player_controller.MoveKB(InputHandler.Instance.UserKeyInput, _game_values.PlayerBaseSpeed * decreaseSpeed );
     }
     private void movePlayerMouse(float decreaseSpeed)
     {
         // just a big block of text making sure it doesn't jitter at cursor point
-        if( ((_input_handler.UserCursorInput.x - _game_values.PlayerCursorOffset) < this.transform.parent.transform.localPosition.x && this.transform.parent.transform.localPosition.x < (_input_handler.UserCursorInput.x + _game_values.PlayerCursorOffset)) && (((_input_handler.UserCursorInput.y - _game_values.PlayerCursorOffset) < this.transform.parent.transform.localPosition.y) &&(this.transform.parent.transform.localPosition.y < (_input_handler.UserCursorInput.y + _game_values.PlayerCursorOffset))))
+        if( ((InputHandler.Instance.UserCursorInput.x - _game_values.PlayerCursorOffset) < this.transform.parent.transform.localPosition.x && this.transform.parent.transform.localPosition.x < (InputHandler.Instance.UserCursorInput.x + _game_values.PlayerCursorOffset)) && (((InputHandler.Instance.UserCursorInput.y - _game_values.PlayerCursorOffset) < this.transform.parent.transform.localPosition.y) &&(this.transform.parent.transform.localPosition.y < (InputHandler.Instance.UserCursorInput.y + _game_values.PlayerCursorOffset))))
             return;
 
-        _player_controller.MoveM(_input_handler.UserCursorInput, _game_values.PlayerBaseSpeed - decreaseSpeed);
+        _player_controller.MoveM(InputHandler.Instance.UserCursorInput, _game_values.PlayerBaseSpeed * decreaseSpeed);
     }
 
 
