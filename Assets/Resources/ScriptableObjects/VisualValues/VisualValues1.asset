@@ -19,7 +19,7 @@ MonoBehaviour:
   PointsFontSizeScale: 1.1
   PointsScrollUpSpeed: 5
   PointsShrinkSpeed: 0.9
-  CameraBaseSize: 6
+  CameraBaseSize: 6.5
   CameraBaseSizeTwoPlayer: 8
   CameraZoomOutAmount: 1.5
   CameraZoomOutAmountTwoPlayer: 1.5
