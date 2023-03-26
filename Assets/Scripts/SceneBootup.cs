@@ -45,8 +45,6 @@ public class SceneBootup : MonoBehaviour, IBootstrapper
         PropHandler.Instance.PropStaff = _prop_staff;
         PropHandler.Instance.Initialize();
 
-
-
         if (PlayerHandler.Instance.IsDoneInitializing
             && HoleHandler.Instance.IsDoneInitializing
             && PropHandler.Instance.IsDoneInitializing

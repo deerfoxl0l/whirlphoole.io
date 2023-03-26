@@ -18,7 +18,6 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
     private Prop propRef;
     private Hole holeRef;
     private Hole holeRef2;
-    private bool passHole;
     #endregion
 
     public void Initialize()
@@ -46,6 +45,7 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
         EventBroadcaster.Instance.AddObserver(EventKeys.OUTER_ENTER_HOLE, onEnterOuterHole);
         EventBroadcaster.Instance.AddObserver(EventKeys.OUTER_EXIT_HOLE, onExitOuterHole);
         EventBroadcaster.Instance.AddObserver(EventKeys.INNER_ENTER_HOLE, onEnterInnerHole);
+        EventBroadcaster.Instance.AddObserver(EventKeys.INNER_STAY_HOLE, onStayInnerHole);
         EventBroadcaster.Instance.AddObserver(EventKeys.INNER_EXIT_HOLE, onExitInnerHole);
 
         EventBroadcaster.Instance.AddObserver(EventKeys.HOLE_ABSORBED, onHoleAbsorbed);
@@ -58,10 +58,32 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
         holeRef = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM, null);
     }
 
-    private void setHoleRefs(EventParameters param)
+    private int setHoleRefs(EventParameters param)
     {
         holeRef = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM, null);
         holeRef2 = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM_2, null);
+
+        //returns 1 if hole1 is bigger than hole2, no change
+        if (holeRef.HoleLevel - holeRef2.HoleLevel >= _game_values.HoleAbsorbDifference)
+        {
+            return 1;
+        }
+
+        //returns -1 if hole 2 is bigger than hole 1 after switching;
+        if (holeRef2.HoleLevel - holeRef.HoleLevel >= _game_values.HoleAbsorbDifference)
+        {
+            // Switch paramters so hole_param_2 is the smaller one
+            holeRef = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM_2, null);
+            holeRef2 = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM, null);
+
+            param.AddParameter(EventParamKeys.HOLE_PARAM, holeRef);
+            param.AddParameter(EventParamKeys.HOLE_PARAM_2, holeRef2);
+
+            return -1;
+        }
+
+        // returns 0 if equal, no change
+        return 0;
     }
 
     #region Prop on Hole Events
@@ -129,30 +151,38 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
     }
     private void onEnterInnerHole(EventParameters param)
     {
-        setHoleRefs(param);
-
-        if (holeRef.HoleLevel == holeRef2.HoleLevel)
+        if(setHoleRefs(param) != 1)
+        {
             return;
-
-        if(holeRef.HoleLevel - holeRef2.HoleLevel  == _game_values.HoleAbsorbDifference)
-        {
-            passHole = true;
-        }
-        else if (holeRef2.HoleLevel - holeRef.HoleLevel >= _game_values.HoleAbsorbDifference)
-        {
-            param.AddParameter(EventParamKeys.HOLE_PARAM, holeRef2);
-            param.AddParameter(EventParamKeys.HOLE_PARAM_2, holeRef);
-            passHole = true;
         }
 
-        if(passHole)
-            EventBroadcaster.Instance.PostEvent(EventKeys.HOLE_ABSORBED, param);
-
-        passHole = false;
+        holeRef2.Absorb(param);
+        
     }
+    private void onStayInnerHole(EventParameters param)
+    {
+        if(setHoleRefs(param) != 1)
+        {
+            return;
+        }
+
+        holeRef2.Absorb(param);
+    }
+
     private void onExitInnerHole(EventParameters param)
     {
 
+        if (setHoleRefs(param) != -1)
+        {
+            return;
+        }
+
+        if (!holeRef2.gameObject.activeInHierarchy)
+        {
+            return;
+        }
+
+        holeRef2.AbsorbStop();
     }
     private void onHoleAbsorbed(EventParameters param)
     {

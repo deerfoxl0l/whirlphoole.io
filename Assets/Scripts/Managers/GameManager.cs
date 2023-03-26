@@ -155,17 +155,24 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
 
         EventBroadcaster.Instance.RemoveObserver(EventKeys.PLAYER_SO_UPDATE);
         EventBroadcaster.Instance.RemoveObserver(EventKeys.PLAYER_SCORE_UPDATE);
+
         EventBroadcaster.Instance.RemoveObserver(EventKeys.OUTER_ENTER_PROP);
         EventBroadcaster.Instance.RemoveObserver(EventKeys.OUTER_STAY_PROP);
         EventBroadcaster.Instance.RemoveObserver(EventKeys.OUTER_EXIT_PROP);
+
         EventBroadcaster.Instance.RemoveObserver(EventKeys.INNER_ENTER_PROP);
         EventBroadcaster.Instance.RemoveObserver(EventKeys.INNER_STAY_PROP);
         EventBroadcaster.Instance.RemoveObserver(EventKeys.INNER_EXIT_PROP);
+
         EventBroadcaster.Instance.RemoveObserver(EventKeys.PROP_ABSORBED);
+
         EventBroadcaster.Instance.RemoveObserver(EventKeys.OUTER_ENTER_HOLE);
         EventBroadcaster.Instance.RemoveObserver(EventKeys.OUTER_EXIT_HOLE);
+
         EventBroadcaster.Instance.RemoveObserver(EventKeys.INNER_ENTER_HOLE);
+        EventBroadcaster.Instance.RemoveObserver(EventKeys.INNER_STAY_HOLE);
         EventBroadcaster.Instance.RemoveObserver(EventKeys.INNER_EXIT_HOLE);
+
         EventBroadcaster.Instance.RemoveObserver(EventKeys.HOLE_ABSORBED);
         EventBroadcaster.Instance.RemoveObserver(EventKeys.HOLE_LEVEL_UP);
 

@@ -37,6 +37,7 @@ public class EventKeys{
     public const string OUTER_EXIT_HOLE = "OUTER_EXIT_HOLE";
 
     public const string INNER_ENTER_HOLE = "INNER_ENTER_HOLE";
+    public const string INNER_STAY_HOLE = "INNER_STAY_HOLE";
     public const string INNER_EXIT_HOLE = "INNER_EXIT_HOLE";
 
     public const string HOLE_ABSORBED = "HOLE_ABSORBED";

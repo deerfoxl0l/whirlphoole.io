@@ -22,11 +22,14 @@ MonoBehaviour:
   HolePullStrengthProp: 0.1
   HolePullStrengthPropAnchor: 0.6
   HoleWhirlStrength: 150
-  HoleAbsorbStrength: 5
-  HoleExpBaseThreshold: 10
+  HoleAbsorbStrengthProp: 5
+  HoleExpBaseThreshold: 1
   HoleExpMultiplier: 1.5
+  HolePullStrengthHole: 0.1
+  HoleAbsorbStrengthHole: 0.5
   HoleAbsorbDifference: 1
-  HoleExpCannibalMultiplier: 0
+  HoleScaleDespawn: 0.25
+  HoleExpCannibalMultiplier: 0.5
   PropSpawnRate: 0.5
   PropSpawnSizeFloor: 1
   PropSpawnSizeCeiling: -1

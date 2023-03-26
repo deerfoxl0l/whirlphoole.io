@@ -69,6 +69,7 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserve
         holeRef.gameObject.SetActive(true);
         playerSO.ResetValues(holeRef.HoleNxtLvl);
         holeRef.PlayerHole.InitializePlayer(playerSO);
+
         UIManager.Instance.SetPlayerUI(holeRef.PlayerHole.PlayerID, CameraHandler.Instance.GetCameraForUI(holeRef.PlayerHole.PlayerID));
     }
 

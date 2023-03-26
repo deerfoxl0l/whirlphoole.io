@@ -27,8 +27,7 @@ public class PropLifetime : MonoBehaviour, IPoolHandler
 
     void Update()
     {
-        if (GameManager.Instance.GameState == GameState.PROGRAM_START ||
-            GameManager.Instance.GameState == GameState.PAUSED)
+        if (! (GameManager.Instance.GameState == GameState.INGAME))
             return;
 
         if (_time_elapsed >= _game_values.PropSpawnRate)

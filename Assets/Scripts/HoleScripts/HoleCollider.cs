@@ -53,7 +53,7 @@ public class HoleCollider : MonoBehaviour
 
         if (collision.CompareTag(TagNames.HOLE))
         {
-            //_hole_parent.StayColliderHole(collision, _collider_type);
+            _hole_parent.StayColliderHole(collision, _collider_type);
             return;
         }
     }

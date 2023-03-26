@@ -5,8 +5,8 @@ using UnityEngine;
 public interface IPullable 
 {
     void Pull(Transform target);
-    IEnumerator PullingProp();
-    IEnumerator PullingPropAnchor(Transform target);
+    IEnumerator Pulling();
+    IEnumerator PullingAnchor(Transform target);
 
     void PullStop();
 }

@@ -83,13 +83,13 @@ public class Prop : Poolable, IPullable, IAbsorbable
         this.transform.localPosition = target.transform.localPosition;
         _child_prop.transform.position = propPosition;
 
-        _pulling_prop = PullingProp();
-        _pulling_prop_anchor = PullingPropAnchor(target);
+        _pulling_prop = Pulling();
+        _pulling_prop_anchor = PullingAnchor(target);
         StartCoroutine(_pulling_prop);
         StartCoroutine(_pulling_prop_anchor);
         
     }
-    public IEnumerator PullingProp()
+    public IEnumerator Pulling()
     {
         float current=0;
 
@@ -106,7 +106,7 @@ public class Prop : Poolable, IPullable, IAbsorbable
 
         yield break;
     }
-    public IEnumerator PullingPropAnchor(Transform target)
+    public IEnumerator PullingAnchor(Transform target)
     {
 
         while (this.transform.localPosition.x != target.transform.localPosition.x*_game_values.PropAnchorAim && this.transform.localPosition.y != target.transform.localPosition.y * _game_values.PropAnchorAim)
@@ -146,7 +146,7 @@ public class Prop : Poolable, IPullable, IAbsorbable
         _is_absorbing = true;
         while (this.transform.localScale.x > _game_values.PropScaleDespawn)
         {
-            this.transform.localScale = Vector2.Lerp(this.transform.localScale, Vector2.zero, _game_values.HoleAbsorbStrength*Time.deltaTime);
+            this.transform.localScale = Vector2.Lerp(this.transform.localScale, Vector2.zero, _game_values.HoleAbsorbStrengthProp*Time.deltaTime);
 
             yield return null;
         }
@@ -175,7 +175,7 @@ public class Prop : Poolable, IPullable, IAbsorbable
     {
         while (this.transform.localScale.x < propScale)
         {
-            this.transform.localScale = Vector2.Lerp(this.transform.localScale, new Vector2(propScale, propScale), _game_values.HoleAbsorbStrength * Time.deltaTime);
+            this.transform.localScale = Vector2.Lerp(this.transform.localScale, new Vector2(propScale, propScale), _game_values.HoleAbsorbStrengthProp * Time.deltaTime);
             yield return null;
         }
 
@@ -195,7 +195,6 @@ public class Prop : Poolable, IPullable, IAbsorbable
     {
         _child_prop.transform.localPosition = Vector3.zero;
         this.transform.localRotation = Quaternion.identity;
-        this.gameObject.SetActive(true);
     }
 
     public override void OnDeactivate()
