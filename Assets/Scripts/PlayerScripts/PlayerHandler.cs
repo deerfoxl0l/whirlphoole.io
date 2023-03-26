@@ -16,11 +16,11 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserve
     //[SerializeField] private Hole _player_hole_template;
 
 
-    [SerializeField] private PlayerStaff player_staff;
+    [SerializeField] private PlayerStaff _player_staff;
     public PlayerStaff PlayerStaff
     {
-        get { return player_staff; }
-        set { player_staff = value; }
+        get { return _player_staff; }
+        set { _player_staff = value; }
     }
 
     [SerializeField] private Hole _target_hole;
@@ -71,12 +71,14 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserve
 
     private void spawnPlayerHole(PlayerScriptableObject playerSO)
     {
-        holeRef = GameObject.Instantiate(player_staff.PlayerHoleTemplate, player_staff.PlayerSpawnTransform);
+        holeRef = GameObject.Instantiate(_player_staff.PlayerHoleTemplate, _player_staff.PlayerSpawnTransform);
         holeRef.gameObject.SetActive(true);
 
         playerSO.ResetValues(holeRef.HoleNxtLvl);
         holeRef.PlayerHole.InitializePlayer(playerSO);
         UIManager.Instance.SetPlayerUI(holeRef.PlayerHole.PlayerID, CameraHandler.Instance.GetCameraForUI(holeRef.PlayerHole.PlayerID));
+
+        holeRef.transform.localPosition = _player_staff.PlayerSpawners[Random.Range(0, _player_staff.PlayerSpawners.Count)].transform.localPosition;
 
         // only used in single player 
         _target_hole = holeRef;

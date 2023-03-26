@@ -901,7 +901,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Keyboard Control
+  m_text: WASD Controls
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b6ecba01872061d4e990a754742f0377, type: 2}
   m_sharedMaterial: {fileID: 6488530231742857678, guid: b6ecba01872061d4e990a754742f0377, type: 2}
@@ -1528,7 +1528,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Mouse Control
+  m_text: Mouse Controls
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b6ecba01872061d4e990a754742f0377, type: 2}
   m_sharedMaterial: {fileID: 6488530231742857678, guid: b6ecba01872061d4e990a754742f0377, type: 2}

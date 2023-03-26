@@ -15,10 +15,10 @@ MonoBehaviour:
   NameTagBaseFontSize: 50
   NameTagBalancing: 0.95
   NameTagFloor: 0.15
-  PointsFontSize: 100
+  PointsFontSize: 75
   PointsFontSizeScale: 1.1
-  PointsScrollUpSpeed: 5
-  PointsShrinkSpeed: 0.9
+  PointsScrollUpSpeed: 9
+  PointsShrinkSpeed: 1
   CameraBaseSize: 6.5
   CameraBaseSizeTwoPlayer: 8
   CameraZoomOutAmount: 1.5

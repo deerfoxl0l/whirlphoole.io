@@ -116,6 +116,7 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
     public void OnGameStart(EventParameters param=null)
     {
         _current_biggest_hole_size = 1;
+        Time.timeScale = 1;
     }
     public void OnGamePause(EventParameters param = null)
     {
