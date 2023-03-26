@@ -59,8 +59,8 @@ public class Hole : MonoBehaviour
         this.transform.localScale = new Vector3(_game_values.HoleBaseSize, _game_values.HoleBaseSize, 1);
 
         Physics2D.IgnoreCollision(_outer_collider, _inner_collider);
-        Physics2D.IgnoreCollision(_outer_collider, PropHandler.Instance.PropHelper.PropSpawnBoundsCollider);
-        Physics2D.IgnoreCollision(_inner_collider, PropHandler.Instance.PropHelper.PropSpawnBoundsCollider);
+        Physics2D.IgnoreCollision(_outer_collider, PropHandler.Instance.PropStaff.PropHelper.PropSpawnBoundsCollider);
+        Physics2D.IgnoreCollision(_inner_collider, PropHandler.Instance.PropStaff.PropHelper.PropSpawnBoundsCollider);
 
         holeParams = new EventParameters();
         holeParams.AddParameter(EventParamKeys.HOLE_PARAM, this);

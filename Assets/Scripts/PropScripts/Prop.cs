@@ -60,7 +60,7 @@ public class Prop : Poolable, IPullable, IAbsorbable
     {
         _prop_data.InitializeData(propSize);
 
-        this.transform.localPosition = PropHandler.Instance.PropHelper.getPropSpawnPoint(_prop_data.PropSpawnPoint);
+        this.transform.localPosition = PropHandler.Instance.PropStaff.PropHelper.getPropSpawnPoint(_prop_data.PropSpawnPoint);
 
         propScale = _prop_data.PropSize * _game_values.PropsScaleBase * _game_values.PropsScaleMultiplier;
 
@@ -91,10 +91,15 @@ public class Prop : Poolable, IPullable, IAbsorbable
     }
     public IEnumerator PullingProp()
     {
+        float current=0;
+
         while (_child_prop.transform.localPosition.x != 0 && _child_prop.transform.localPosition.y != 0)
         {
+
+            current = Mathf.MoveTowards(current, 1, _game_values.HolePullStrengthProp * Time.deltaTime);
+
             // prop pulling translation
-            _child_prop.transform.localPosition = Vector2.Lerp(_child_prop.transform.localPosition, Vector2.zero, _game_values.HolePullStrength * Time.deltaTime);
+            _child_prop.transform.localPosition = Vector2.Lerp(_child_prop.transform.localPosition, Vector2.zero, current);
 
             yield return null;
         }
@@ -109,7 +114,7 @@ public class Prop : Poolable, IPullable, IAbsorbable
             // swirl rotation
             this.transform.Rotate(Vector3.back, _game_values.HoleWhirlStrength * Time.deltaTime);
 
-            this.transform.localPosition = Vector2.Lerp(this.transform.localPosition, target.transform.localPosition, _game_values.HolePullStrength * Time.deltaTime);
+            this.transform.localPosition = Vector2.Lerp(this.transform.localPosition, target.transform.localPosition, _game_values.HolePullStrengthPropAnchor * Time.deltaTime);
 
             yield return null;
         }
@@ -119,8 +124,6 @@ public class Prop : Poolable, IPullable, IAbsorbable
 
     public void PullStop()
     {
-        //this.transform.localPosition = Vector3.zero;
-        //Debug.Log("pulling stop!");
         StopCoroutine(_pulling_prop_anchor);
     }
 
@@ -197,7 +200,7 @@ public class Prop : Poolable, IPullable, IAbsorbable
 
     public override void OnDeactivate()
     {
-
+        _is_absorbing = false;
     }
     #endregion
 }

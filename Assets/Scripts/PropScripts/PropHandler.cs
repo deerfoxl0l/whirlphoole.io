@@ -12,6 +12,13 @@ public class PropHandler : Singleton<PropHandler>, ISingleton, IEventObserver
     }
     #endregion
 
+    [SerializeField] private PropStaff _prop_staff;
+    public PropStaff PropStaff
+    {
+        get { return _prop_staff; }
+        set { _prop_staff = value; }
+    }
+    /*
     [SerializeField] private PropLifetime _prop_lifetime;
     public PropLifetime PropLifetime
     {
@@ -23,17 +30,12 @@ public class PropHandler : Singleton<PropHandler>, ISingleton, IEventObserver
     {
         get { return _prop_helper; }
     }
-
+    */
 
     private List<PropMovable> _prop_movable_list;
 
     public void Initialize()
     {
-        _prop_lifetime = GetComponent<PropLifetime>();
-        _prop_lifetime.Initialize();
-        _prop_helper = GetComponent<PropHelper>();
-        _prop_helper.Initialize();
-
         _prop_movable_list = new List<PropMovable>();
 
         AddEventObservers();
@@ -65,7 +67,7 @@ public class PropHandler : Singleton<PropHandler>, ISingleton, IEventObserver
 
     private void removeProp(Prop prop)
     {
-        _prop_lifetime.DeactivateObject(prop.transform.gameObject);
+        _prop_staff.PropLifetime.DeactivateObject(prop.transform.gameObject);
     }
 
 

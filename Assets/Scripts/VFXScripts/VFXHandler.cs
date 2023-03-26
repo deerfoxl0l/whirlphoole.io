@@ -12,7 +12,11 @@ public class VFXHandler : Singleton<VFXHandler>, ISingleton, IPoolHandler, IEven
     }
     #endregion
 
-    [SerializeField] private VFXObjectPool _sfx_op;
+    [SerializeField] private VFXObjectPool _vfx_op;
+    public VFXObjectPool VFXObjectPool
+    {
+        set { _vfx_op = value; }
+    }
 
     #region Cache Params
     private PointsVFX pointsRef;
@@ -22,8 +26,8 @@ public class VFXHandler : Singleton<VFXHandler>, ISingleton, IPoolHandler, IEven
     #endregion
     public void Initialize()
     {
-        if (_sfx_op == null)
-            _sfx_op = GetComponent<VFXObjectPool>();
+        if (_vfx_op == null)
+            _vfx_op = GetComponent<VFXObjectPool>();
         AddEventObservers();
 
         isDone = true;
@@ -39,7 +43,7 @@ public class VFXHandler : Singleton<VFXHandler>, ISingleton, IPoolHandler, IEven
     {
         //Debug.Log("Hole absorbed for VFX ");
         absorbedPropRef = param.GetParameter<Prop>(EventParamKeys.PROP_PARAM, null);
-        pointsRef = _sfx_op.getPointsVFX().GetComponent<PointsVFX>();
+        pointsRef = _vfx_op.getPointsVFX().GetComponent<PointsVFX>();
 
         pointsRef.PointsText = "+ " + absorbedPropRef.PropPoints;
         pointsRef.transform.localPosition = absorbedPropRef.transform.localPosition;
@@ -51,7 +55,7 @@ public class VFXHandler : Singleton<VFXHandler>, ISingleton, IPoolHandler, IEven
         // GETTING HOLE_PARAM_2, THE ONE THAT WAS ABSORBED, 
         absorbedHoleRef = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM_2, null);
 
-        pointsRef = _sfx_op.getPointsVFX().GetComponent<PointsVFX>();
+        pointsRef = _vfx_op.getPointsVFX().GetComponent<PointsVFX>();
 
         pointsRef.PointsText = "+ " + absorbedHoleRef.HoleExperience;
 
@@ -66,7 +70,7 @@ public class VFXHandler : Singleton<VFXHandler>, ISingleton, IPoolHandler, IEven
 
     public void DeactivateObject(GameObject obj)
     {
-        _sfx_op.GameObjectPool.Release(obj);
+        _vfx_op.GameObjectPool.Release(obj);
     }
 
 }

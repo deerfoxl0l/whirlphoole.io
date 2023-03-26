@@ -15,8 +15,11 @@ public class CameraHandler : Singleton<CameraHandler>, ISingleton, IEventObserve
 
     [SerializeField] private VisualValues _visual_values;
 
-    [SerializeField] private Camera _cam_template;
-    [SerializeField] private Transform _cam_spawn;
+    [SerializeField] private CameraStaff _camera_staff;
+    public CameraStaff CameraStaff {
+        get { return _camera_staff; }
+        set { _camera_staff = value; }
+    }
 
     [SerializeField] private List<Camera> _cam_list;
     [SerializeField] private List<CinemachineVirtualCamera> _virtual_cam_list;
@@ -33,6 +36,7 @@ public class CameraHandler : Singleton<CameraHandler>, ISingleton, IEventObserve
             _visual_values = GameManager.Instance.VisualValues;
 
         _cam_list = new List<Camera>();
+        _virtual_cam_list = new List<CinemachineVirtualCamera>();
 
         switch (GameManager.Instance.GameMode){
             case GameMode.NONE_SELECTED:
@@ -59,7 +63,7 @@ public class CameraHandler : Singleton<CameraHandler>, ISingleton, IEventObserve
     {
         for(int i=0; i< camAmount; i++)
         {
-            _cam_list.Add(Instantiate(_cam_template, _cam_spawn));
+            _cam_list.Add(Instantiate(_camera_staff.CamTemplate, _camera_staff.CamSpawn));
 
             _virtual_cam_list.Add(_cam_list[i].GetComponentInChildren<CinemachineVirtualCamera>());
 

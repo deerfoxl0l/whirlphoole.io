@@ -15,6 +15,9 @@ public class EventKeys{
     public const string QUIT_GAME = "QUIT_GAME";
     public const string EXIT_PROGRAM = "EXIT_PROGRAM";
 
+    //UI EVENT KEYS
+    public const string PLAY_PRESSED = "PLAY_BUTTON_PRESSED";
+
     // GAME EVENT KEYS
 
     public const string PLAYER_SO_UPDATE = "PLAYER_SO_UPDATE";
@@ -41,8 +44,6 @@ public class EventKeys{
     public const string HOLE_LEVEL_UP = "HOLE_LEVEL_UP";
 
 
-    //UI EVENT KEYS
-    public const string PLAY_PRESSED = "PLAY_BUTTON_PRESSED";
 }
 
 public class EventParamKeys

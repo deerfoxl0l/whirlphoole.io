@@ -120,6 +120,7 @@ public class PlayerUI : MonoBehaviour, IEventObserver
     }
     private void OnQuitClicked()
     {
+        EventBroadcaster.Instance.RemoveObserver(EventKeys.PAUSE_GAME);
         deactivateMiddlePanel();
         EventBroadcaster.Instance.PostEvent(EventKeys.QUIT_GAME, null);
     }

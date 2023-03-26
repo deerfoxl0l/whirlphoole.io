@@ -25,7 +25,8 @@ public class GameValues : ScriptableObject
     // USAGE: size += _hole_level* HoleBaseSize*HoleSizeMultiplier
     [SerializeField][Range(0.1f, 1.5f)] public float HoleSizeMultiplier;
 
-    [SerializeField] [Range(1f, 10f)] public float HolePullStrength;
+    [SerializeField] [Range(.1f, 3f)] public float HolePullStrengthProp;
+    [SerializeField] [Range(.1f, 3f)] public float HolePullStrengthPropAnchor;
     [SerializeField] [Range(10f, 300f)] public float HoleWhirlStrength;
     [SerializeField] [Range(1f, 30f)] public float HoleAbsorbStrength;
 

@@ -127,10 +127,12 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
     }
     public void OnGameQuit(EventParameters param = null)
     {
+        StopAllCoroutines();
         _game_state_handler.SwitchState(GameState.MAIN_MENU);
         InputHandler.Instance.toggleInputAllow(false);
-        //SceneManager.LoadScene(SceneNames.MAIN_MENU);
-        Application.Quit();
+        removeEventObservers();
+        SceneManager.LoadScene(SceneNames.MAIN_MENU);
+        //Application.Quit();
     }
     public void OnProgramExit(EventParameters param = null)
     {
@@ -138,5 +140,28 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
     }
 
     #endregion
+
+
+    private void removeEventObservers()
+    {
+
+        EventBroadcaster.Instance.RemoveObserver(EventKeys.PLAYER_SO_UPDATE);
+        EventBroadcaster.Instance.RemoveObserver(EventKeys.PLAYER_SCORE_UPDATE);
+        EventBroadcaster.Instance.RemoveObserver(EventKeys.OUTER_ENTER_PROP);
+        EventBroadcaster.Instance.RemoveObserver(EventKeys.OUTER_STAY_PROP);
+        EventBroadcaster.Instance.RemoveObserver(EventKeys.OUTER_EXIT_PROP);
+        EventBroadcaster.Instance.RemoveObserver(EventKeys.INNER_ENTER_PROP);
+        EventBroadcaster.Instance.RemoveObserver(EventKeys.INNER_STAY_PROP);
+        EventBroadcaster.Instance.RemoveObserver(EventKeys.INNER_EXIT_PROP);
+        EventBroadcaster.Instance.RemoveObserver(EventKeys.PROP_ABSORBED);
+        EventBroadcaster.Instance.RemoveObserver(EventKeys.OUTER_ENTER_HOLE);
+        EventBroadcaster.Instance.RemoveObserver(EventKeys.OUTER_EXIT_HOLE);
+        EventBroadcaster.Instance.RemoveObserver(EventKeys.INNER_ENTER_HOLE);
+        EventBroadcaster.Instance.RemoveObserver(EventKeys.INNER_EXIT_HOLE);
+        EventBroadcaster.Instance.RemoveObserver(EventKeys.HOLE_ABSORBED);
+        EventBroadcaster.Instance.RemoveObserver(EventKeys.HOLE_LEVEL_UP);
+        EventBroadcaster.Instance.RemoveObserver(EventKeys.GAME_OVER);
+
+    }
 }
 

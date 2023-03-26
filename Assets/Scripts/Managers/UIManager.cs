@@ -65,7 +65,6 @@ public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
         if (GameManager.Instance.GameMode == GameMode.TWO_PLAYER)
         {
             setPlayerSO(FileNames.PLAYER_SO_2, param.GetParameter<string>(EventParamKeys.NAME_FIELD_TWO, "NONE"));
-
         }
     }
 

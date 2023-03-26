@@ -12,9 +12,16 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserve
     }
     #endregion
 
-    [SerializeField] private Transform _player_spawn_transform;
-    [SerializeField] private Hole _player_hole_template;
+    //[SerializeField] private Transform _player_spawn_transform;
+    //[SerializeField] private Hole _player_hole_template;
 
+
+    [SerializeField] private PlayerStaff player_staff;
+    public PlayerStaff PlayerStaff
+    {
+        get { return player_staff; }
+        set { player_staff = value; }
+    }
 
     #region Cache Variables
     private Player playerRef;
@@ -58,7 +65,7 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserve
 
     private void spawnPlayerHole(PlayerScriptableObject playerSO)
     {
-        holeRef = GameObject.Instantiate(_player_hole_template, _player_spawn_transform);
+        holeRef = GameObject.Instantiate(player_staff.PlayerHoleTemplate, player_staff.PlayerSpawnTransform);
         holeRef.gameObject.SetActive(true);
         playerSO.ResetValues(holeRef.HoleNxtLvl);
         holeRef.PlayerHole.InitializePlayer(playerSO);

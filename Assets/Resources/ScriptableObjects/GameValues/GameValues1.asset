@@ -19,8 +19,9 @@ MonoBehaviour:
   HoleBaseSize: 1
   HoleGrowSpeed: 3
   HoleSizeMultiplier: 0.8
-  HolePullStrength: 1.5
-  HoleWhirlStrength: 100
+  HolePullStrengthProp: 0.1
+  HolePullStrengthPropAnchor: 0.6
+  HoleWhirlStrength: 150
   HoleAbsorbStrength: 5
   HoleExpBaseThreshold: 45
   HoleExpMultiplier: 1.5
@@ -34,4 +35,4 @@ MonoBehaviour:
   PropsScaleBase: 1
   PropScaleDespawn: 0.2
   PropsScaleMultiplier: 0.5
-  PropAnchorAim: 1.1
+  PropAnchorAim: 1.05
