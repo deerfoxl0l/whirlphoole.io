@@ -16,7 +16,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - GameLayer
   - Water
   - UI
   - Cam1
@@ -48,4 +48,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Props
+    uniqueID: 3852085089
+    locked: 0
+  - name: UI
+    uniqueID: 2818491587
     locked: 0

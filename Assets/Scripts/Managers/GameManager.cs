@@ -8,7 +8,8 @@ public enum GameState
     PROGRAM_START,
     MAIN_MENU,
     INGAME,
-    PAUSED
+    PAUSED,
+    EXITING
 }
 
 public enum GameMode
@@ -81,7 +82,6 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
         _game_mode_handler = new StateHandler<GameMode>();
         _game_mode_handler.Initialize(GameMode.NONE_SELECTED);
 
-        _current_biggest_hole_size = 1;
         AddEventObservers();
 
         isDone = true;
@@ -92,12 +92,16 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
         EventBroadcaster.Instance.AddObserver(EventKeys.PLAY_PRESSED, OnPlayPressed);
         EventBroadcaster.Instance.AddObserver(EventKeys.START_GAME, OnGameStart);
         EventBroadcaster.Instance.AddObserver(EventKeys.PAUSE_GAME, OnGamePause);
+        EventBroadcaster.Instance.AddObserver(EventKeys.RESUME_GAME, OnGameResume);
+        EventBroadcaster.Instance.AddObserver(EventKeys.QUIT_GAME, OnGameQuit);
+        EventBroadcaster.Instance.AddObserver(EventKeys.EXIT_PROGRAM, OnProgramExit);
     }
 
     #region Event Broadcaster Notifications
     public void OnStartMenu(EventParameters param=null)
     {
-        _game_state_handler.Initialize(GameState.MAIN_MENU);
+        _game_state_handler.SwitchState(GameState.MAIN_MENU);
+        _game_mode_handler.SwitchState(GameMode.NONE_SELECTED);
     }
     public void OnPlayPressed(EventParameters param)
     {
@@ -109,13 +113,30 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
 
     public void OnGameStart(EventParameters param=null)
     {
+        _current_biggest_hole_size = 1;
     }
     public void OnGamePause(EventParameters param = null)
     {
         _game_state_handler.SwitchState(GameState.PAUSED);
-
+        InputHandler.Instance.toggleInputAllow(false);
     }
-    
+    public void OnGameResume(EventParameters param = null)
+    {
+        _game_state_handler.SwitchState(GameState.INGAME);
+        InputHandler.Instance.toggleInputAllow(true);
+    }
+    public void OnGameQuit(EventParameters param = null)
+    {
+        _game_state_handler.SwitchState(GameState.MAIN_MENU);
+        InputHandler.Instance.toggleInputAllow(false);
+        //SceneManager.LoadScene(SceneNames.MAIN_MENU);
+        Application.Quit();
+    }
+    public void OnProgramExit(EventParameters param = null)
+    {
+        _game_state_handler.SwitchState(GameState.EXITING);
+    }
+
     #endregion
 }
 

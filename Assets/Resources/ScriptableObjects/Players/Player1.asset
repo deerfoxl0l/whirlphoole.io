@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Player1
   m_EditorClassIdentifier: 
   _player_id: 1
-  _player_name: "testing\u200B"
+  _player_name: 
   _player_score: 0
+  _player_next_lvl: 0

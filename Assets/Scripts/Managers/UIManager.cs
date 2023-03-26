@@ -38,8 +38,8 @@ public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
     public void AddEventObservers()
     {
         EventBroadcaster.Instance.AddObserver(EventKeys.PLAY_PRESSED, OnPlayPressed);
-
         EventBroadcaster.Instance.AddObserver(EventKeys.PLAYER_SCORE_UPDATE, OnScoreUpdate);
+        EventBroadcaster.Instance.AddObserver(EventKeys.GAME_OVER, onGameOver);
     }
     private void setPlayerSO(string playerSOPath, string playerName)
     {
@@ -79,6 +79,24 @@ public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
             {
                 plyrUI.SetScores(playerRef.PlayerScore, (playerRef.PlayerNextLvl- playerRef.PlayerScore));
                 return;
+            }
+        }
+    }
+
+    private void onGameOver(EventParameters param)
+    {
+        int playerWin = param.GetParameter<int>(EventParamKeys.PLAYER_WIN_PARAM, 0);
+        int playerLose = param.GetParameter<int>(EventParamKeys.PLAYER_LOSE_PARAM, 0);
+
+        foreach (PlayerUI plyrUI in _player_ui_list)
+        {
+            if (plyrUI.PlayerID == playerWin)
+            {
+                plyrUI.PlayerWin();
+            }
+            if(plyrUI.PlayerID == playerLose)
+            {
+                plyrUI.PlayerLose();
             }
         }
     }

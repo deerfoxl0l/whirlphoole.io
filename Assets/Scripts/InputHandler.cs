@@ -67,6 +67,11 @@ public class InputHandler: Singleton<InputHandler>, ISingleton
 
         _user_cursor_input = _camera.ScreenToWorldPoint(_player_controls.InGame.Movement_M_Position.ReadValue<Vector2>());
 
+        if(_player_controls.InGame.Game_Pause.ReadValue<float>()==1)
+        {
+            EventBroadcaster.Instance.PostEvent(EventKeys.PAUSE_GAME, null);
+        }
+
        
     }
 

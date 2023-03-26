@@ -34,7 +34,7 @@ public class MenuHandler: MonoBehaviour
     private EventParameters menuParams;
     #endregion
 
-    public void Awake()
+    public void Start()
     {
         Initialize();
 
@@ -76,7 +76,9 @@ public class MenuHandler: MonoBehaviour
 
     #region OnClick Functions
     private void OnSingleClicked()
-    {
+    {/*
+        Debug.Log("game maanger? " + GameManager.Instance);
+        Debug.Log("game mode? " + GameManager.Instance.GameModeHandler);*/
         GameManager.Instance.GameModeHandler.SwitchState(GameMode.SINGLE_PLAYER);
         _single_player_img.color = Dictionary.SELECTED_BTN;
         _two_player_img.color = Dictionary.DESELECTED_BTN;

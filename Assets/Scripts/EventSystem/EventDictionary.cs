@@ -10,6 +10,10 @@ public class EventKeys{
     public const string START_MENU = "PROGRAM_START";
     public const string START_GAME = "GAME_START";
     public const string PAUSE_GAME = "GAME_PAUSE";
+    public const string RESUME_GAME = "RESUME_GAME";
+    public const string GAME_OVER = "GAME_OVER";
+    public const string QUIT_GAME = "QUIT_GAME";
+    public const string EXIT_PROGRAM = "EXIT_PROGRAM";
 
     // GAME EVENT KEYS
 
@@ -48,6 +52,9 @@ public class EventParamKeys
     public const string PLAYER_PARAM = "PLAYER";
     public const string PLAYER_SCORE_PARAM = "PLAYER_SCORE_PARAM";
     public const string PLAYER_LVL_PARAM = "PLAYER_LVL_PARAM";
+
+    public const string PLAYER_WIN_PARAM = "PLAYER_WIN_PARAM";
+    public const string PLAYER_LOSE_PARAM = "PLAYER_LOSE_PARAM";
 
     public const string HOLE_PARAM = "HOLE";
     public const string HOLE_PARAM_2 = "HOLE_2";
