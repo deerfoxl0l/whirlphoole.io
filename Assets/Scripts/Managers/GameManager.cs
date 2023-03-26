@@ -120,11 +120,13 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
     public void OnGamePause(EventParameters param = null)
     {
         _game_state_handler.SwitchState(GameState.PAUSED);
+        Time.timeScale = 0;
         InputHandler.Instance.toggleInputAllow(false);
     }
     public void OnGameResume(EventParameters param = null)
     {
         _game_state_handler.SwitchState(GameState.INGAME);
+        Time.timeScale = 1;
         InputHandler.Instance.toggleInputAllow(true);
     }
     public void onGameOver(EventParameters param = null)
