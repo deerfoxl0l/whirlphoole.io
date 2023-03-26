@@ -78,6 +78,7 @@ public class Player : MonoBehaviour
         SetTextMesh("" + _player_so.PlayerName + " | Lvl " + _hole.HoleLevel);
 
         speedMultiplier = _game_values.PlayerSpeedDecreaseMultiplier;
+        UpdateScores(0, _game_values.HoleExpBaseThreshold);
         CameraHandler.Instance.SetCamFollowTarget(this.transform.parent.transform);
     }
     private void Update()

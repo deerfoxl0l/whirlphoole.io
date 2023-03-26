@@ -12,8 +12,10 @@ public class MenuHandler: MonoBehaviour
     #endregion
 
     #region TextFields
-    [SerializeField] private TextMeshProUGUI _name_field_1;
-    [SerializeField] private TextMeshProUGUI _name_field_2;
+    [SerializeField] private TMP_InputField _name_field_1;
+    [SerializeField] private TextMeshProUGUI _name_field_1_placeholder;
+    [SerializeField] private TMP_InputField _name_field_2;
+    [SerializeField] private TextMeshProUGUI _name_field_2_placeholder;
     #endregion
 
     #region Buttons
@@ -50,6 +52,25 @@ public class MenuHandler: MonoBehaviour
         _play = _play.GetComponent<Button>();
         _play.onClick.AddListener(OnPlayClicked);
 
+        _name_field_1.text = string.Empty;
+        _name_field_2.text = string.Empty;
+
+        PlayerScriptableObject playerSO = ScriptableObjectsHelper.GetScriptableObject<PlayerScriptableObject>(FileNames.PLAYER_SO_1);
+        if (!string.IsNullOrWhiteSpace(playerSO.PlayerName))
+        {
+            _name_field_1.text = playerSO.PlayerName;
+        }
+
+        playerSO = ScriptableObjectsHelper.GetScriptableObject<PlayerScriptableObject>(FileNames.PLAYER_SO_2);
+        if (!string.IsNullOrWhiteSpace(playerSO.PlayerName))
+        {
+            _name_field_2.text = playerSO.PlayerName;
+        }
+
+
+        _name_field_1_placeholder.text = "Cardo Dalisay";
+        _name_field_2_placeholder.text = "Tanggol Quiapo";
+
         menuParams = new EventParameters();
     }
 
@@ -74,10 +95,22 @@ public class MenuHandler: MonoBehaviour
     }
     private void OnPlayClicked()
     {
+        if (string.IsNullOrWhiteSpace(_name_field_1.text))
+        {
+            _name_field_1_placeholder.text = "Enter a name";
+            return;
+        }
         menuParams.AddParameter(EventParamKeys.NAME_FIELD_ONE, _name_field_1.text);
 
         if(GameManager.Instance.GameMode == GameMode.TWO_PLAYER)
+        {
             menuParams.AddParameter(EventParamKeys.NAME_FIELD_TWO, _name_field_2.text);
+            if (string.IsNullOrWhiteSpace(_name_field_2.text))
+            {
+                _name_field_2_placeholder.text = "Enter a name";
+                return;
+            }
+        }
 
         EventBroadcaster.Instance.PostEvent(EventKeys.PLAY_PRESSED, menuParams);
     }

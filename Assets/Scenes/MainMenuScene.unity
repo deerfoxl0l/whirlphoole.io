@@ -766,7 +766,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Cardo Dalisay\u200B"
+  m_text: "\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b6ecba01872061d4e990a754742f0377, type: 2}
   m_sharedMaterial: {fileID: 6488530231742857678, guid: b6ecba01872061d4e990a754742f0377, type: 2}
@@ -1077,7 +1077,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 40
-  m_CharacterLimit: 10
+  m_CharacterLimit: 25
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -1105,7 +1105,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: Cardo Dalisay
+  m_Text: 
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -1258,7 +1258,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 997209338}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -1626,7 +1626,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1168669579}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -2697,7 +2697,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 40
-  m_CharacterLimit: 10
+  m_CharacterLimit: 25
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -2725,7 +2725,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: Tanggol Quiapo
+  m_Text: 
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -2893,8 +2893,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name_field_2_obj: {fileID: 1924336223}
-  _name_field_1: {fileID: 837761026}
-  _name_field_2: {fileID: 2070384395}
+  _name_field_1: {fileID: 926206742}
+  _name_field_1_placeholder: {fileID: 997209341}
+  _name_field_2: {fileID: 1924336225}
+  _name_field_2_placeholder: {fileID: 1168669582}
   _single_player_btn: {fileID: 712282068}
   _two_player_btn: {fileID: 609618537}
   _play: {fileID: 1286699501}
@@ -3111,7 +3113,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Tanggol Quiapo\u200B"
+  m_text: "\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b6ecba01872061d4e990a754742f0377, type: 2}
   m_sharedMaterial: {fileID: 6488530231742857678, guid: b6ecba01872061d4e990a754742f0377, type: 2}

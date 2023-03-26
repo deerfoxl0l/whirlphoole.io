@@ -64,7 +64,7 @@ public class Hole : MonoBehaviour
 
         holeParams = new EventParameters();
         holeParams.AddParameter(EventParamKeys.HOLE_PARAM, this);
-        if (_player is not null)
+        if (_player is not null) // if hole has no player component attached i.e. not controlled by player
             holeParams.AddParameter(EventParamKeys.PLAYER_PARAM, _player);
     }
 

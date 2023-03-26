@@ -32,7 +32,7 @@ public class GameValues : ScriptableObject
     [SerializeField] [Range(1, 100)] public int HoleExpBaseThreshold;
 
     //USAGE: HoleExpThreshold  + (HoleExpThreshold *(_hole_level -1)* HoleExpThresholdMultiplier)
-    [SerializeField][Range(0.5f, 1.5f)] public float HoleExpMultiplier;
+    [SerializeField][Range(0.5f, 3.0f)] public float HoleExpMultiplier;
 
     [SerializeField] [Range(1, 5)] public int HoleAbsorbDifference;
 

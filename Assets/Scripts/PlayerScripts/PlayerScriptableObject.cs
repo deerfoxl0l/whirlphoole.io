@@ -38,6 +38,11 @@ public class PlayerScriptableObject : ScriptableObject
         _player_id = playerID;
         _player_name = playerName;
     }
+    public void ResetValues(int baseThreshold)
+    {
+        _player_score = 0;
+        _player_next_lvl = baseThreshold;
+    }
     public void SetScores(int score, int nxtLvl)
     {
         _player_score = score;

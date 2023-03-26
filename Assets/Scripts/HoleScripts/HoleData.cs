@@ -31,6 +31,9 @@ public class HoleData : MonoBehaviour
     [SerializeField] private Color _hole_color;
     #endregion
 
+
+    private bool lvledUp = false;
+
     #region Hole Data Methods
     public void InitializeHoleData(Color color)
     {
@@ -41,17 +44,19 @@ public class HoleData : MonoBehaviour
 
     public bool AddHoleExp(int exp, int baseThreshold, float thresholdMultiplier)
     {
+        lvledUp = false;
 
         _hole_experience += exp;
 
-        if(_hole_experience>= _current_exp_threshold)
+        while (_hole_experience >= _current_exp_threshold)
         {
             _hole_level++;
-            _current_exp_threshold += baseThreshold +
-                (baseThreshold * (int)Math.Round((_hole_level-1)* thresholdMultiplier) );
-            return true;
-        }
-        return false;
+            _current_exp_threshold += baseThreshold + (baseThreshold * (int)Math.Round((_hole_level - 1) * thresholdMultiplier));
+            lvledUp = true;
+        } 
+
+        return lvledUp;
     }
+
     #endregion
 }
