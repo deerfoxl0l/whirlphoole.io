@@ -108,20 +108,28 @@ public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
 
     private void onGameOver(EventParameters param)
     {
-        int playerWin = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM, null).PlayerHole.PlayerID;
-        int playerLose = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM_2, null).PlayerHole.PlayerID;
-
-        foreach (PlayerUI playerUI in _player_ui_list)
+        if(GameManager.Instance.GameMode == GameMode.TWO_PLAYER)
         {
-            if (playerUI.PlayerID == playerWin)
+            int playerWin = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM, null).PlayerHole.PlayerID;
+            int playerLose = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM_2, null).PlayerHole.PlayerID;
+
+            foreach (PlayerUI playerUI in _player_ui_list)
             {
-                playerUI.OnPlayerWin();
-            }
-            else if(playerUI.PlayerID == playerLose)
-            {
-                playerUI.OnPlayerLose();
+                if (playerUI.PlayerID == playerWin)
+                {
+                    playerUI.OnPlayerWin();
+                }
+                else if (playerUI.PlayerID == playerLose)
+                {
+                    playerUI.OnPlayerLose();
+                }
             }
         }
+        else
+        {
+            _player_ui_list[0].OnPlayerLose();
+        }
+        
     }
 
     #endregion

@@ -23,6 +23,12 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserve
         set { player_staff = value; }
     }
 
+    [SerializeField] private Hole _target_hole;
+    public Hole GetTargetHole
+    {
+        get { return _target_hole; }
+    }
+
     #region Cache Variables
     private Player playerRef;
     private Hole holeRef;
@@ -67,10 +73,13 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserve
     {
         holeRef = GameObject.Instantiate(player_staff.PlayerHoleTemplate, player_staff.PlayerSpawnTransform);
         holeRef.gameObject.SetActive(true);
+
         playerSO.ResetValues(holeRef.HoleNxtLvl);
         holeRef.PlayerHole.InitializePlayer(playerSO);
-
         UIManager.Instance.SetPlayerUI(holeRef.PlayerHole.PlayerID, CameraHandler.Instance.GetCameraForUI(holeRef.PlayerHole.PlayerID));
+
+        // only used in single player 
+        _target_hole = holeRef;
     }
 
     #region Event Broadcaster Notifications
@@ -78,7 +87,10 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserve
     {
         playerRef = param.GetParameter<Player>(EventParamKeys.PLAYER_PARAM, null);
         holeRef = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM, null);
-        playerRef.UpdateScores(holeRef.HoleExperience, holeRef.HoleNxtLvl);
+        if (playerRef != null && holeRef != null)
+        {
+            playerRef.UpdateScores(holeRef.HoleExperience, holeRef.HoleNxtLvl);
+        }
     }
 
     private void OnHoleLevelUp(EventParameters param)

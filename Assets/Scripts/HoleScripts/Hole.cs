@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Hole : Poolable, IPullable, IAbsorbable
+public class Hole : Poolable, IAbsorbable
 {
     #region Hole Variables
     [SerializeField] private HoleData _hole_data;
@@ -11,6 +11,10 @@ public class Hole : Poolable, IPullable, IAbsorbable
     [SerializeField] private Collider2D _outer_collider;
     [SerializeField] private Collider2D _inner_collider;
 
+    public bool IsFromObjPool
+    {
+        get { return poolOrigin == null ? false : true; }
+    }
     public int HoleLevel
     {
         get{ return _hole_data.HoleLevel; }
@@ -26,12 +30,15 @@ public class Hole : Poolable, IPullable, IAbsorbable
     #endregion
 
     [SerializeField] private GameValues _game_values;
-    [SerializeField] private Player _player; // optional if just a hole, required if has player component
+    [SerializeField] private Player _playerHole; // optional if just a hole, required if has player component
 
     public Player PlayerHole
     {
-        get { return _player; }
+        get { return _playerHole; }
     }
+
+    [SerializeField] private Hole _target_hole;
+
 
     #region EventParameters
     EventParameters holeParams;
@@ -39,31 +46,50 @@ public class Hole : Poolable, IPullable, IAbsorbable
 
     #region Coroutines
     IEnumerator _growing_hole;
-
-    private IEnumerator _pulling_hole;
     private IEnumerator _absorbing;
     private IEnumerator _stop_absorbing;
     #endregion
 
-    float holeScale;
+    private float holeScale;
     private bool _is_absorbing;
+    private Vector3 tempVec;
 
     void Start()
     {
-        if(_game_values == null)
-            _game_values = GameManager.Instance.GameValues;
-        if (_player == null)
-            _player = GetComponentInChildren<Player>();
+        if (IsFromObjPool)
+            return;
 
-        if(_hole_data == null)
+        InitializeHole(1, new Vector3(0,0,0), new Color(255, 0, 0));
+        holeParams.AddParameter(EventParamKeys.PLAYER_PARAM, _playerHole);
+    }
+
+    public void InitializeHole(int level, Vector2 spawnLocation, Color color)
+    {
+        if (_game_values == null)
+            _game_values = GameManager.Instance.GameValues;
+        if (_playerHole == null)
+            _playerHole = GetComponentInChildren<Player>();
+
+        if (_hole_data == null)
         {
             _hole_data = GetComponent<HoleData>();
         }
-        _hole_data.InitializeHoleData(new Color(0, 255, 0));
 
-        _hole_data.HoleCurrentExpThreshold = _game_values.HoleExpBaseThreshold;
-        holeScale = _game_values.HoleBaseSize;
-        this.transform.localScale = new Vector3(holeScale, holeScale, 1);
+        this.transform.localPosition = spawnLocation;
+
+        _hole_data.InitializeHoleData(level, color, _game_values.HoleExpBaseThreshold, _game_values.HoleRivalExpMultiplier);
+
+        if (level == 1)
+        {
+            _hole_data.HoleCurrentExpThreshold = _game_values.HoleExpBaseThreshold;
+            holeScale = _game_values.HoleBaseSize;
+            this.transform.localScale = new Vector3(holeScale, holeScale, 1);
+        }
+        else
+        {
+            _hole_data.HoleCurrentExpThreshold = 99999;
+            IncreaseHoleSize();
+        }
 
         Physics2D.IgnoreCollision(_outer_collider, _inner_collider);
         Physics2D.IgnoreCollision(_outer_collider, PropHandler.Instance.PropStaff.PropHelper.PropSpawnBoundsCollider);
@@ -71,8 +97,29 @@ public class Hole : Poolable, IPullable, IAbsorbable
 
         holeParams = new EventParameters();
         holeParams.AddParameter(EventParamKeys.HOLE_PARAM, this);
-        if (_player is not null) // if hole has no player component attached i.e. not controlled by player
-            holeParams.AddParameter(EventParamKeys.PLAYER_PARAM, _player);
+
+    }
+    void Update()
+    {
+        if (poolOrigin == null) // no obj pool origin, meaning it's controlled by a player
+            return;
+
+        moveHole(_target_hole.transform.localPosition, _game_values.HoleRivalSpeed);
+    }
+
+    private void moveHole(Vector2 targetLocation, float moveSpeed)
+    {
+        tempVec = getDirection(targetLocation);
+        this.transform.position = new Vector2(transform.localPosition.x + (tempVec.x*moveSpeed * Time.deltaTime), transform.localPosition.y + (tempVec.y*moveSpeed*Time.deltaTime));
+    }
+
+    private Vector3 getDirection(Vector2 targetLocation)
+    {
+        return Vector3.Normalize(new Vector3(targetLocation.x - transform.localPosition.x, targetLocation.y - transform.localPosition.y));
+    }
+    public void SetTarget(Hole targetHole)
+    {
+        this._target_hole = targetHole;
     }
 
     public void AddHoleExperience(int exp)
@@ -103,55 +150,6 @@ public class Hole : Poolable, IPullable, IAbsorbable
     }
 
 
-    #region IPullable
-    public void Pull(Transform target)
-    {
-        if (!this.gameObject.activeInHierarchy)
-            return;
-
-        if (_pulling_hole is not null)
-            StopCoroutine(_pulling_hole);
-
-        /*
-        propPosition = _child_prop.transform.localPosition == this.transform.localPosition ? this.transform.position : propPosition = _child_prop.transform.position;
-
-        this.transform.localPosition = target.transform.localPosition;
-        _child_prop.transform.position = propPosition;
-        */
-        _pulling_hole = Pulling();
-        StartCoroutine(_pulling_hole);
-
-    }
-    public IEnumerator Pulling()
-    {
-        /*
-        float current = 0;
-        
-        while (_child_prop.transform.localPosition.x != 0 && _child_prop.transform.localPosition.y != 0)
-        {
-
-            current = Mathf.MoveTowards(current, 1, _game_values.HolePullStrengthProp * Time.deltaTime);
-
-            // prop pulling translation
-            _child_prop.transform.localPosition = Vector2.Lerp(_child_prop.transform.localPosition, Vector2.zero, current);
-
-            yield return null;
-        }*/
-
-        yield break;
-    }
-    public IEnumerator PullingAnchor(Transform target)
-    {
-        yield break;
-    }
-
-    public void PullStop()
-    {
-        StopCoroutine(_pulling_hole);
-    }
-
-    #endregion
-
     #region IAbsorbable
     public void Absorb(EventParameters param)
     {
@@ -170,7 +168,6 @@ public class Hole : Poolable, IPullable, IAbsorbable
         
         while (this.transform.localScale.x > _game_values.HoleScaleDespawn)
         {
-            Debug.Log("absorbing hole!");
             this.transform.localScale = Vector2.Lerp(this.transform.localScale, Vector2.zero, _game_values.HoleAbsorbStrengthHole * Time.deltaTime);
 
             yield return null;
@@ -199,7 +196,6 @@ public class Hole : Poolable, IPullable, IAbsorbable
         StopCoroutine(_absorbing);
 
         _stop_absorbing = StopAbsorbing();
-        Debug.Log("Absorbing hole stop!");
         StartCoroutine(_stop_absorbing);
     }
     public IEnumerator StopAbsorbing()
@@ -208,7 +204,6 @@ public class Hole : Poolable, IPullable, IAbsorbable
 
         while (this.transform.localScale.x < holeScale)
         {
-            Debug.Log("stopping absorbing!");
             current = Mathf.MoveTowards(current, 1, _game_values.HoleAbsorbStrengthHole * Time.deltaTime);
              this.transform.localScale = Vector2.Lerp(this.transform.localScale, new Vector2(holeScale, holeScale), current);
             yield return null;
@@ -341,7 +336,6 @@ public class Hole : Poolable, IPullable, IAbsorbable
 
     public override void OnDeactivate()
     {
-        _is_absorbing = false;
     }
     #endregion
 }

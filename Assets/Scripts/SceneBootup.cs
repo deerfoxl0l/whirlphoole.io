@@ -13,8 +13,9 @@ public class SceneBootup : MonoBehaviour, IBootstrapper
 
     [SerializeField] private CameraStaff _camera_staff;
     [SerializeField] private VFXObjectPool _vfx_op;
-    [SerializeField] private PlayerStaff _player_staff;
     [SerializeField] private PropStaff _prop_staff;
+    [SerializeField] private PlayerStaff _player_staff;
+    [SerializeField] private HoleStaff _hole_staff;
 
     public void Awake()
     {
@@ -41,6 +42,7 @@ public class SceneBootup : MonoBehaviour, IBootstrapper
         PlayerHandler.Instance.PlayerStaff = _player_staff;
         PlayerHandler.Instance.Initialize();
 
+        HoleHandler.Instance.HoleStaff = _hole_staff; 
         HoleHandler.Instance.Initialize();
         PropHandler.Instance.PropStaff = _prop_staff;
         PropHandler.Instance.Initialize();

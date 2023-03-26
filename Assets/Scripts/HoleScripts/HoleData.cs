@@ -35,10 +35,11 @@ public class HoleData : MonoBehaviour
     private bool lvledUp = false;
 
     #region Hole Data Methods
-    public void InitializeHoleData(Color color)
+    public void InitializeHoleData(int level, Color color, int baseThreshold, int rivalMultiplier)
     {
         _hole_color = color;
-        _hole_level = 1;
+        _hole_level = level;
+        _hole_experience = (level - 1) * baseThreshold * rivalMultiplier;
     }
 
 

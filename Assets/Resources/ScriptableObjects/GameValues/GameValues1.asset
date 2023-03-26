@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameValues1
   m_EditorClassIdentifier: 
   PlayerCursorOffset: 0.25
-  PlayerBaseSpeed: 8
+  PlayerBaseSpeed: 16.2
   PlayerSpeedDecreaseMultiplier: 0.95
   PlayerSpeedDecreaseFloor: 0.5
   HoleBaseSize: 1
@@ -25,11 +25,14 @@ MonoBehaviour:
   HoleAbsorbStrengthProp: 5
   HoleExpBaseThreshold: 1
   HoleExpMultiplier: 1.5
+  HoleRivalSpeed: 1.2
+  HoleRivalExpMultiplier: 3
   HolePullStrengthHole: 0.1
   HoleAbsorbStrengthHole: 0.5
   HoleAbsorbDifference: 1
   HoleScaleDespawn: 0.25
-  HoleExpCannibalMultiplier: 0.5
+  HoleExpCannibalMultiplier: 1
+  PropSpawnMax: 0
   PropSpawnRate: 0.5
   PropSpawnSizeFloor: 1
   PropSpawnSizeCeiling: -1

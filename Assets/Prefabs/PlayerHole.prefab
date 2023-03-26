@@ -118,6 +118,10 @@ PrefabInstance:
       propertyPath: _hole_data
       value: 
       objectReference: {fileID: 8331019028916885205}
+    - target: {fileID: 3122191624457419398, guid: c2ebc39a6ea2bea49823ef9046d6a93e, type: 3}
+      propertyPath: _playerHole
+      value: 
+      objectReference: {fileID: 7082481422740172162}
     - target: {fileID: 3122191624457419401, guid: c2ebc39a6ea2bea49823ef9046d6a93e, type: 3}
       propertyPath: m_RootOrder
       value: 0

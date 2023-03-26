@@ -22,12 +22,12 @@ public class PropLifetime : MonoBehaviour, IPoolHandler
 
         if (_game_values == null)
             _game_values = GameManager.Instance.GameValues;
-
     }
 
     void Update()
     {
-        if (! (GameManager.Instance.GameState == GameState.INGAME))
+        if (!(GameManager.Instance.GameState == GameState.INGAME) &&
+        _prop_obj_pool.GameObjectPool.CountActive < _game_values.PropSpawnMax)
             return;
 
         if (_time_elapsed >= _game_values.PropSpawnRate)

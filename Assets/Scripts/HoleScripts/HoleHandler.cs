@@ -14,16 +14,25 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
 
     [SerializeField] private GameValues _game_values ;
 
+
+    [SerializeField] private HoleStaff _hole_staff;
+    public HoleStaff HoleStaff
+    {
+        set { _hole_staff = value; }
+    }
+    
     #region Cache Variables
     private Prop propRef;
     private Hole holeRef;
     private Hole holeRef2;
     #endregion
 
+
     public void Initialize()
     {
         if(_game_values == null)
             _game_values = GameManager.Instance.GameValues;
+
         AddEventObservers();
 
         isDone = true;
@@ -50,6 +59,18 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
 
         EventBroadcaster.Instance.AddObserver(EventKeys.HOLE_ABSORBED, onHoleAbsorbed);
 
+    }
+
+    private void spawnRivalHole(int level)
+    {
+        Hole rival = _hole_staff.HoleObjPool.GameObjectPool.Get().GetComponent<Hole>();
+        rival.SetTarget(PlayerHandler.Instance.GetTargetHole);
+        rival.InitializeHole(level, _hole_staff.HoleSpawners[UnityEngine.Random.Range(0, _hole_staff.HoleSpawners.Count)].transform.localPosition, new Color(0,255,0));
+    }
+
+    private void despawnRivalHole(Hole hole)
+    {
+        _hole_staff.HoleObjPool.GameObjectPool.Release(hole.gameObject);
     }
 
     private void setPropRefs(EventParameters param)
@@ -134,7 +155,8 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
     private void onPropAbsorbed(EventParameters param)
     {
         setPropRefs(param);
-
+        if (holeRef.IsFromObjPool)
+            return;
         holeRef.AddHoleExperience(propRef.PropPoints);
         EventBroadcaster.Instance.PostEvent(EventKeys.PLAYER_SO_UPDATE, param);
     }
@@ -187,12 +209,22 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
     private void onHoleAbsorbed(EventParameters param)
     {
         setHoleRefs(param);
+        if (holeRef.IsFromObjPool)
+            return;
 
         holeRef.AddHoleExperience( (int)Math.Round(holeRef2.HoleExperience * _game_values.HoleExpCannibalMultiplier));
+
+        param.AddParameter(EventParamKeys.HOLE_PARAM, holeRef);
+        param.AddParameter(EventParamKeys.PLAYER_PARAM, holeRef.PlayerHole);
+        EventBroadcaster.Instance.PostEvent(EventKeys.PLAYER_SO_UPDATE, param);
 
         if (holeRef2.PlayerHole != null)
         {
             EventBroadcaster.Instance.PostEvent(EventKeys.GAME_OVER, param);
+        }
+        if (holeRef2.IsFromObjPool)
+        {
+            despawnRivalHole(holeRef2);
         }
         holeRef2.gameObject.SetActive(false);
     }
@@ -200,6 +232,11 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
     {
         holeRef = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM, null);
         holeRef.IncreaseHoleSize();
+
+        if (GameManager.Instance.CurrentBiggestHole % 3 == 0)
+        {
+            spawnRivalHole(GameManager.Instance.CurrentBiggestHole+1);
+        }
     }
     #endregion
 }

@@ -35,6 +35,8 @@ public class GameValues : ScriptableObject
     //USAGE: HoleExpThreshold  + (HoleExpThreshold *(_hole_level -1)* HoleExpThresholdMultiplier)
     [SerializeField][Range(0.5f, 3.0f)] public float HoleExpMultiplier;
 
+    [SerializeField] [Range(0.1f, 20f)] public float HoleRivalSpeed;
+    [SerializeField] [Range(1, 10)] public int HoleRivalExpMultiplier;
 
     [SerializeField] [Range(.1f, 3f)] public float HolePullStrengthHole;
     [SerializeField] [Range(.01f, 1f)] public float HoleAbsorbStrengthHole;
@@ -47,6 +49,7 @@ public class GameValues : ScriptableObject
     #endregion
 
     #region Prop Fields
+    [SerializeField] [Range(1f, 300f)] public float PropSpawnMax;
     [SerializeField] [Range(0.1f, 2f)] public float PropSpawnRate;
     [SerializeField] [Range(0, 100)] public int PropSpawnSizeFloor;
     [SerializeField] [Range(-1, 100)] public int PropSpawnSizeCeiling;
