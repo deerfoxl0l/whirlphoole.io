@@ -8,6 +8,7 @@ public enum GameState
     PROGRAM_START,
     MAIN_MENU,
     INGAME,
+    GAME_OVER,
     PAUSED,
     EXITING
 }
@@ -93,6 +94,7 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
         EventBroadcaster.Instance.AddObserver(EventKeys.START_GAME, OnGameStart);
         EventBroadcaster.Instance.AddObserver(EventKeys.PAUSE_GAME, OnGamePause);
         EventBroadcaster.Instance.AddObserver(EventKeys.RESUME_GAME, OnGameResume);
+        EventBroadcaster.Instance.AddObserver(EventKeys.GAME_OVER, onGameOver);
         EventBroadcaster.Instance.AddObserver(EventKeys.QUIT_GAME, OnGameQuit);
         EventBroadcaster.Instance.AddObserver(EventKeys.EXIT_PROGRAM, OnProgramExit);
     }
@@ -124,6 +126,12 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
     {
         _game_state_handler.SwitchState(GameState.INGAME);
         InputHandler.Instance.toggleInputAllow(true);
+    }
+    public void onGameOver(EventParameters param = null)
+    {
+        _game_state_handler.SwitchState(GameState.GAME_OVER);
+
+        InputHandler.Instance.toggleInputAllow(false);
     }
     public void OnGameQuit(EventParameters param = null)
     {
@@ -160,7 +168,6 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
         EventBroadcaster.Instance.RemoveObserver(EventKeys.INNER_EXIT_HOLE);
         EventBroadcaster.Instance.RemoveObserver(EventKeys.HOLE_ABSORBED);
         EventBroadcaster.Instance.RemoveObserver(EventKeys.HOLE_LEVEL_UP);
-        EventBroadcaster.Instance.RemoveObserver(EventKeys.GAME_OVER);
 
     }
 }

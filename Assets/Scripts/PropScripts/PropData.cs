@@ -59,7 +59,7 @@ public class PropData : MonoBehaviour
             _game_values = GameManager.Instance.GameValues;
 
         _prop_size = size;
-        _prop_points = _game_values.PropsPointsBase + size * _game_values.PropsPointsMultiplier;
+        _prop_points = _game_values.PropsPointsBase + ((size-1) * _game_values.PropsPointsMultiplier);
 
         _prop_spawn_point = PropDictionary.PROP_SPAWN_RANDOM;
 

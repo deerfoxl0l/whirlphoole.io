@@ -159,6 +159,11 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
         setHoleRefs(param);
 
         holeRef.AddHoleExperience( (int)Math.Round(holeRef2.HoleExperience * _game_values.HoleExpCannibalMultiplier));
+
+        if (holeRef2.PlayerHole != null)
+        {
+            EventBroadcaster.Instance.PostEvent(EventKeys.GAME_OVER, param);
+        }
         holeRef2.gameObject.SetActive(false);
     }
     private void onHoleLevelUp(EventParameters param)

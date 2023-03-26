@@ -23,7 +23,7 @@ MonoBehaviour:
   HolePullStrengthPropAnchor: 0.6
   HoleWhirlStrength: 150
   HoleAbsorbStrength: 5
-  HoleExpBaseThreshold: 45
+  HoleExpBaseThreshold: 10
   HoleExpMultiplier: 1.5
   HoleAbsorbDifference: 1
   HoleExpCannibalMultiplier: 0

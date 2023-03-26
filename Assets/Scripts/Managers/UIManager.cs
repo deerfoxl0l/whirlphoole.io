@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
 {
@@ -39,6 +40,9 @@ public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
     {
         EventBroadcaster.Instance.AddObserver(EventKeys.PLAY_PRESSED, OnPlayPressed);
         EventBroadcaster.Instance.AddObserver(EventKeys.PLAYER_SCORE_UPDATE, OnScoreUpdate);
+
+        EventBroadcaster.Instance.AddObserver(EventKeys.PAUSE_GAME, onPauseGame);
+        EventBroadcaster.Instance.AddObserver(EventKeys.RESUME_GAME, onResumeGame);
         EventBroadcaster.Instance.AddObserver(EventKeys.GAME_OVER, onGameOver);
     }
     private void setPlayerSO(string playerSOPath, string playerName)
@@ -50,6 +54,11 @@ public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
     {
         GameObject newPlayerUI = Instantiate(_player_ui_template.gameObject, _player_canvases.transform);
         newPlayerUI.GetComponent<Canvas>().worldCamera = camera;
+
+        if(GameManager.Instance.GameMode == GameMode.TWO_PLAYER)
+        {
+            newPlayerUI.GetComponent<CanvasScaler>().referenceResolution = new Vector2(1920/2, 1080);
+        }
 
         _player_ui_list.Add(newPlayerUI.GetComponent<PlayerUI>());
         _player_ui_list[_player_ui_list.Count - 1].PlayerID = playerID;
@@ -81,21 +90,36 @@ public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
             }
         }
     }
+    private void onPauseGame(EventParameters param)
+    {
+        foreach (PlayerUI playerUI in _player_ui_list)
+        {
+            playerUI.OnPause();
+        }
+        
+    }
+    public void onResumeGame(EventParameters param=null)
+    {
+        foreach (PlayerUI playerUI in _player_ui_list)
+        {
+            playerUI.OnResume();
+        }
+    }
 
     private void onGameOver(EventParameters param)
     {
-        int playerWin = param.GetParameter<int>(EventParamKeys.PLAYER_WIN_PARAM, 0);
-        int playerLose = param.GetParameter<int>(EventParamKeys.PLAYER_LOSE_PARAM, 0);
+        int playerWin = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM, null).PlayerHole.PlayerID;
+        int playerLose = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM_2, null).PlayerHole.PlayerID;
 
-        foreach (PlayerUI plyrUI in _player_ui_list)
+        foreach (PlayerUI playerUI in _player_ui_list)
         {
-            if (plyrUI.PlayerID == playerWin)
+            if (playerUI.PlayerID == playerWin)
             {
-                plyrUI.PlayerWin();
+                playerUI.OnPlayerWin();
             }
-            if(plyrUI.PlayerID == playerLose)
+            else if(playerUI.PlayerID == playerLose)
             {
-                plyrUI.PlayerLose();
+                playerUI.OnPlayerLose();
             }
         }
     }

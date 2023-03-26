@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class PlayerUI : MonoBehaviour, IEventObserver
+public class PlayerUI : MonoBehaviour
 {
     #region Panels/GameObjects
     [SerializeField] private GameObject _score_panel;
@@ -47,12 +47,6 @@ public class PlayerUI : MonoBehaviour, IEventObserver
         _quit_btn.gameObject.SetActive(true);
 
         deactivateMiddlePanel();
-        AddEventObservers();
-    }
-
-    public void AddEventObservers()
-    {
-        EventBroadcaster.Instance.AddObserver(EventKeys.PAUSE_GAME, onPauseGame);
     }
 
     public void SetScores(int score, int nextLevel)
@@ -61,15 +55,10 @@ public class PlayerUI : MonoBehaviour, IEventObserver
         _next_lvl_field.text = "" + nextLevel;
     }
 
-    private void deactivateMiddlePanel()
+    public void OnPause()
     {
-        _middle_panel.SetActive(false);
-        _shadow_overlay_panel.SetActive(false);
-    }
-    private void activateMiddlePanel()
-    {
-        _middle_panel.SetActive(true);
-        _shadow_overlay_panel.SetActive(true);
+        activateMiddlePanel();
+        activatePause();
     }
 
     private void activatePause()
@@ -81,6 +70,21 @@ public class PlayerUI : MonoBehaviour, IEventObserver
         _lose_label.SetActive(false);
     }
 
+    public void OnResume()
+    {
+        deactivateMiddlePanel();
+    }
+    public void OnPlayerWin()
+    {
+        activateMiddlePanel();
+        activateWin();
+    }
+
+    public void OnPlayerLose()
+    {
+        activateMiddlePanel();
+        activateLose();
+    }
     private void activateWin()
     {
         _win_label.SetActive(true);
@@ -99,40 +103,29 @@ public class PlayerUI : MonoBehaviour, IEventObserver
         _resume_btn.gameObject.SetActive(false);
     }
 
-    public void PlayerWin()
+    private void activateMiddlePanel()
     {
-        activateMiddlePanel();
-        activateWin();
+        _middle_panel.SetActive(true);
+        _shadow_overlay_panel.SetActive(true);
     }
-
-    public void PlayerLose()
+    public void deactivateMiddlePanel()
     {
-        activateMiddlePanel();
-        activateLose();
+        _middle_panel.SetActive(false);
+        _shadow_overlay_panel.SetActive(false);
     }
 
 
     #region OnClick Functions
     private void OnResumeClicked()
     {
-        deactivateMiddlePanel();
         EventBroadcaster.Instance.PostEvent(EventKeys.RESUME_GAME, null);
     }
     private void OnQuitClicked()
     {
-        EventBroadcaster.Instance.RemoveObserver(EventKeys.PAUSE_GAME);
         deactivateMiddlePanel();
         EventBroadcaster.Instance.PostEvent(EventKeys.QUIT_GAME, null);
     }
     #endregion
 
-    #region Event Broadcaster Notifs
-    private void onPauseGame(EventParameters param)
-    {
-        activateMiddlePanel();
-        activatePause();
-    }
-
-    #endregion
 
 }
