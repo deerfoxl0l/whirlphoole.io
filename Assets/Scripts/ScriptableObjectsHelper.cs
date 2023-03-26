@@ -15,8 +15,4 @@ public static class ScriptableObjectsHelper
         return Resources.Load<T>(filePath);
     }
 
-    public static void CreateScriptableObject(ScriptableObject gameSO, string path)
-    {
-        AssetDatabase.CreateAsset(gameSO, path);
-    }
 }
