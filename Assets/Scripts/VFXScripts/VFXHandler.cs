@@ -61,7 +61,7 @@ public class VFXHandler : Singleton<VFXHandler>, ISingleton, IPoolHandler, IEven
     {
         playerRef = param.GetParameter<Player>(EventParamKeys.PLAYER_PARAM, null);
 
-        playerRef.UpdateLevel();
+        playerRef.UpdateLevelScale();
     }
 
     public void DeactivateObject(GameObject obj)

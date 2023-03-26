@@ -109,9 +109,21 @@ public class CameraHandler : Singleton<CameraHandler>, ISingleton, IEventObserve
             }
         }
     }
-    public Camera GetCamera()
+    public Camera GetCameraForInput()
     {
         return _cam_list[0];
+    }
+
+    public Camera GetCameraForUI(int playerID)
+    {
+        for(int i=0;i< _cam_list.Count; i++)
+        {
+            if(playerID-1 == i)
+            {
+                return _cam_list[i];
+            }
+        }
+        return null;
     }
 
     #region Event Broadcaster Notifications

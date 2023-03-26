@@ -10,6 +10,8 @@ TagManager:
   - PropStaff
   - VirtualCam
   - VirtualCam1
+  - PlayerUI
+  - PlayerCanvases
   layers:
   - Default
   - TransparentFX

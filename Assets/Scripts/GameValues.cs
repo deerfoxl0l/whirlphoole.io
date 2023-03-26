@@ -26,17 +26,18 @@ public class GameValues : ScriptableObject
     [SerializeField][Range(0.1f, 1.5f)] public float HoleSizeMultiplier;
 
     [SerializeField] [Range(1f, 10f)] public float HolePullStrength;
-    [SerializeField] [Range(10f, 100f)] public float HoleWhirlStrength;
+    [SerializeField] [Range(10f, 300f)] public float HoleWhirlStrength;
     [SerializeField] [Range(1f, 30f)] public float HoleAbsorbStrength;
-    [SerializeField] [Range(1, 100)] public int HoleExpThreshold;
+
+    [SerializeField] [Range(1, 100)] public int HoleExpBaseThreshold;
 
     //USAGE: HoleExpThreshold  + (HoleExpThreshold *(_hole_level -1)* HoleExpThresholdMultiplier)
-    [SerializeField][Range(0.5f, 1.5f)] public float HoleExpThresholdMultiplier;
+    [SerializeField][Range(0.5f, 1.5f)] public float HoleExpMultiplier;
 
     [SerializeField] [Range(1, 5)] public int HoleAbsorbDifference;
 
     // the multiplier to be multiplied to the exp points from a hole absorbed by a bigger hole
-    [SerializeField] [Range(0.1f, 1.5f)] public float HoleCannibalExpMultiplier;
+    [SerializeField] [Range(0.1f, 1.5f)] public float HoleExpCannibalMultiplier;
 
     #endregion
 

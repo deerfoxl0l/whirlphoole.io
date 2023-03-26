@@ -54,7 +54,7 @@ public class InputHandler: Singleton<InputHandler>, ISingleton
         _player_controls.Enable();
         this._input_allowed = true;
 
-        _camera = CameraHandler.Instance.GetCamera();
+        _camera = CameraHandler.Instance.GetCameraForInput();
 
     }
 

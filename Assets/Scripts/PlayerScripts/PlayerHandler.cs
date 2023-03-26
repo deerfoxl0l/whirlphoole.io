@@ -44,6 +44,7 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserve
     public void AddEventObservers()
     {
         EventBroadcaster.Instance.AddObserver(EventKeys.HOLE_LEVEL_UP, OnHoleLevelUp);
+        EventBroadcaster.Instance.AddObserver(EventKeys.PLAYER_SO_UPDATE, OnSOUpdate);
     }
 
 
@@ -51,19 +52,26 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserve
     {
         for(int i=0; i < playerAmount; i++)
         {
-            spawnPlayer(ScriptableObjectsHelper.GetScriptableObject<PlayerScriptableObject>(FileNames.PLAYER_SO + "" + (i + 1)));
+            spawnPlayerHole(ScriptableObjectsHelper.GetScriptableObject<PlayerScriptableObject>(FileNames.PLAYER_SO + "" + (i + 1)));
         }
     }
 
-    private void spawnPlayer(PlayerScriptableObject playerSO)
+    private void spawnPlayerHole(PlayerScriptableObject playerSO)
     {
         holeRef = GameObject.Instantiate(_player_hole_template, _player_spawn_transform);
         holeRef.gameObject.SetActive(true);
         holeRef.PlayerHole.InitializePlayer(playerSO);
-
+        UIManager.Instance.SetPlayerUI(holeRef.PlayerHole.PlayerID, CameraHandler.Instance.GetCameraForUI(holeRef.PlayerHole.PlayerID));
     }
 
     #region Event Broadcaster Notifications
+    private void OnSOUpdate(EventParameters param)
+    {
+        playerRef = param.GetParameter<Player>(EventParamKeys.PLAYER_PARAM, null);
+        holeRef = param.GetParameter<Hole>(EventParamKeys.HOLE_PARAM, null);
+        playerRef.UpdateScores(holeRef.HoleExperience, holeRef.HoleNxtLvl);
+    }
+
     private void OnHoleLevelUp(EventParameters param)
     {
         //Debug.Log("levelling up");

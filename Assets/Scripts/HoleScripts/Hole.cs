@@ -19,6 +19,10 @@ public class Hole : MonoBehaviour
     {
         get { return _hole_data.HoleExperience; }
     }
+    public int HoleNxtLvl
+    {
+        get { return _hole_data.HoleCurrentExpThreshold; }
+    }
     #endregion
 
     [SerializeField] private GameValues _game_values;
@@ -50,7 +54,7 @@ public class Hole : MonoBehaviour
         }
         _hole_data.InitializeHoleData(new Color(0, 255, 0));
 
-        _hole_data.HoleCurrentExpThreshold = _game_values.HoleExpThreshold;
+        _hole_data.HoleCurrentExpThreshold = _game_values.HoleExpBaseThreshold;
 
         this.transform.localScale = new Vector3(_game_values.HoleBaseSize, _game_values.HoleBaseSize, 1);
 
@@ -66,7 +70,7 @@ public class Hole : MonoBehaviour
 
     public void AddHoleExperience(int exp)
     {
-        if( _hole_data.AddHoleExp(exp, _game_values.HoleExpThreshold, _game_values.HoleExpThresholdMultiplier))
+        if( _hole_data.AddHoleExp(exp, _game_values.HoleExpBaseThreshold, _game_values.HoleExpMultiplier))
         {
             EventBroadcaster.Instance.PostEvent(EventKeys.HOLE_LEVEL_UP, holeParams);
         }

@@ -28,6 +28,8 @@ public static class TagNames
     public const string CAMERA_1 = "VirtualCam";
 
     public const string PLAYER = "Player";
+    public const string PLAYER_UI = "PlayerUI";
+    public const string PLAYER_CANVASES = "PLAYER_CANVASES";
 
     public const string HOLE = "Hole";
     public const string PROP = "Prop";

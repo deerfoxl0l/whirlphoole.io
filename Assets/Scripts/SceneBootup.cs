@@ -6,6 +6,9 @@ public class SceneBootup : MonoBehaviour, IBootstrapper
 {
     [SerializeField] private GameValues _game_values;
     [SerializeField] private VisualValues _visual_values;
+
+    [SerializeField] private PlayerUI _player_ui_template;
+    [SerializeField] private GameObject _player_canvases;
     public void Awake()
     {
         LoadSingletonsAndDependencies();
@@ -18,6 +21,7 @@ public class SceneBootup : MonoBehaviour, IBootstrapper
 
         GameManager.Instance.VisualValues = _visual_values == null ? ScriptableObjectsHelper.GetScriptableObject<VisualValues>(FileNames.VISUAL_VALUES) : _visual_values;
 
+        UIManager.Instance.SetPlayerUI(_player_ui_template, _player_canvases);
 
         CameraHandler.Instance.Initialize();
         VFXHandler.Instance.Initialize();

@@ -73,6 +73,7 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
     }
     private void onStayOuterProp(EventParameters param)
     {
+
     }
     private void onExitOuterProp(EventParameters param)
     {
@@ -113,8 +114,7 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
         setPropRefs(param);
 
         holeRef.AddHoleExperience(propRef.PropPoints);
-        PropHandler.Instance.removeProp(propRef);
-
+        EventBroadcaster.Instance.PostEvent(EventKeys.PLAYER_SO_UPDATE, param);
     }
     #endregion
 
@@ -158,7 +158,7 @@ public class HoleHandler : Singleton<HoleHandler>, ISingleton, IEventObserver
     {
         setHoleRefs(param);
 
-        holeRef.AddHoleExperience( (int)Math.Round(holeRef2.HoleExperience * _game_values.HoleCannibalExpMultiplier));
+        holeRef.AddHoleExperience( (int)Math.Round(holeRef2.HoleExperience * _game_values.HoleExpCannibalMultiplier));
         holeRef2.gameObject.SetActive(false);
     }
     private void onHoleLevelUp(EventParameters param)

@@ -36,12 +36,14 @@ public class PropHandler : Singleton<PropHandler>, ISingleton, IEventObserver
 
         _prop_movable_list = new List<PropMovable>();
 
+        AddEventObservers();
+
         isDone = true;
     }
 
     public void AddEventObservers()
     {
-
+        EventBroadcaster.Instance.AddObserver(EventKeys.PROP_ABSORBED, onPropAbsorbed);
     }
 
     void Update()
@@ -61,8 +63,17 @@ public class PropHandler : Singleton<PropHandler>, ISingleton, IEventObserver
         _prop_movable_list.Add(propM);
     }
 
-    public void removeProp(Prop prop)
+    private void removeProp(Prop prop)
     {
         _prop_lifetime.DeactivateObject(prop.transform.gameObject);
     }
+
+
+    #region Events
+    private void onPropAbsorbed(EventParameters param)
+    {
+        removeProp(param.GetParameter<Prop>(EventParamKeys.PROP_PARAM, null));
+    }
+
+    #endregion
 }

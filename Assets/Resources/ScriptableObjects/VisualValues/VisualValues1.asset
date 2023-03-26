@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f5e5d033a823904ab39ec04fdafeaad, type: 3}
   m_Name: VisualValues1
   m_EditorClassIdentifier: 
-  NameTagBaseFontSize: 60
-  NameTagBalancing: 0.9
+  NameTagBaseFontSize: 50
+  NameTagBalancing: 0.95
   NameTagFloor: 0.15
   PointsFontSize: 100
   PointsFontSizeScale: 1.05

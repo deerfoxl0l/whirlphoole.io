@@ -12,6 +12,10 @@ public class EventKeys{
     public const string PAUSE_GAME = "GAME_PAUSE";
 
     // GAME EVENT KEYS
+
+    public const string PLAYER_SO_UPDATE = "PLAYER_SO_UPDATE";
+    public const string PLAYER_SCORE_UPDATE = "PLAYER_SCORE_UPDATE";
+
     public const string OUTER_ENTER_PROP = "OUTER_ENTER_PROP";
     public const string OUTER_STAY_PROP = "OUTER_STAY_PROP";
     public const string OUTER_EXIT_PROP = "OUTER_EXIT_PROP";
@@ -42,6 +46,9 @@ public class EventParamKeys
     public const string GAME_MODE_PARAM = "GAME_MODE";
 
     public const string PLAYER_PARAM = "PLAYER";
+    public const string PLAYER_SCORE_PARAM = "PLAYER_SCORE_PARAM";
+    public const string PLAYER_LVL_PARAM = "PLAYER_LVL_PARAM";
+
     public const string HOLE_PARAM = "HOLE";
     public const string HOLE_PARAM_2 = "HOLE_2";
 

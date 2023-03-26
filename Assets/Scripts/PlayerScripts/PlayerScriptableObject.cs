@@ -23,7 +23,12 @@ public class PlayerScriptableObject : ScriptableObject
     public int PlayerScore
     {
         get { return _player_score; }
-       // set { _player_score += value; } // possible readability issue when using this
+    }
+
+    [SerializeField] private int _player_next_lvl;
+    public int PlayerNextLvl
+    {
+        get { return _player_next_lvl; }
     }
     #endregion
 
@@ -33,9 +38,10 @@ public class PlayerScriptableObject : ScriptableObject
         _player_id = playerID;
         _player_name = playerName;
     }
-    public void IncrementScore(int increment)
+    public void SetScores(int score, int nxtLvl)
     {
-        _player_score += increment;
+        _player_score = score;
+        _player_next_lvl = nxtLvl;
     }
     #endregion
 

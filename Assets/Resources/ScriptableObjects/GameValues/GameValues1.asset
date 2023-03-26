@@ -17,15 +17,15 @@ MonoBehaviour:
   PlayerSpeedDecreaseMultiplier: 0.9888
   PlayerSpeedDecreaseFloor: 0.3
   HoleBaseSize: 1
-  HoleGrowSpeed: 4
+  HoleGrowSpeed: 3
   HoleSizeMultiplier: 0.9
   HolePullStrength: 1.5
   HoleWhirlStrength: 100
   HoleAbsorbStrength: 5
-  HoleExpThreshold: 15
-  HoleExpThresholdMultiplier: 1
+  HoleExpBaseThreshold: 25
+  HoleExpMultiplier: 1.25
   HoleAbsorbDifference: 1
-  HoleCannibalExpMultiplier: 0.5
+  HoleExpCannibalMultiplier: 0
   PropSpawnRate: 0.5
   PropSpawnSizeFloor: 1
   PropSpawnSizeCeiling: -1

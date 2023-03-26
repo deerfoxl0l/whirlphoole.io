@@ -16,7 +16,26 @@ public class Player : MonoBehaviour
 
     [SerializeField] private PlayerScriptableObject _player_so;
     [SerializeField] private PlayerController _player_controller;
-
+    public int PlayerID
+    {
+        get { return _player_so.PlayerID; }
+    }
+    public string PlayerName
+    {
+        get { return _player_so.PlayerName; }
+    }
+    public int PlayerHoleLevel
+    {
+        get { return _hole.HoleLevel; }
+    }
+    public int PlayerScore
+    {
+        get { return _player_so.PlayerScore; }
+    }
+    public int PlayerNextLvl
+    {
+        get { return _player_so.PlayerNextLvl; }
+    }
     #endregion
 
     [SerializeField] private Hole _hole;
@@ -25,21 +44,15 @@ public class Player : MonoBehaviour
     #region Cache Variables
     private float speedMultiplier;
     #endregion
-    public int PlayerHoleLevel
-    {
-        get { return _hole.HoleLevel; }
-    }
 
-    public string PlayerName
-    {
-        get { return _player_so.PlayerName; }
-    }
+    #region Event Paramaters
+    private EventParameters playerParam;
+    #endregion
+
 
     public void InitializePlayer(PlayerScriptableObject playerSo)
     {
         this._player_so = playerSo;
-
-
     }
     private void Start()
     {
@@ -58,12 +71,13 @@ public class Player : MonoBehaviour
         if (_text_mesh == null)
             _text_mesh = GetComponent<TextMesh>();
 
+        playerParam = new EventParameters();
+
         _text_mesh.fontSize = _visual_values.NameTagBaseFontSize;
 
         SetTextMesh("" + _player_so.PlayerName + " | Lvl " + _hole.HoleLevel);
 
         speedMultiplier = _game_values.PlayerSpeedDecreaseMultiplier;
-
         CameraHandler.Instance.SetCamFollowTarget(this.transform.parent.transform);
     }
     private void Update()
@@ -87,7 +101,16 @@ public class Player : MonoBehaviour
     {
         _text_mesh.text = text;
     }
-    public void UpdateLevel()
+
+    public void UpdateScores(int score, int nxtLvl)
+    {
+        _player_so.SetScores(score, nxtLvl);
+        playerParam.AddParameter(EventParamKeys.PLAYER_PARAM, this);
+
+        EventBroadcaster.Instance.PostEvent(EventKeys.PLAYER_SCORE_UPDATE, playerParam);
+    }
+
+    public void UpdateLevelScale()
     {
         if (this.transform.localScale.x > _visual_values.NameTagFloor)
         {
