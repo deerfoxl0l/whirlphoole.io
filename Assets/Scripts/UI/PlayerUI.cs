@@ -14,6 +14,8 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private GameObject _pause_label;
     [SerializeField] private GameObject _win_label;
     [SerializeField] private GameObject _lose_label;
+
+    [SerializeField] private GameObject _top_right_panel;
     #endregion
 
     #region TextFields
@@ -114,6 +116,10 @@ public class PlayerUI : MonoBehaviour
         _shadow_overlay_panel.SetActive(false);
     }
 
+    public void ActivateTopRight()
+    {
+        _top_right_panel.SetActive(true);
+    }
 
     #region OnClick Functions
     private void OnResumeClicked()

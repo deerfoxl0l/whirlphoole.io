@@ -55,13 +55,17 @@ public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
         GameObject newPlayerUI = Instantiate(_player_ui_template.gameObject, _player_canvases.transform);
         newPlayerUI.GetComponent<Canvas>().worldCamera = camera;
 
-        if(GameManager.Instance.GameMode == GameMode.TWO_PLAYER)
-        {
-            newPlayerUI.GetComponent<CanvasScaler>().referenceResolution = new Vector2(1920/2, 1080);
-        }
-
         _player_ui_list.Add(newPlayerUI.GetComponent<PlayerUI>());
         _player_ui_list[_player_ui_list.Count - 1].PlayerID = playerID;
+
+        if (GameManager.Instance.GameMode == GameMode.TWO_PLAYER) 
+        { // these two in the if and else body aren't really related, the condition is just convenienit
+            newPlayerUI.GetComponent<CanvasScaler>().referenceResolution = new Vector2(1920/2, 1080);
+        }
+        else
+        {
+            _player_ui_list[0].ActivateTopRight();
+        }
 
         newPlayerUI.SetActive(true);
     }

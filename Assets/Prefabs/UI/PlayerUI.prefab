@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1040825334378307004
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1880,7 +1880,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7506687766726137749
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1981,6 +1981,7 @@ MonoBehaviour:
   _pause_label: {fileID: 7506687766015038423}
   _win_label: {fileID: 7506687766734074329}
   _lose_label: {fileID: 7506687766353417348}
+  _top_right_panel: {fileID: 1306248392562934363}
   _score_field: {fileID: 7506687765082585811}
   _next_lvl_field: {fileID: 7506687766787125939}
   _resume_btn: {fileID: 7506687765030453624}
